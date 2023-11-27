@@ -7,10 +7,10 @@ import 'package:restaurant/Pages/Favorite.dart';
 import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/Pages/cart.dart';
 import 'package:restaurant/components/cart_list.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
 class Item extends StatefulWidget {
-
   final int selectedPage;
   final Food food;
   const Item({super.key,required this.food,required this.selectedPage});
@@ -41,11 +41,10 @@ class _ItemState extends State<Item> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColorsLight.lightColor,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
           elevation: 0,
-          foregroundColor: Colors.deepOrange.shade900,
+          foregroundColor: AppColorsLight.primaryColor.shade900,
           leading: IconButton(
             onPressed: () {
               Navigator.of(context)
@@ -53,7 +52,10 @@ class _ItemState extends State<Item> {
                   MaterialPageRoute(builder: (context) => Main(selectedPage: widget.selectedPage),)
               );
             },
-            icon: const Icon(Icons.arrow_back_ios,color: Colors.deepOrange),
+            icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.transparent)
+            ),
           ),
           actions: <Widget>[
             IconButton(onPressed: () {
@@ -63,7 +65,11 @@ class _ItemState extends State<Item> {
                       Cart(selectedPage: widget.selectedPage,
                       items: CartList.items),)
               );
-            }, icon: Icon(Icons.shopping_cart_outlined))
+            },
+              icon: Icon(Icons.shopping_cart_outlined,),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.transparent)
+            ),)
           ],
         ),
         body: Stack(
@@ -71,7 +77,9 @@ class _ItemState extends State<Item> {
             Container(
               child: Image.asset((widget.food.inStook == true) ?
               widget.food.imagePath : "Images/Chicken/images.png",
-                  width: MediaQuery.of(context).size.width,fit: BoxFit.fill),
+                  width: MediaQuery.of(context).size.width,
+                  height:  MediaQuery.of(context).size.height ,
+                  fit: BoxFit.cover),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,7 +99,7 @@ class _ItemState extends State<Item> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        colors: <Color>[Colors.white.withOpacity(0.5),Colors.white,],
+                        colors: <Color>[AppColorsLight.lightColor.withOpacity(0.5),AppColorsLight.lightColor,],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter
                     ),
@@ -111,7 +119,7 @@ class _ItemState extends State<Item> {
                           Text(widget.food.name,
                           style: GoogleFonts.dmSerifDisplay(
                             fontSize: 45,
-                            color: Colors.grey.shade800
+                            color: AppColorsLight.secondaryColor.shade800
                           ),
                           ),
                           Container(
@@ -129,7 +137,7 @@ class _ItemState extends State<Item> {
                                         ? Icons.favorite_outline
                                         : Icons.favorite,
                                     color: (widget.food.isFav == false)
-                                        ? Colors.white
+                                        ? AppColorsLight.lightColor
                                         : Colors.red,
                                     size: 30,
                                   ),
@@ -137,7 +145,7 @@ class _ItemState extends State<Item> {
                               },
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.deepOrange.shade300,
+                              color: AppColorsLight.primaryColor.shade300,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -146,10 +154,10 @@ class _ItemState extends State<Item> {
 
                       SizedBox(height: 5,),
 
-                      Text("\$"+widget.food.price.toString(),
+                      Text("\$"+(widget.food.price).toString(),
                         style: GoogleFonts.dmSerifDisplay(
                             fontSize: 35,
-                            color: Colors.grey.shade800
+                            color: AppColorsLight.secondaryColor.shade800
                         ),
                       ),
 
@@ -172,7 +180,7 @@ class _ItemState extends State<Item> {
                         padding: const EdgeInsets.only(right: 15.0,left: 15.0,bottom: 10.0,top: 10.0),
                         child: Text(widget.food.description,
                           style: TextStyle(
-                              color: Colors.grey.shade800,
+                              color: AppColorsLight.secondaryColor.shade800,
                               fontWeight: FontWeight.w400,
                               fontSize: 13,
                               height: 2
@@ -185,24 +193,20 @@ class _ItemState extends State<Item> {
                           children: [
                             Row(
                               children: [
-                                Container(
-                                  child: IconButton(
-                                      onPressed: decrementQuantity,
-                                      icon: const Icon(Icons.chevron_left,color: Colors.white,)),
-                                  decoration: BoxDecoration(
-                                      color: Colors.deepOrange.shade300,
-                                      shape: BoxShape.circle
-                                  ),
+                                IconButton(
+                                    onPressed: decrementQuantity,
+                                    icon: const Icon(Icons.chevron_left,
+                                      color: AppColorsLight.lightColor,)
                                 ),
 
                                 SizedBox(width: 7,),
 
                                 Container(
-                                  width: 60,
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  width: 55,
+                                  padding: EdgeInsets.symmetric(horizontal:10),
 
                                   decoration: BoxDecoration(
-                                      color: Colors.deepOrange.shade300,
+                                      color: AppColorsLight.primaryColor.shade400,
                                       borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Padding(
@@ -211,8 +215,8 @@ class _ItemState extends State<Item> {
                                       child: Text(widget.food.quantity.toString(),
                                         style:TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                            color: Colors.white
+                                            fontSize: 22,
+                                            color: AppColorsLight.lightColor
                                         ) ,),
                                     ),
                                   ),
@@ -220,21 +224,17 @@ class _ItemState extends State<Item> {
 
                                 SizedBox(width: 7,),
 
-                                Container(
-                                  child: IconButton(
-                                      onPressed: incrementQuantity,
-                                      icon: const Icon(Icons.chevron_right,color: Colors.white,)),
-                                  decoration: BoxDecoration(
-                                      color: Colors.deepOrange.shade300,
-                                      shape: BoxShape.circle
-                                  ),
+                                IconButton(
+                                    onPressed: incrementQuantity,
+                                    icon: const Icon(Icons.chevron_right,
+                                      color: AppColorsLight.lightColor,),
                                 ),
                               ],
                             ),
 
 
-                            InkWell(
-                              onTap: () {
+                            TextButton(
+                              onPressed: () {
                                 setState(() {
                                   if(widget.food.inCart)
                                     CartList.delete(widget.food);
@@ -243,31 +243,22 @@ class _ItemState extends State<Item> {
                                   widget.food.inCart=!widget.food.inCart;
                                 });
                               },
-                              child: Ink(
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration:BoxDecoration(
-                                    color: Colors.deepOrange.shade300,
-                                    borderRadius: BorderRadius.circular(35),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon((widget.food.inCart)
+                                      ?Icons.add_task
+                                      :Icons.add,
+                                    color: AppColorsLight.lightColor,),
+                                  SizedBox(width: 5,),
+                                  Text((widget.food.inCart)?"Added":"Add To Cart",
+                                    style: GoogleFonts.dmSerifDisplay(
+                                      fontSize: 20,
+                                      color: AppColorsLight.lightColor
+                                    ),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon((widget.food.inCart)
-                                          ?Icons.add_task
-                                          :Icons.add,
-                                        color: Colors.white,),
-                                      SizedBox(width: 5,),
-                                      Text((widget.food.inCart)?"Added":"Add To Cart",
-                                        style: GoogleFonts.dmSerifDisplay(
-                                          fontSize: 20,
-                                          color: Colors.white
-                                        ),
-                                      ),
 
-                                    ],
-                                  ),
-                                ),
+                                ],
                               ),
                             ),
                           ],

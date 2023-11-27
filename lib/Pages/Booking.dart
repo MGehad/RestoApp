@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 
 class Booking extends StatelessWidget {
   const Booking({super.key});
@@ -9,7 +10,7 @@ class Booking extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
@@ -17,30 +18,20 @@ class Booking extends StatelessWidget {
           child: Text(
               "Booking",
               style: GoogleFonts.aladin(
-                color: Colors.deepOrange,
+                color: AppColorsLight.primaryColor,
                 fontSize: 45,
               )
           ),
         ),
       ),
 
-      body: ListView(
-          children: [
-            Column(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 70),
-                      child: Container(color: Colors.white,
-                        child: Text("Coming Soon....",style: TextStyle(color: Colors.deepOrange,fontSize: 50,fontWeight: FontWeight.w500)),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            )
-          ]
+      body: Center(
+        child: Container(color: AppColorsLight.lightColor,
+          child: Text("Coming Soon....",
+              style: TextStyle(color: AppColorsLight.primaryColor,
+                  fontSize: 50,
+                  fontWeight: FontWeight.w500)),
+        ),
       ),
     );
   }

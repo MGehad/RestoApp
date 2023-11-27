@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurant/Pages/cart.dart';
 import 'package:restaurant/components/cart_list.dart';
 import 'package:restaurant/components/menu_card.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -21,6 +21,11 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   int _sliding = 0;
+
+  void update(){
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -322,14 +327,14 @@ class _MenuState extends State<Menu> {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
         Text(
             "Menu",
             style: GoogleFonts.aladin(
-              color: Colors.deepOrange,
+              color: AppColorsLight.primaryColor,
               fontSize: 45,
             )
         ),
@@ -341,22 +346,16 @@ class _MenuState extends State<Menu> {
                     Cart(selectedPage: widget.selectedPage,items: CartList.items),)
             );
           },
-            icon: IconButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .push(
-                  MaterialPageRoute(builder: (context) =>
-                      Cart(selectedPage: widget.selectedPage,
-                      items: CartList.items),)
-              );
-            },
             icon: Tooltip(
               message: 'Go To Cart',
               child: Icon((CartList.count==0)?Icons.shopping_cart_outlined:Icons.shopping_cart,
-                color:Colors.deepOrange,
+                color:AppColorsLight.primaryColor,
               ),
             ),
-          ),)
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.transparent)
+            ),
+          ),
         ],
       ),
 
@@ -507,31 +506,31 @@ class _MenuState extends State<Menu> {
            child: Container(
              decoration: BoxDecoration(
                borderRadius: BorderRadius.circular(100),
-               color: Colors.deepOrange.shade300
+               color: AppColorsLight.primaryColor.shade300
              ),
              child: CupertinoSlidingSegmentedControl(
                backgroundColor: Colors.transparent,
-               thumbColor: Colors.deepOrange.shade600,
+               thumbColor: AppColorsLight.primaryColor.shade600,
                children: {
                     0: Text("Chicken",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: Colors.white,
+                      color: AppColorsLight.lightColor,
                     ),),
                     1: Text("Meat",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: Colors.white,
+                      color: AppColorsLight.lightColor,
                     ),),
                     2: Text("Drinks",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: Colors.white,
+                      color: AppColorsLight.lightColor,
                     ),),
                     3: Text("Appetizers",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: Colors.white,
+                      color: AppColorsLight.lightColor,
                     ),),
 
                   },

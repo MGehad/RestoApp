@@ -1,4 +1,4 @@
-# Restaurant
+# restaurant
 
 A new Flutter project.
 

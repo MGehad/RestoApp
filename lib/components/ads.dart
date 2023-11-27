@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant/Pages/itemMain.dart';
+import 'package:restaurant/Pages/item.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
 class MyADS extends StatefulWidget {
@@ -24,7 +25,7 @@ class _MyADSState extends State<MyADS> {
       onTap: () {
         Navigator.of(context)
             .push(
-            MaterialPageRoute(builder: (context) => ItemMain(food: widget.food,selectedPage: 0),)
+            MaterialPageRoute(builder: (context) => Item(food: widget.food,selectedPage: 0),)
         );
       },
       child: Ink(
@@ -34,11 +35,12 @@ class _MyADSState extends State<MyADS> {
             padding: EdgeInsets.symmetric(vertical: 25,horizontal: 20),
             margin: EdgeInsets.symmetric(horizontal: 25),
             decoration:BoxDecoration(
-                color: Colors.deepOrange,
+                color: AppColorsLight.primaryColor,
                 borderRadius: BorderRadius.circular(20)
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -54,7 +56,7 @@ class _MyADSState extends State<MyADS> {
 
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.deepOrange.shade300,
+                        color:AppColorsLight.primaryColor.shade300,
                         borderRadius: BorderRadius.circular(20)
                       ),
                       child: Text(" Get ${widget.discount}% Discount ",style: GoogleFonts.aBeeZee(
@@ -68,7 +70,11 @@ class _MyADSState extends State<MyADS> {
 
                   ],
                 ),
-                Image.asset(widget.food.imagePath,height: 90,fit: BoxFit.fill),
+                Container(
+                    child: Image.asset(widget.food.imagePath,fit: BoxFit.fill),
+                  height: MediaQuery.of(context).size.height*0.13,
+
+                ),
               ],
             ),
           ),

@@ -4,15 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 
-class Profile extends StatefulWidget {
+class TermsConditions extends StatefulWidget {
   final int selectedPage;
-  const Profile({super.key,required this.selectedPage});
+  const TermsConditions({super.key,required this.selectedPage});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<TermsConditions> createState() => _PrivacyPolicyState();
 }
 
-class _ProfileState extends State<Profile> {
+class _PrivacyPolicyState extends State<TermsConditions> {
   @override
   Widget build(BuildContext context) {
 
@@ -22,7 +22,7 @@ class _ProfileState extends State<Profile> {
         elevation: 0,
         title:
         Text(
-            "Profile",
+            "Terms & Conditions",
             style: GoogleFonts.aladin(
               color: AppColorsLight.primaryColor,
               fontSize: 45,

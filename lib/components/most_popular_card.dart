@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant/Pages/itemMain.dart';
+import 'package:restaurant/Pages/item.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
 class MostPopularCard extends StatefulWidget {
@@ -26,20 +27,20 @@ class _MostPopularCardState extends State<MostPopularCard> {
         onTap: () {
           Navigator.of(context)
               .push(
-              MaterialPageRoute(builder: (context) => ItemMain(food: widget.food,selectedPage: widget.selectedPage),)
+              MaterialPageRoute(builder: (context) => Item(food: widget.food,selectedPage: widget.selectedPage),)
           );
         },
         child: Ink(
+          child: Tooltip(
+            message: widget.food.name,
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Tooltip(
-              message: widget.food.name,
               child: Container(
                 width: MediaQuery.of(context).size.width*0.38,
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: AppColorsLight.secondaryColor[100],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: EdgeInsets.all(10),
@@ -72,7 +73,7 @@ class _MostPopularCardState extends State<MostPopularCard> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(children: [
-                                Icon(Icons.star,color: Colors.deepOrange),
+                                Icon(Icons.star,color: AppColorsLight.primaryColor),
                                 Text(widget.food.rating.toString(),
                                     style: TextStyle(fontWeight: FontWeight.bold,
                                         fontSize: 15))

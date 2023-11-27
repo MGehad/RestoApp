@@ -4,15 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 
-class Profile extends StatefulWidget {
+class Apearance extends StatefulWidget {
   final int selectedPage;
-  const Profile({super.key,required this.selectedPage});
+  const Apearance({super.key,required this.selectedPage});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<Apearance> createState() => _ApearanceState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ApearanceState extends State<Apearance> {
   @override
   Widget build(BuildContext context) {
 
@@ -22,7 +22,7 @@ class _ProfileState extends State<Profile> {
         elevation: 0,
         title:
         Text(
-            "Profile",
+            "Apearance",
             style: GoogleFonts.aladin(
               color: AppColorsLight.primaryColor,
               fontSize: 45,

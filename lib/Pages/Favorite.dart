@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/components/menu_card.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
 class Favorite extends StatefulWidget with ChangeNotifier{
@@ -37,7 +38,7 @@ class _FavoriteState extends State<Favorite> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
@@ -45,7 +46,7 @@ class _FavoriteState extends State<Favorite> {
           child: Text(
               "Favroite",
               style: GoogleFonts.aladin(
-                color: Colors.deepOrange,
+                color: AppColorsLight.primaryColor,
                 fontSize: 45,
               )
           ),

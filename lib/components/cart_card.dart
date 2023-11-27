@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:restaurant/Pages/cart.dart';
-import 'package:restaurant/Pages/itemMain.dart';
+import 'package:restaurant/Pages/item.dart';
 import 'package:restaurant/components/cart_list.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
 class CartCard extends StatefulWidget {
+  final Function update;
   final int selectedPage;
   final Food food;
   const CartCard({
     super.key,
     required this.food,
-    required this.selectedPage
+    required this.selectedPage,
+    required this.update
   });
 
   @override
@@ -29,8 +30,9 @@ class _FoodTileState extends State<CartCard> {
         onTap: () {
           Navigator.of(context)
               .push(
-              MaterialPageRoute(builder: (context) => ItemMain(food: widget.food,
-                  selectedPage:widget.selectedPage ),)
+              MaterialPageRoute(builder: (context) => Item(food: widget.food,
+                  selectedPage:widget.selectedPage,
+              ),)
           );
         },
         child: Ink(
@@ -40,7 +42,7 @@ class _FoodTileState extends State<CartCard> {
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey[100],
+                color:AppColorsLight.secondaryColor[100],
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: EdgeInsets.all(10),
@@ -75,7 +77,7 @@ class _FoodTileState extends State<CartCard> {
                               'Quantity: ' + widget.food.quantity.toString(),
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 17,
-                                color: Colors.grey.shade800,
+                                color: AppColorsLight.secondaryColor.shade800,
                               ),
                             ),
                             SizedBox(height: 7),
@@ -83,7 +85,7 @@ class _FoodTileState extends State<CartCard> {
                               'Price: \$' + widget.food.price.toString(),
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 17,
-                                color: Colors.grey.shade800,
+                                color: AppColorsLight.secondaryColor.shade800,
                               ),
                             ),
                           ],
@@ -93,23 +95,21 @@ class _FoodTileState extends State<CartCard> {
                   ),
                   Column(
                     children: [
-                      Container(
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              widget.food.inCart=!widget.food.inCart;
-                              CartList.delete(widget.food);
-                            });
-                          },
-                          icon: Icon(
-                            Icons.delete_forever_sharp,
-                            color: Colors.black,
-                            size: 30,
-                          ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            widget.food.inCart=!widget.food.inCart;
+                            CartList.delete(widget.food);
+                            widget.update();
+                          });
+                        },
+                        icon: Icon(
+                          Icons.delete_forever_sharp,
+                          color: Colors.black,
+                          size: 30,
                         ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          shape: BoxShape.circle,
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(AppColorsLight.secondaryColor.shade300)
                         ),
                       ),
                     ],

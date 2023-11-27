@@ -3,9 +3,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/Pages/Favorite.dart';
-import 'package:restaurant/Pages/cart.dart';
-import 'package:restaurant/Pages/itemMain.dart';
+import 'package:restaurant/Pages/item.dart';
 import 'package:restaurant/components/cart_list.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
 class MenuCard extends StatefulWidget {
@@ -31,8 +31,8 @@ class _FoodTileState extends State<MenuCard> {
         onTap: () {
           Navigator.of(context)
               .push(
-              MaterialPageRoute(builder: (context) => ItemMain(
-                  food: widget.food,selectedPage: widget.selectedPage),)
+              MaterialPageRoute(builder: (context) => Item(
+                  food: widget.food,selectedPage: widget.selectedPage,),)
           );
         },
         child: Ink(
@@ -44,7 +44,7 @@ class _FoodTileState extends State<MenuCard> {
               message: widget.food.name,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: AppColorsLight.secondaryColor[100],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: EdgeInsets.all(10),
@@ -88,7 +88,7 @@ class _FoodTileState extends State<MenuCard> {
                                 rating: widget.food.rating,
                                 itemBuilder: (context, index) => Icon(
                                   Icons.star,
-                                  color: Colors.deepOrange,
+                                  color: AppColorsLight.primaryColor,
                                 ),
                                 itemCount: 5,
                                 itemSize: 20.0,
@@ -102,60 +102,54 @@ class _FoodTileState extends State<MenuCard> {
                     Column(
                       children: [
 
-                        Container(
-                          child: Consumer<Favorite>(
-                            builder: (context, favorite, child) {
-                              return IconButton(
-                                onPressed: () {
-                                  if (widget.food.isFav)
-                                    favorite.delete(widget.food);
-                                  if (!widget.food.isFav) favorite.add(widget.food);
-                                  widget.food.isFav = !widget.food.isFav;
-                                },
-                                icon:Icon(
-                                  (widget.food.isFav == false)
-                                      ? Icons.favorite_outline
-                                      : Icons.favorite,
-                                  color: (widget.food.isFav == false)
-                                      ? Colors.black
-                                      : Colors.deepOrange,
-                                  size: 30,
-                                ),
-                              );
-                            },
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            shape: BoxShape.circle,
-                          ),
+                        Consumer<Favorite>(
+                          builder: (context, favorite, child) {
+                            return IconButton(
+                              onPressed: () {
+                                if (widget.food.isFav)
+                                  favorite.delete(widget.food);
+                                if (!widget.food.isFav) favorite.add(widget.food);
+                                widget.food.isFav = !widget.food.isFav;
+                              },
+                              icon:Icon(
+                                (widget.food.isFav == false)
+                                    ? Icons.favorite_outline
+                                    : Icons.favorite,
+                                color: (widget.food.isFav == false)
+                                    ? Colors.black
+                                    : AppColorsLight.primaryColor,
+                                size: 30,
+                              ),
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(AppColorsLight.secondaryColor.shade300)
+                              ),
+                            );
+                          },
                         ),
 
                         SizedBox(height: 10),
 
                         if (widget.food.inStook)
-                          Container(
-                            child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  if (widget.food.inCart)
-                                    CartList.delete(widget.food);
-                                  if (!widget.food.inCart) CartList.add(widget.food);
-                                  widget.food.inCart = !widget.food.inCart;
-                                });
-                              },
-                              icon: Icon(
-                                (widget.food.inCart == false)
-                                    ? Icons.add
-                                    : Icons.shopping_cart_checkout,
-                                color: (widget.food.inCart == false)
-                                    ? Colors.black
-                                    : Colors.deepOrange,
-                                size: 30,
-                              ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                if (widget.food.inCart)
+                                  CartList.delete(widget.food);
+                                if (!widget.food.inCart) CartList.add(widget.food);
+                                widget.food.inCart = !widget.food.inCart;
+                              });
+                            },
+                            icon: Icon(
+                              (widget.food.inCart == false)
+                                  ? Icons.add
+                                  : Icons.shopping_cart_checkout,
+                              color: (widget.food.inCart == false)
+                                  ? Colors.black
+                                  : Colors.deepOrange,
+                              size: 30,
                             ),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
-                              shape: BoxShape.circle,
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(AppColorsLight.secondaryColor.shade300)
                             ),
                           ),
                       ],

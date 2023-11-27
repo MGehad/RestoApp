@@ -8,6 +8,7 @@ import 'package:restaurant/Pages/cart.dart';
 import 'package:restaurant/components/ads.dart';
 import 'package:restaurant/components/cart_list.dart';
 import 'package:restaurant/components/most_popular_card.dart';
+import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
 class MainPage extends StatefulWidget {
@@ -364,14 +365,14 @@ class _MainPageState extends State<MainPage> {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
         Text(
             "Resto",
             style: GoogleFonts.aladin(
-              color: Colors.deepOrange,
+              color: AppColorsLight.primaryColor,
               fontSize: 45,
             )
         ),
@@ -380,13 +381,7 @@ class _MainPageState extends State<MainPage> {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Profile(selectedPage: widget.selectedPage),
             )
             );
-          }, icon: Container(
-            decoration: BoxDecoration(shape: BoxShape.circle,
-                color: Colors.deepOrange),
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Icon(Icons.person,color: Colors.white,),
-              )))
+          }, icon: Icon(Icons.person,color: AppColorsLight.lightColor,))
         ],
       ),
 
