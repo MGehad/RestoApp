@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant/Pages/Favorite.dart';
 import 'package:restaurant/Pages/Profile.dart';
 import 'package:restaurant/Pages/about_us.dart';
 import 'package:restaurant/Pages/apearance.dart';
@@ -95,7 +96,7 @@ class _SettingsState extends State<Settings> {
                         .push(
                         MaterialPageRoute(builder: (context) =>
                             Cart(selectedPage:widget.selectedPage,
-                        items: CartList.items,
+                              sliding: 0,
                         ),)
                     );
                   },
@@ -117,7 +118,54 @@ class _SettingsState extends State<Settings> {
                                 children: [
                                   Icon(Icons.shopping_cart,color:AppColorsLight.primaryColor,size: 25),
                                   SizedBox(width: 10,),
-                                  Text("Cart",
+                                  Text("My Cart",
+                                      style: TextStyle(color: AppColorsLight.primaryColor,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)),
+                                ],
+                              ),
+                              Icon(Icons.chevron_right,
+                                color: AppColorsLight.primaryColor,
+                                size:22 ,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 15,),
+
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(
+                        MaterialPageRoute(builder: (context) =>
+                            Favorite(selectedPage: widget.selectedPage),
+                        )
+                    );
+                  },
+                  child: Ink(
+                    child:  Tooltip(
+                      message: 'Go To My Favorites',
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: AppColorsLight.secondaryColor.shade200,
+                            borderRadius: BorderRadius.circular(15)
+
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15.0,right: 15,bottom: 10,top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.favorite,color:AppColorsLight.primaryColor,size: 25),
+                                  SizedBox(width: 10,),
+                                  Text("My Favorites",
                                       style: TextStyle(color: AppColorsLight.primaryColor,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500)),

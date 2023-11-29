@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant/Pages/cart.dart';
 import 'package:restaurant/components/cart_list.dart';
 import 'package:restaurant/components/menu_card.dart';
@@ -11,8 +12,10 @@ import 'dart:convert';
 
 class Menu extends StatefulWidget {
 
+  int sliding;
   final int selectedPage;
-  const Menu({super.key,required this.selectedPage});
+  Menu({super.key,required this.selectedPage,
+    required this.sliding});
 
   @override
   State<Menu> createState() => _MenuState();
@@ -20,7 +23,6 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  int _sliding = 0;
 
   void update(){
     setState(() {});
@@ -339,23 +341,27 @@ class _MenuState extends State<Menu> {
             )
         ),
         actions: <Widget>[
-          IconButton(onPressed: () {
-            Navigator.of(context)
-                .push(
-                MaterialPageRoute(builder: (context) =>
-                    Cart(selectedPage: widget.selectedPage,items: CartList.items),)
-            );
-          },
-            icon: Tooltip(
-              message: 'Go To Cart',
-              child: Icon((CartList.count==0)?Icons.shopping_cart_outlined:Icons.shopping_cart,
-                color:AppColorsLight.primaryColor,
+          Consumer<Cart>(builder: (context, value, child) {
+            return IconButton(onPressed: () {
+              Navigator.of(context)
+                  .push(
+                  MaterialPageRoute(builder: (context) =>
+                      Cart(selectedPage: widget.selectedPage,sliding: widget.sliding),)
+              );
+            },
+              icon: Tooltip(
+                message: 'Go To Cart',
+                child: Icon((CartList.count==0)
+                    ?Icons.shopping_cart_outlined
+                    :Icons.shopping_cart,
+                  color:AppColorsLight.primaryColor,
+                ),
               ),
-            ),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.transparent)
-            ),
-          ),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.transparent)
+              ),
+            );
+          },),
         ],
       ),
 
@@ -369,7 +375,10 @@ class _MenuState extends State<Menu> {
               child: SearchAnchor(
                   builder: (BuildContext context, SearchController controller) {
                     return SearchBar(
-                      controller: controller,
+                      backgroundColor: MaterialStateProperty.all(AppColorsLight.primaryColor.shade500),
+                      hintText: "Search for your food..",
+                      hintStyle: MaterialStateProperty.all(
+                          TextStyle(color: AppColorsLight.lightColor)),
                       padding: const MaterialStatePropertyAll<EdgeInsets>(
                           EdgeInsets.symmetric(horizontal: 15.0)),
                       onTap: () {
@@ -378,7 +387,7 @@ class _MenuState extends State<Menu> {
                       onChanged: (_) {
                         controller.openView();
                       },
-                      leading: const Icon(Icons.search),
+                      leading: const Icon(Icons.search,color: AppColorsLight.lightColor),
                     );
                   }, suggestionsBuilder:
                   (BuildContext context, SearchController controller) {
@@ -534,10 +543,10 @@ class _MenuState extends State<Menu> {
                     ),),
 
                   },
-                  groupValue:_sliding ,
+                  groupValue:widget.sliding ,
                   onValueChanged: (value) {
                     setState(() {
-                      _sliding = value!;
+                      widget.sliding = value!;
                     });
                   },
               ),
@@ -556,6 +565,7 @@ class _MenuState extends State<Menu> {
                   itemBuilder: (context, index) => MenuCard(
                     food: chickenMenu[index],
                     selectedPage: widget.selectedPage,
+                    sliding: widget.sliding,
                   ),
                 ),
               ),
@@ -569,6 +579,7 @@ class _MenuState extends State<Menu> {
                   itemBuilder: (context, index) => MenuCard(
                     food: meatMenu[index],
                     selectedPage: widget.selectedPage,
+                    sliding: widget.sliding,
                   ),
                 ),
               ),
@@ -582,6 +593,7 @@ class _MenuState extends State<Menu> {
                   itemBuilder: (context, index) => MenuCard(
                     food: drinksMenu[index],
                     selectedPage: widget.selectedPage,
+                    sliding: widget.sliding,
                   ),
                 ),
               ),
@@ -595,11 +607,12 @@ class _MenuState extends State<Menu> {
                   itemBuilder: (context, index) => MenuCard(
                     food: appetizersMenu[index],
                     selectedPage: widget.selectedPage,
+                    sliding: widget.sliding,
                   ),
                 ),
               ),
             ),
-          ][_sliding],
+          ][widget.sliding],
 
         ],
       ),

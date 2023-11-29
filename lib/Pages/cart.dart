@@ -8,11 +8,34 @@ import 'package:restaurant/components/cart_list.dart';
 import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
-class Cart extends StatefulWidget{
+class Cart extends StatefulWidget with ChangeNotifier{
   final int selectedPage;
-  final List<Food> items;
-  Cart({super.key,required this.selectedPage,required this.items});
+  final int sliding;
+  final List<Food> _items = CartList.items;
+  double _price = CartList.totalPrice;
+  Cart({super.key,required this.selectedPage,required this.sliding});
 
+  void add(Food item){
+    CartList.add(item);
+    notifyListeners();
+  }
+
+  void delete(Food item){
+    _items.remove(item);
+    notifyListeners();
+  }
+
+  int get count{
+    return _items.length;
+  }
+
+  double get totalPrice{
+    return _price;
+  }
+
+  List<Food> get items{
+    return _items;
+  }
 
   @override
   State<Cart> createState() => _CartState();
@@ -38,7 +61,7 @@ class _CartState extends State<Cart>{
     leading: IconButton(
     onPressed: () {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Main(selectedPage: widget.selectedPage),));
+      builder: (context) => Main(selectedPage: widget.selectedPage,sliding: widget.sliding),));
     },
     icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
       style: ButtonStyle(
@@ -66,6 +89,15 @@ class _CartState extends State<Cart>{
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              if(selector!=0)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.warning_amber,color: Colors.red),
+                  Text("Paypal only",style: TextStyle(color: Colors.red,
+                      fontWeight: FontWeight.bold,fontSize: 20)),
+                ],
+              ),
               Center(
                 child: Container(
                   decoration: BoxDecoration(
@@ -149,7 +181,7 @@ class _CartState extends State<Cart>{
 
                             InkWell(
                               onTap: () {
-                                openPayment(selector);
+                                openPayment(context);
                               },
                               child: Ink(
                                 child: Card(
@@ -191,6 +223,7 @@ class _CartState extends State<Cart>{
                                 width: MediaQuery.of(context).size.width * 0.6,
                                 child: TextButton(
                                   onPressed: () async {
+                                    if(selector==0)
                                     Navigator.of(context).push(MaterialPageRoute(
                                       builder: (BuildContext context) => PaypalCheckout(
                                         sandboxMode: true,
@@ -251,6 +284,10 @@ class _CartState extends State<Cart>{
                                         },
                                       ),
                                     ));
+                                    if(selector!=0)
+                                      setState(() {
+
+                                      });
                                   },
                                   style: TextButton.styleFrom(
                                     backgroundColor: AppColorsLight.primaryColor,
@@ -289,19 +326,25 @@ class _CartState extends State<Cart>{
       )
     );
   }
-  int selector=0;
-  Future openPayment(int selector)=>showDialog(
+  int selector = 0;
+  Future<void> openPayment(BuildContext context) async {
+    await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            Icon(Icons.payments,color: AppColorsLight.primaryColor.shade400),
-            SizedBox(width: 10,),
-            Text("Payment",
-              style: TextStyle(fontWeight: FontWeight.w500,
-                  fontSize: 27,
-                color: AppColorsLight.secondaryColor.shade800
-              )
+            Icon(
+              Icons.payments,
+              color: AppColorsLight.primaryColor.shade400,
+            ),
+            SizedBox(width: 10),
+            Text(
+              "Payment",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 27,
+                color: AppColorsLight.secondaryColor.shade800,
+              ),
             ),
           ],
         ),
@@ -309,7 +352,7 @@ class _CartState extends State<Cart>{
           padding: EdgeInsets.all(5.0),
           height: 220,
           child: Column(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -319,19 +362,22 @@ class _CartState extends State<Cart>{
                       setState(() {
                         selector = 0;
                       });
+                      Navigator.of(context).pop(); // Close the dialog
                     },
-                    child: Ink(
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        child: Padding(
-                          padding: (selector == 0)? EdgeInsets.all(8.0):EdgeInsets.all(0),
-                          child: Image.asset("Images/Payment/Paypal.png"),
-                        ),
-                        decoration: (selector == 0)?BoxDecoration(
-                            color: AppColorsLight.primaryColor.shade200,
-                            borderRadius: BorderRadius.circular(10)
-                        ):BoxDecoration(),
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: (selector == 0)
+                            ? AppColorsLight.primaryColor.shade200
+                            : null,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: (selector == 0)
+                            ? EdgeInsets.all(8.0)
+                            : EdgeInsets.all(0),
+                        child: Image.asset("Images/Payment/Paypal.png"),
                       ),
                     ),
                   ),
@@ -340,19 +386,22 @@ class _CartState extends State<Cart>{
                       setState(() {
                         selector = 1;
                       });
+                      Navigator.of(context).pop(); // Close the dialog
                     },
-                    child: Ink(
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        child: Padding(
-                          padding: (selector == 1)? EdgeInsets.all(8.0):EdgeInsets.all(0),
-                          child: Image.asset("Images/Payment/Visa.png"),
-                        ),
-                        decoration: (selector == 1)?BoxDecoration(
-                            color: AppColorsLight.primaryColor.shade200,
-                            borderRadius: BorderRadius.circular(10)
-                        ):BoxDecoration(),
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: (selector == 1)
+                            ? AppColorsLight.primaryColor.shade200
+                            : null,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: (selector == 1)
+                            ? EdgeInsets.all(8.0)
+                            : EdgeInsets.all(0),
+                        child: Image.asset("Images/Payment/Visa.png"),
                       ),
                     ),
                   ),
@@ -364,42 +413,48 @@ class _CartState extends State<Cart>{
                   InkWell(
                     onTap: () {
                       setState(() {
-                        selector=2;
+                        selector = 2;
                       });
+                      Navigator.of(context).pop(); // Close the dialog
                     },
-                    child: Ink(
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        child: Padding(
-                          padding: (selector == 2)? EdgeInsets.all(8.0):EdgeInsets.all(0),
-                          child: Image.asset("Images/Payment/Mastercard.png"),
-                        ),
-                        decoration: (selector == 2)?BoxDecoration(
-                            color: AppColorsLight.primaryColor.shade200,
-                            borderRadius: BorderRadius.circular(10)
-                        ):BoxDecoration(),
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: (selector == 2)
+                            ? AppColorsLight.primaryColor.shade200
+                            : null,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: (selector == 2)
+                            ? EdgeInsets.all(8.0)
+                            : EdgeInsets.all(0),
+                        child: Image.asset("Images/Payment/Mastercard.png"),
                       ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
                       setState(() {
-                        selector=3;
+                        selector = 3;
                       });
+                      Navigator.of(context).pop(); // Close the dialog
                     },
-                    child: Ink(
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        child: Padding(
-                          padding: (selector == 3)? EdgeInsets.all(8.0):EdgeInsets.all(0),
-                          child: Image.asset("Images/Payment/Bitcoin.png"),
-                        ),
-                        decoration: (selector == 3)?BoxDecoration(
-                            color: AppColorsLight.primaryColor.shade200,
-                            borderRadius: BorderRadius.circular(10)
-                        ):BoxDecoration(),
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: (selector == 3)
+                            ? AppColorsLight.primaryColor.shade200
+                            : null,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: (selector == 3)
+                            ? EdgeInsets.all(8.0)
+                            : EdgeInsets.all(0),
+                        child: Image.asset("Images/Payment/Bitcoin.png"),
                       ),
                     ),
                   ),
@@ -409,25 +464,27 @@ class _CartState extends State<Cart>{
           ),
         ),
         actions: [
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-              color:AppColorsLight.primaryColor.shade300
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Save",
+              style: GoogleFonts.dmSerifDisplay(
+                fontSize: 20,
+                color: AppColorsLight.lightColor,
+              ),
             ),
-            child: TextButton(
-                onPressed: () {
-                  if(selector==0)
-                  Navigator.of(context).pop();
-                },
-                child: Text("Save",
-                  style: GoogleFonts.dmSerifDisplay(
-                      fontSize: 20,
-                    color: AppColorsLight.lightColor
-                  ),)),
-          )
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                AppColorsLight.primaryColor.shade400,
+              ),
+            ),
+          ),
         ],
       ),
-  );
+    );
+  }
 }
 
 

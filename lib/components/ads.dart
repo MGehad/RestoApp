@@ -25,7 +25,7 @@ class _MyADSState extends State<MyADS> {
       onTap: () {
         Navigator.of(context)
             .push(
-            MaterialPageRoute(builder: (context) => Item(food: widget.food,selectedPage: 0),)
+            MaterialPageRoute(builder: (context) => Item(food: widget.food,selectedPage: 0,sliding: 0),)
         );
       },
       child: Ink(

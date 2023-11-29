@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/Pages/Favorite.dart';
 import 'package:restaurant/Pages/First.dart';
+import 'package:restaurant/Pages/cart.dart';
 import 'package:restaurant/core/theme/theme_data/theme_data_dark.dart';
 import 'package:restaurant/core/theme/theme_data/theme_data_light.dart';
 
 class Main extends StatefulWidget {
   int selectedPage;
-  Main({super.key,required this.selectedPage});
+  int sliding;
+  Main({super.key,required this.selectedPage,required this.sliding});
   @override
   State<Main> createState() => _MainState();
 
@@ -18,9 +19,9 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (context) => Favorite(selectedPage: widget.selectedPage,),
+    return ChangeNotifierProvider(create: (context) => Cart(selectedPage: widget.selectedPage,sliding: widget.sliding),
       child: MaterialApp(
-        home: First(selectedPage: widget.selectedPage),
+        home: First(selectedPage: widget.selectedPage,sliding: widget.sliding),
         theme: getThemeDataLight(),
       ),
     );

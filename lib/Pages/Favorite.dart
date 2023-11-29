@@ -2,33 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant/Pages/Main.dart';
+import 'package:restaurant/components/favorite_list.dart';
 import 'package:restaurant/components/menu_card.dart';
 import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
-class Favorite extends StatefulWidget with ChangeNotifier{
+class Favorite extends StatefulWidget {
   int selectedPage;
   Favorite({super.key,required this.selectedPage});
-
-  List<Food> _items = [];
-
-  void add(Food item){
-    _items.add(item);
-    notifyListeners();
-  }
-
-  void delete(Food item){
-    _items.remove(item);
-    notifyListeners();
-  }
-
-  int get count{
-    return _items.length;
-  }
-
-  List<Food> get items{
-    return _items;
-  }
 
   @override
   State<Favorite> createState() => _FavoriteState();
@@ -51,18 +33,27 @@ class _FavoriteState extends State<Favorite> {
               )
           ),
         ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => Main(selectedPage: widget.selectedPage,sliding: 0),));
+          },
+          icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.transparent)
+          ),
+        ),
       ),
 
-      body: Consumer<Favorite>(builder: (context, favorite, child) {
-        return ListView.builder(
-          scrollDirection: Axis.vertical,
-          itemCount: favorite.items.length,
-          itemBuilder: (context, index) => MenuCard(
-            food: favorite.items[index],
-            selectedPage: widget.selectedPage,
-          ),
-        );
-      },),
+      body: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: FavoriteList.items.length,
+        itemBuilder: (context, index) => MenuCard(
+          food: FavoriteList.items[index],
+          selectedPage: widget.selectedPage,
+          sliding: 0,
+        ),
+      ),
     );
     }
   }

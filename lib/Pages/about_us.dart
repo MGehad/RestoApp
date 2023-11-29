@@ -31,7 +31,7 @@ class _AboutUsState extends State<AboutUs> {
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Main(selectedPage: widget.selectedPage),));
+              builder: (context) => Main(selectedPage: widget.selectedPage,sliding: 0),));
           },
           icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
           style: ButtonStyle(

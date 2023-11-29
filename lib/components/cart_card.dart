@@ -32,6 +32,7 @@ class _FoodTileState extends State<CartCard> {
               .push(
               MaterialPageRoute(builder: (context) => Item(food: widget.food,
                   selectedPage:widget.selectedPage,
+                sliding: 0,
               ),)
           );
         },

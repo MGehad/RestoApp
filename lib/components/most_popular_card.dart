@@ -27,7 +27,11 @@ class _MostPopularCardState extends State<MostPopularCard> {
         onTap: () {
           Navigator.of(context)
               .push(
-              MaterialPageRoute(builder: (context) => Item(food: widget.food,selectedPage: widget.selectedPage),)
+              MaterialPageRoute(builder: (context) => Item(
+                  food: widget.food,
+                  selectedPage: widget.selectedPage,
+                sliding: 0,
+              ),)
           );
         },
         child: Ink(

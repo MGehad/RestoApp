@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:restaurant/Pages/First.dart';
 import 'package:restaurant/Pages/Profile.dart';
-import 'package:restaurant/Pages/cart.dart';
 import 'package:restaurant/components/ads.dart';
-import 'package:restaurant/components/cart_list.dart';
 import 'package:restaurant/components/most_popular_card.dart';
 import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
@@ -400,7 +398,10 @@ class _MainPageState extends State<MainPage> {
                     child: SearchAnchor(
                         builder: (BuildContext context, SearchController controller) {
                           return SearchBar(
-                            controller: controller,
+                            backgroundColor: MaterialStateProperty.all(AppColorsLight.primaryColor.shade500),
+                            hintText: "Search for your food..",
+                            hintStyle: MaterialStateProperty.all(
+                                TextStyle(color: AppColorsLight.lightColor)),
                             padding: const MaterialStatePropertyAll<EdgeInsets>(
                                 EdgeInsets.symmetric(horizontal: 15.0)),
                             onTap: () {
@@ -409,28 +410,7 @@ class _MainPageState extends State<MainPage> {
                             onChanged: (_) {
                               controller.openView();
                             },
-                            leading: const Icon(Icons.search),
-                            trailing: <Widget>[
-                              /*Tooltip(
-                                message: 'Go to cart',
-                                child: IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .push(
-                                      MaterialPageRoute(builder: (context) =>
-                                          Cart(selectedPage: widget.selectedPage,
-                                          items: CartList.items),)
-                                    );
-                                  },
-                                  icon: Consumer<Cart>(builder: (context, cart, child){
-                                    return Icon((CartList.count==0)?Icons.shopping_cart_outlined:Icons.shopping_cart,
-                                      color: (CartList.count==0)?Colors.grey.shade800 : Colors.deepOrange,
-                                    );
-                                  }
-                                  ),
-                                ),
-                              )*/
-                            ],
+                            leading: const Icon(Icons.search,color: AppColorsLight.lightColor),
                           );
                         }, suggestionsBuilder:
                         (BuildContext context, SearchController controller) {
@@ -451,6 +431,7 @@ class _MainPageState extends State<MainPage> {
 
                 Container(
                   height: MediaQuery.of(context).size.height*0.3,
+                  width: MediaQuery.of(context).size.width,
                   child: CarouselSlider(
                       items: ads.map((item) => Container(
                         child: item,
@@ -489,10 +470,6 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                 ),
-
-
-
-                SizedBox(height: 10,),
 
                 /* Container(
                    decoration:BoxDecoration(
@@ -536,12 +513,90 @@ class _MainPageState extends State<MainPage> {
                  ),
                  */
 
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: Text("Categories",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        buildCategries(0, Icon(Icons.set_meal), "Chicken"),
+                        buildCategries(1, Icon(Icons.set_meal), "Meat"),
+                      ],
+                    ),
+                    SizedBox(height: 15,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        buildCategries(2, Icon(Icons.set_meal), "Drinks"),
+                        buildCategries(3, Icon(Icons.set_meal), "Appetizesrs"),
+                      ],
+                    )
+                  ],
+                )
+
               ],
           ),
         ],
       ),
     );
   }
+
+  Widget buildCategries(int menuIndex,Icon icon,String catName) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: () {
+        setState(() {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => First(selectedPage: 1, sliding: menuIndex)
+            ),
+          );
+        });
+      },
+      child: Ink(
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(20),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColorsLight.primaryColor.shade500,
+              borderRadius: BorderRadiusDirectional.circular(20)
+            ),
+            height: 100,
+            width: 150,
+            child: Column(
+              mainAxisAlignment:MainAxisAlignment.center ,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                icon,
+                SizedBox(height: 5,),
+                Text(
+                  catName,
+                  style: GoogleFonts.dmSerifDisplay(
+                    color: AppColorsLight.lightColor,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
 }
 
 

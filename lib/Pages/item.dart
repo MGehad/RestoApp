@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/Pages/Favorite.dart';
 import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/Pages/cart.dart';
-import 'package:restaurant/components/cart_list.dart';
+import 'package:restaurant/components/favorite_list.dart';
 import 'package:restaurant/core/theme/app_color/app_color_light.dart';
 import 'package:restaurant/models/food.dart';
 
 class Item extends StatefulWidget {
   final int selectedPage;
+  final int sliding;
   final Food food;
-  const Item({super.key,required this.food,required this.selectedPage});
+  const Item({super.key,required this.food,required this.selectedPage,required this.sliding});
 
   @override
   State<Item> createState() => _ItemState();
@@ -49,7 +49,9 @@ class _ItemState extends State<Item> {
             onPressed: () {
               Navigator.of(context)
                   .push(
-                  MaterialPageRoute(builder: (context) => Main(selectedPage: widget.selectedPage),)
+                  MaterialPageRoute(builder: (context) =>
+                      Main(selectedPage: widget.selectedPage,
+                      sliding: widget.sliding),)
               );
             },
             icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
@@ -62,8 +64,7 @@ class _ItemState extends State<Item> {
               Navigator.of(context)
                   .push(
                   MaterialPageRoute(builder: (context) =>
-                      Cart(selectedPage: widget.selectedPage,
-                      items: CartList.items),)
+                      Cart(selectedPage: widget.selectedPage,sliding: widget.sliding),)
               );
             },
               icon: Icon(Icons.shopping_cart_outlined,),
@@ -123,26 +124,24 @@ class _ItemState extends State<Item> {
                           ),
                           ),
                           Container(
-                            child: Consumer<Favorite>(
-                              builder: (context, favorite, child) {
-                                return IconButton(
-                                  onPressed: () {
-                                    if (widget.food.isFav)
-                                      favorite.delete(widget.food);
-                                    if (!widget.food.isFav) favorite.add(widget.food);
-                                    widget.food.isFav = !widget.food.isFav;
-                                  },
-                                  icon:Icon(
-                                    (widget.food.isFav == false)
-                                        ? Icons.favorite_outline
-                                        : Icons.favorite,
-                                    color: (widget.food.isFav == false)
-                                        ? AppColorsLight.lightColor
-                                        : Colors.red,
-                                    size: 30,
-                                  ),
-                                );
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (widget.food.isFav)
+                                    FavoriteList.delete(widget.food);
+                                  if (!widget.food.isFav) FavoriteList.add(widget.food);
+                                  widget.food.isFav = !widget.food.isFav;
+                                });
                               },
+                              icon:Icon(
+                                (widget.food.isFav == false)
+                                    ? Icons.favorite_outline
+                                    : Icons.favorite,
+                                color: (widget.food.isFav == false)
+                                    ? AppColorsLight.lightColor
+                                    : Colors.red,
+                                size: 30,
+                              ),
                             ),
                             decoration: BoxDecoration(
                               color: AppColorsLight.primaryColor.shade300,
@@ -233,34 +232,33 @@ class _ItemState extends State<Item> {
                             ),
 
 
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  if(widget.food.inCart)
-                                    CartList.delete(widget.food);
-                                  if(!widget.food.inCart)
-                                    CartList.add(widget.food);
-                                  widget.food.inCart=!widget.food.inCart;
-                                });
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon((widget.food.inCart)
-                                      ?Icons.add_task
-                                      :Icons.add,
-                                    color: AppColorsLight.lightColor,),
-                                  SizedBox(width: 5,),
-                                  Text((widget.food.inCart)?"Added":"Add To Cart",
-                                    style: GoogleFonts.dmSerifDisplay(
-                                      fontSize: 20,
-                                      color: AppColorsLight.lightColor
+                            Consumer<Cart>(builder: (context, cart, child) {
+                              return  TextButton(
+                                onPressed: () {
+                                    if(widget.food.inCart)
+                                      cart.delete(widget.food);
+                                    if(!widget.food.inCart)
+                                      cart.add(widget.food);
+                                    widget.food.inCart=!widget.food.inCart;
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon((widget.food.inCart)
+                                        ?Icons.add_task
+                                        :Icons.add,
+                                      color: AppColorsLight.lightColor,),
+                                    SizedBox(width: 5,),
+                                    Text((widget.food.inCart)?"Added":"Add To Cart",
+                                      style: GoogleFonts.dmSerifDisplay(
+                                          fontSize: 20,
+                                          color: AppColorsLight.lightColor
+                                      ),
                                     ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
+                                  ],
+                                ),
+                              );
+                            },)
                           ],
                         ),
                     ],
