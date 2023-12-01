@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/Pages/Main.dart';
-import 'package:restaurant/core/theme/app_color/app_color_light.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
 
 class AboutUs extends StatefulWidget {
   final int selectedPage;

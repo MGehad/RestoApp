@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:restaurant/Pages/First.dart';
 import 'package:restaurant/Pages/Profile.dart';
 import 'package:restaurant/components/ads.dart';
 import 'package:restaurant/components/most_popular_card.dart';
-import 'package:restaurant/core/theme/app_color/app_color_light.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/food.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,6 +19,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  Future<void> _refresh() async{
+    return await Future.delayed(Duration(seconds: 2));
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -383,170 +389,178 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
 
-      body:ListView(
-        children: [
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+      body:LiquidPullToRefresh(
+        onRefresh: _refresh,
+        color: AppColorsLight.appBarColor,
+        backgroundColor: AppColorsLight.primaryColor,
+        height: 150,
+        animSpeedFactor:1,
+        showChildOpacityTransition: false,
+        child: ListView(
+          children: [
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
 
-                Padding(
-                  padding: const EdgeInsets.only(left:15.0,right: 15.0),
-                  child: SizedBox(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width,
-                    child: SearchAnchor(
-                        builder: (BuildContext context, SearchController controller) {
-                          return SearchBar(
-                            backgroundColor: MaterialStateProperty.all(AppColorsLight.primaryColor.shade500),
-                            hintText: "Search for your food..",
-                            hintStyle: MaterialStateProperty.all(
-                                TextStyle(color: AppColorsLight.lightColor)),
-                            padding: const MaterialStatePropertyAll<EdgeInsets>(
-                                EdgeInsets.symmetric(horizontal: 15.0)),
+                  Padding(
+                    padding: const EdgeInsets.only(left:15.0,right: 15.0),
+                    child: SizedBox(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
+                      child: SearchAnchor(
+                          builder: (BuildContext context, SearchController controller) {
+                            return SearchBar(
+                              backgroundColor: MaterialStateProperty.all(AppColorsLight.primaryColor.shade500),
+                              hintText: "Search for your food..",
+                              hintStyle: MaterialStateProperty.all(
+                                  TextStyle(color: AppColorsLight.lightColor)),
+                              padding: const MaterialStatePropertyAll<EdgeInsets>(
+                                  EdgeInsets.symmetric(horizontal: 15.0)),
+                              onTap: () {
+                                controller.openView();
+                              },
+                              onChanged: (_) {
+                                controller.openView();
+                              },
+                              leading: const Icon(Icons.search,color: AppColorsLight.lightColor),
+                            );
+                          }, suggestionsBuilder:
+                          (BuildContext context, SearchController controller) {
+                        return List<ListTile>.generate(5, (int index) {
+                          final String item = 'item $index';
+                          return ListTile(
+                            title: Text(item),
                             onTap: () {
-                              controller.openView();
+                              setState(() {
+                                controller.closeView(item);
+                              });
                             },
-                            onChanged: (_) {
-                              controller.openView();
-                            },
-                            leading: const Icon(Icons.search,color: AppColorsLight.lightColor),
                           );
-                        }, suggestionsBuilder:
-                        (BuildContext context, SearchController controller) {
-                      return List<ListTile>.generate(5, (int index) {
-                        final String item = 'item $index';
-                        return ListTile(
-                          title: Text(item),
-                          onTap: () {
-                            setState(() {
-                              controller.closeView(item);
-                            });
-                          },
-                        );
-                      });
-                    }),
-                  ),
-                ),
-
-                Container(
-                  height: MediaQuery.of(context).size.height*0.3,
-                  width: MediaQuery.of(context).size.width,
-                  child: CarouselSlider(
-                      items: ads.map((item) => Container(
-                        child: item,
-                      )).toList(),
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        aspectRatio: 2.0,
-                        enlargeCenterPage: false,
-                      ),
-                    carouselController: CarouselController(
-
+                        });
+                      }),
                     ),
+                  ),
+
+                  Container(
+                    height: MediaQuery.of(context).size.height*0.3,
+                    width: MediaQuery.of(context).size.width,
+                    child: CarouselSlider(
+                        items: ads.map((item) => Container(
+                          child: item,
+                        )).toList(),
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 2.0,
+                          enlargeCenterPage: false,
+                        ),
+                      carouselController: CarouselController(
+
+                      ),
+                     ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child: Text("Most Popular Food",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                      height: 230,
+                      child:
+                      ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: chickenMenu.length,
+                        itemBuilder: (context, index) => MostPopularCard(
+                          food: chickenMenu[index],
+                          selectedPage: widget.selectedPage,
+                        ),
+                      ),
+                  ),
+
+                  /* Container(
+                     decoration:BoxDecoration(
+                       color: Colors.grey[100],
+                       borderRadius: BorderRadius.circular(20)
+
+                     ) ,
+                     margin: EdgeInsets.only(left: 25,right: 25,bottom: 25),
+                     padding: EdgeInsets.all(20),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Row(
+                           children: [
+                             Image.asset("lib/images/Strips.png",
+                                 height: 60,fit: BoxFit.fill),
+                             SizedBox(width: 20,),
+
+                             Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Text("Strips",style: GoogleFonts.dmSerifDisplay(fontSize: 20)),
+
+                                 const SizedBox(height: 10,),
+
+                                 Text("\$25",
+                                   style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[700]
+                                   ),
+                                 )
+                               ],
+                             ),
+                           ],
+                         ),
+
+                         Icon(Icons.favorite_outline,
+                         color: Colors.grey,
+                         size: 25),
+
+                       ],
+                     )
                    ),
-                ),
+                   */
 
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Text("Most Popular Food",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-
-                Container(
-                    height: 230,
-                    child:
-                    ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: chickenMenu.length,
-                      itemBuilder: (context, index) => MostPopularCard(
-                        food: chickenMenu[index],
-                        selectedPage: widget.selectedPage,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child: Text("Categories",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
                       ),
                     ),
-                ),
-
-                /* Container(
-                   decoration:BoxDecoration(
-                     color: Colors.grey[100],
-                     borderRadius: BorderRadius.circular(20)
-
-                   ) ,
-                   margin: EdgeInsets.only(left: 25,right: 25,bottom: 25),
-                   padding: EdgeInsets.all(20),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Row(
-                         children: [
-                           Image.asset("lib/images/Strips.png",
-                               height: 60,fit: BoxFit.fill),
-                           SizedBox(width: 20,),
-
-                           Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: [
-                               Text("Strips",style: GoogleFonts.dmSerifDisplay(fontSize: 20)),
-
-                               const SizedBox(height: 10,),
-
-                               Text("\$25",
-                                 style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[700]
-                                 ),
-                               )
-                             ],
-                           ),
-                         ],
-                       ),
-
-                       Icon(Icons.favorite_outline,
-                       color: Colors.grey,
-                       size: 25),
-
-                     ],
-                   )
-                 ),
-                 */
-
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Text("Categories",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
                   ),
-                ),
 
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        buildCategries(0, Icon(Icons.set_meal), "Chicken"),
-                        buildCategries(1, Icon(Icons.set_meal), "Meat"),
-                      ],
-                    ),
-                    SizedBox(height: 15,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        buildCategries(2, Icon(Icons.set_meal), "Drinks"),
-                        buildCategries(3, Icon(Icons.set_meal), "Appetizesrs"),
-                      ],
-                    )
-                  ],
-                )
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          buildCategries(0, Icon(Icons.set_meal), "Chicken"),
+                          buildCategries(1, Icon(Icons.set_meal), "Meat"),
+                        ],
+                      ),
+                      SizedBox(height: 15,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          buildCategries(2, Icon(Icons.set_meal), "Drinks"),
+                          buildCategries(3, Icon(Icons.set_meal), "Appetizesrs"),
+                        ],
+                      )
+                    ],
+                  )
 
-              ],
-          ),
-        ],
+                ],
+            ),
+          ],
+        ),
       ),
     );
   }

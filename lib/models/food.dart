@@ -25,16 +25,29 @@ class Food{
   String get _description => imagePath;
   bool get _inStook => inStook;
 
-  static fromJson(Map<String,dynamic> json){
-    Food food = Food(
-        name: json['name'],
-        price: json['price'],
-        imagePath: json['imagePath'],
-        rating: json['rating'],
-        description: json['description'],
-        inStook: json['inStook'],
-    );
-    return food;
+  static toList(List<dynamic> data) {
+    List<Food> card = [];
+    for (int i = 0; i < data.length; i++) {
+      try {
+        card.add(
+            Food(
+          name: data[i]['name'],
+          description: data[i]['description'],
+          rating: data[i]['rating'],
+          price: data[i]['price'],
+          inStook: data[i]['inStook'],
+          imagePath: data[i]['imagePath'],
+        )
+        );
+      } catch (err) {
+        print(err);
+      }
+    }
+
+    return card;
   }
 
+
+
 }
+

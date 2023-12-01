@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/Pages/Main.dart';
-import 'package:restaurant/components/favorite_list.dart';
+import 'package:restaurant/models/favorite_list.dart';
 import 'package:restaurant/components/menu_card.dart';
-import 'package:restaurant/core/theme/app_color/app_color_light.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/food.dart';
 
 class Favorite extends StatefulWidget {

@@ -4,8 +4,8 @@ import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/components/cart_card.dart';
-import 'package:restaurant/components/cart_list.dart';
-import 'package:restaurant/core/theme/app_color/app_color_light.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
+import 'package:restaurant/models/cart_list.dart';
 import 'package:restaurant/models/food.dart';
 
 class Cart extends StatefulWidget with ChangeNotifier{
@@ -115,14 +115,12 @@ class _CartState extends State<Cart>{
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Subtotal:",
+                            Text("Subtotal:",
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 20,
                               ),
                             ),
-                            Text(
-                              "${CartList.totalPrice}",
+                            Text("${CartList.totalPrice}",
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 20,
                                 color: AppColorsLight.lightColor,
@@ -273,6 +271,9 @@ class _CartState extends State<Cart>{
                                         ],
                                         note: "Contact us for any questions on your order.",
                                         onSuccess: (Map params) async {
+                                          setState(() {
+                                            CartList.clear();
+                                          });
                                           print("onSuccess: $params");
                                         },
                                         onError: (error) {

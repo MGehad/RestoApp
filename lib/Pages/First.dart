@@ -1,10 +1,11 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/Pages/Booking.dart';
 import 'package:restaurant/Pages/MainPage.dart';
 import 'package:restaurant/Pages/Menu.dart';
 import 'package:restaurant/Pages/Settings.dart';
-import 'package:restaurant/core/theme/app_color/app_color_light.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
 
 class First extends StatefulWidget {
   int selectedPage;
@@ -24,7 +25,38 @@ class _MainState extends State<First> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        bottomNavigationBar: Container(
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Colors.transparent,
+            color: AppColorsLight.primaryColor,
+            animationDuration: Duration(milliseconds: 400),
+            onTap: (value) {
+            setState(() {
+              widget.selectedPage=value;
+            });
+            },
+            index:widget.selectedPage ,
+            items: [
+              Tooltip(
+                message: "Main Page",
+                  child: Icon(Icons.home,color: AppColorsLight.lightColor)
+              ),
+              Tooltip(
+                  message: "Menu",
+                  child: Icon(Icons.restaurant_menu,color: AppColorsLight.lightColor)
+              ),
+              Tooltip(
+                  message: "Booking",
+                  child: Icon(Icons.table_restaurant,color: AppColorsLight.lightColor)
+              ),
+              Tooltip(
+                  message: "Settings",
+                  child: Icon(Icons.settings,color: AppColorsLight.lightColor)
+              ),
+
+            ]
+        ),
+
+        /*Container(
           padding: EdgeInsets.only(right: 25,left: 25),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40),
@@ -50,7 +82,7 @@ class _MainState extends State<First> {
             indicatorColor: AppColorsLight.primaryColor.shade300,
             elevation: 0,
           ),
-        ),
+        ),*/
 
         backgroundColor: AppColorsLight.lightColor,
 

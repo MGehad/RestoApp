@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/Pages/cart.dart';
-import 'package:restaurant/components/favorite_list.dart';
-import 'package:restaurant/core/theme/app_color/app_color_light.dart';
+import 'package:restaurant/models/favorite_list.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/food.dart';
 
 class Item extends StatefulWidget {
@@ -195,7 +195,13 @@ class _ItemState extends State<Item> {
                                 IconButton(
                                     onPressed: decrementQuantity,
                                     icon: const Icon(Icons.chevron_left,
-                                      color: AppColorsLight.lightColor,)
+                                      color: AppColorsLight.lightColor,
+                                    ),
+                                  style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(
+                                        AppColorsLight.primaryColor.shade400,
+                                      )
+                                  ),
                                 ),
 
                                 SizedBox(width: 7,),
@@ -227,6 +233,11 @@ class _ItemState extends State<Item> {
                                     onPressed: incrementQuantity,
                                     icon: const Icon(Icons.chevron_right,
                                       color: AppColorsLight.lightColor,),
+                                  style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(
+                                        AppColorsLight.primaryColor.shade400,
+                                      )
+                                  ),
                                 ),
                               ],
                             ),
@@ -234,6 +245,11 @@ class _ItemState extends State<Item> {
 
                             Consumer<Cart>(builder: (context, cart, child) {
                               return  TextButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                      AppColorsLight.primaryColor.shade400,
+                                    )
+                                ),
                                 onPressed: () {
                                     if(widget.food.inCart)
                                       cart.delete(widget.food);

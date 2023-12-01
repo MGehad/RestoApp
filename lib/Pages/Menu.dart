@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/Pages/cart.dart';
-import 'package:restaurant/components/cart_list.dart';
 import 'package:restaurant/components/menu_card.dart';
-import 'package:restaurant/core/theme/app_color/app_color_light.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
+import 'package:restaurant/models/cart_list.dart';
 import 'package:restaurant/models/food.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -21,6 +22,67 @@ class Menu extends StatefulWidget {
   State<Menu> createState() => _MenuState();
 
 }
+/*
+Future<List<Food>> fetchFoodData() async {
+  final response =
+  await http.get(Uri.parse('http://localhost:3000/RESTO'));
+
+  if (response.statusCode == 200) {
+    return Food.toList(jsonDecode(response.body));
+  } else {
+    throw Exception('faild to fetch food card data');
+  }
+}
+
+Future<void> sendFoodData(Food dataObj) async {
+  final response = await http.post(
+    Uri.parse('http://localhost:3000/RESTO'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'name': dataObj.name,
+      'inStook': dataObj.inStook.toString(),
+      'description': dataObj.description.toString(),
+      'rating': dataObj.rating.toString(),
+      'price': dataObj.price.toString(),
+      'imagePath': dataObj.imagePath,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+  } else {
+    throw Exception('faild to send food card data');
+  }
+}
+
+Future<void> updateFoodData(
+    Food dataObj, func(String errMsg)) async {
+  final response = await http.put(
+    Uri.parse(
+        'http://localhost:3000/RESTO${dataObj.name.toString()}'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'name': dataObj.name,
+      'inStook': dataObj.inStook.toString(),
+      'description': dataObj.description.toString(),
+      'rating': dataObj.rating.toString(),
+      'price': dataObj.price.toString(),
+      'imagePath': dataObj.imagePath,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    func('pop');
+  } else if (response.statusCode == 500) {
+    func("Duplicate Entry In 'name' Column.\nTry another name!");
+  } else {
+    throw Exception('faild to update food card data');
+  }
+}
+*/
 
 class _MenuState extends State<Menu> {
 
@@ -31,17 +93,11 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
 
-    final List<Food> chickenMenu2 =[] ;
+    //final Future<List<Food>> chickenMenu2 = fetchFoodData();
 
-    Future getData() async{
-      var url = "http://localhost:3000/RESTO";
-      var response = await http.get(url as Uri);
-      var responsebody = jsonDecode(response.body);
-      for(var r in responsebody){
-        chickenMenu2.add(Food.fromJson(r));
-      }
+    Future<void> _refresh() async{
+      return await Future.delayed(Duration(seconds: 2));
     }
-
 
     final List chickenMenu = [
       Food(name: "Burger",
@@ -365,256 +421,289 @@ class _MenuState extends State<Menu> {
         ],
       ),
 
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left:15.0,right: 15.0,bottom: 15.0),
-            child: SizedBox(
-              height: 50,
-              child: SearchAnchor(
-                  builder: (BuildContext context, SearchController controller) {
-                    return SearchBar(
-                      backgroundColor: MaterialStateProperty.all(AppColorsLight.primaryColor.shade500),
-                      hintText: "Search for your food..",
-                      hintStyle: MaterialStateProperty.all(
-                          TextStyle(color: AppColorsLight.lightColor)),
-                      padding: const MaterialStatePropertyAll<EdgeInsets>(
-                          EdgeInsets.symmetric(horizontal: 15.0)),
+      body: LiquidPullToRefresh(
+        onRefresh: _refresh,
+        color: AppColorsLight.appBarColor,
+        backgroundColor: AppColorsLight.primaryColor,
+        height: 150,
+        animSpeedFactor:1,
+        showChildOpacityTransition: false,
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left:15.0,right: 15.0,bottom: 15.0),
+              child: SizedBox(
+                height: 50,
+                child: SearchAnchor(
+                    builder: (BuildContext context, SearchController controller) {
+                      return SearchBar(
+                        backgroundColor: MaterialStateProperty.all(AppColorsLight.primaryColor.shade500),
+                        hintText: "Search for your food..",
+                        hintStyle: MaterialStateProperty.all(
+                            TextStyle(color: AppColorsLight.lightColor)),
+                        padding: const MaterialStatePropertyAll<EdgeInsets>(
+                            EdgeInsets.symmetric(horizontal: 15.0)),
+                        onTap: () {
+                          controller.openView();
+                        },
+                        onChanged: (_) {
+                          controller.openView();
+                        },
+                        leading: const Icon(Icons.search,color: AppColorsLight.lightColor),
+                      );
+                    }, suggestionsBuilder:
+                    (BuildContext context, SearchController controller) {
+                  return List<ListTile>.generate(5, (int index) {
+                    final String item = 'item $index';
+                    return ListTile(
+                      title: Text(item),
                       onTap: () {
-                        controller.openView();
+                        setState(() {
+                          controller.closeView(item);
+                        });
                       },
-                      onChanged: (_) {
-                        controller.openView();
-                      },
-                      leading: const Icon(Icons.search,color: AppColorsLight.lightColor),
                     );
-                  }, suggestionsBuilder:
-                  (BuildContext context, SearchController controller) {
-                return List<ListTile>.generate(5, (int index) {
-                  final String item = 'item $index';
-                  return ListTile(
-                    title: Text(item),
-                    onTap: () {
-                      setState(() {
-                        controller.closeView(item);
-                      });
-                    },
-                  );
-                });
-              }),
-            ),
-          ),
-
-         /* Padding(
-            padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              decoration:BoxDecoration(
-                  color: Colors.deepOrange[200],
-                  borderRadius: BorderRadius.circular(15)
-              ) ,
-              child: NavigationBar(
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedPage = value;
                   });
-                },
-                selectedIndex: selectedPage,
-                height: 40,
-                backgroundColor: Colors.deepOrange[200],
-                destinations: [
-                  NavigationDestination(icon: Icon(Icons.home),label: "Home",),
-                  NavigationDestination(icon: Icon(Icons.restaurant_menu),label: "Menu",),
-                  NavigationDestination(icon: Icon(Icons.table_restaurant),label: "Booking",),
-                  NavigationDestination(icon: Icon(Icons.favorite),label: "Favorite",),
-                  NavigationDestination(icon: Icon(Icons.settings),label: "Settings",),
-
-                ],
+                }),
               ),
             ),
-          ),*/
 
-
-         /*Padding(
-            padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              decoration:BoxDecoration(
-                  color: Colors.deepOrange[200],
-                  borderRadius: BorderRadius.circular(15)
-              ) ,
-              height: 35,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    width: 75,
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: Colors.deepOrange[400],
-                        borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: Text("Chicken",style: GoogleFonts.alata(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: Colors.white,
-                    ),),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 60,
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: Colors.deepOrange[200],
-                        borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: Text("Meat",style: GoogleFonts.alata(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                        color: Colors.black,
-                    ),),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 60,
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: Colors.deepOrange[200],
-                        borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: Text("Drinks",style: GoogleFonts.alata(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                         color: Colors.black,
-                    ),),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 90,
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: Colors.deepOrange[200],
-                        borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: Text("Appetizers",style: GoogleFonts.alata(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                        color: Colors.black,
-                    ),),
-                  ),
-                ],
-              ),
-            ),
-          ),*/
-
-         Padding(
-           padding: const EdgeInsets.only(right: 18.0,left: 18.0),
-           child: Container(
-             decoration: BoxDecoration(
-               borderRadius: BorderRadius.circular(100),
-               color: AppColorsLight.primaryColor.shade300
-             ),
-             child: CupertinoSlidingSegmentedControl(
-               backgroundColor: Colors.transparent,
-               thumbColor: AppColorsLight.primaryColor.shade600,
-               children: {
-                    0: Text("Chicken",style: GoogleFonts.alata(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: AppColorsLight.lightColor,
-                    ),),
-                    1: Text("Meat",style: GoogleFonts.alata(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: AppColorsLight.lightColor,
-                    ),),
-                    2: Text("Drinks",style: GoogleFonts.alata(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: AppColorsLight.lightColor,
-                    ),),
-                    3: Text("Appetizers",style: GoogleFonts.alata(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: AppColorsLight.lightColor,
-                    ),),
-
-                  },
-                  groupValue:widget.sliding ,
-                  onValueChanged: (value) {
+           /* Padding(
+              padding: const EdgeInsets.only(left: 10,right: 10),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                decoration:BoxDecoration(
+                    color: Colors.deepOrange[200],
+                    borderRadius: BorderRadius.circular(15)
+                ) ,
+                child: NavigationBar(
+                  onDestinationSelected: (value) {
                     setState(() {
-                      widget.sliding = value!;
+                      selectedPage = value;
                     });
                   },
+                  selectedIndex: selectedPage,
+                  height: 40,
+                  backgroundColor: Colors.deepOrange[200],
+                  destinations: [
+                    NavigationDestination(icon: Icon(Icons.home),label: "Home",),
+                    NavigationDestination(icon: Icon(Icons.restaurant_menu),label: "Menu",),
+                    NavigationDestination(icon: Icon(Icons.table_restaurant),label: "Booking",),
+                    NavigationDestination(icon: Icon(Icons.favorite),label: "Favorite",),
+                    NavigationDestination(icon: Icon(Icons.settings),label: "Settings",),
+
+                  ],
+                ),
               ),
+            ),*/
+
+
+           /*Padding(
+              padding: const EdgeInsets.only(left: 10,right: 10),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                decoration:BoxDecoration(
+                    color: Colors.deepOrange[200],
+                    borderRadius: BorderRadius.circular(15)
+                ) ,
+                height: 35,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: 75,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: Colors.deepOrange[400],
+                          borderRadius: BorderRadius.circular(15)
+                      ),
+                      child: Text("Chicken",style: GoogleFonts.alata(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 60,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: Colors.deepOrange[200],
+                          borderRadius: BorderRadius.circular(15)
+                      ),
+                      child: Text("Meat",style: GoogleFonts.alata(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                          color: Colors.black,
+                      ),),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 60,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: Colors.deepOrange[200],
+                          borderRadius: BorderRadius.circular(15)
+                      ),
+                      child: Text("Drinks",style: GoogleFonts.alata(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                           color: Colors.black,
+                      ),),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 90,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: Colors.deepOrange[200],
+                          borderRadius: BorderRadius.circular(15)
+                      ),
+                      child: Text("Appetizers",style: GoogleFonts.alata(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                          color: Colors.black,
+                      ),),
+                    ),
+                  ],
+                ),
+              ),
+            ),*/
+
+           Padding(
+             padding: const EdgeInsets.only(right: 18.0,left: 18.0),
+             child: Container(
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.circular(100),
+                 color: AppColorsLight.primaryColor.shade300
+               ),
+               child: CupertinoSlidingSegmentedControl(
+                 backgroundColor: Colors.transparent,
+                 thumbColor: AppColorsLight.primaryColor.shade600,
+                 children: {
+                      0: Text("Chicken",style: GoogleFonts.alata(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: AppColorsLight.lightColor,
+                      ),),
+                      1: Text("Meat",style: GoogleFonts.alata(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: AppColorsLight.lightColor,
+                      ),),
+                      2: Text("Drinks",style: GoogleFonts.alata(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: AppColorsLight.lightColor,
+                      ),),
+                      3: Text("Appetizers",style: GoogleFonts.alata(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: AppColorsLight.lightColor,
+                      ),),
+
+                    },
+                    groupValue:widget.sliding ,
+                    onValueChanged: (value) {
+                      setState(() {
+                        widget.sliding = value!;
+                      });
+                    },
+                ),
+             ),
            ),
-         ),
 
-          SizedBox(height: 5,),
+            SizedBox(height: 5,),
 
-          <Widget>[
-            Center(
-              child: Container(
-                height: MediaQuery.of(context).size.height*0.70 ,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: chickenMenu.length,
-                  itemBuilder: (context, index) => MenuCard(
-                    food: chickenMenu[index],
-                    selectedPage: widget.selectedPage,
-                    sliding: widget.sliding,
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                height: MediaQuery.of(context).size.height*0.70 ,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: meatMenu.length,
-                  itemBuilder: (context, index) => MenuCard(
-                    food: meatMenu[index],
-                    selectedPage: widget.selectedPage,
-                    sliding: widget.sliding,
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                height: MediaQuery.of(context).size.height*0.70 ,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: drinksMenu.length,
-                  itemBuilder: (context, index) => MenuCard(
-                    food: drinksMenu[index],
-                    selectedPage: widget.selectedPage,
-                    sliding: widget.sliding,
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                height: MediaQuery.of(context).size.height*0.70 ,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: appetizersMenu.length,
-                  itemBuilder: (context, index) => MenuCard(
-                    food: appetizersMenu[index],
-                    selectedPage: widget.selectedPage,
-                    sliding: widget.sliding,
-                  ),
-                ),
-              ),
-            ),
-          ][widget.sliding],
+            <Widget>[
+              Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*0.69 ,
+                  child:
+                  /*FutureBuilder(
+                    future: chickenMenu2,
+                    builder:(context, chickenMenu2) {
+                      if(chickenMenu2.hasError){
+                       return Container(
+                         child: Text("data"),
+                       );
+                      }else if(chickenMenu2.hasData){
+                        return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: chickenMenu2.data!.length,
+                          itemBuilder: (context, index) => MenuCard(
+                            food: chickenMenu2.data![index],
+                            selectedPage: widget.selectedPage,
+                            sliding: widget.sliding,
+                          ),
+                        );
+                      }else{
+                        return CircularProgressIndicator();
+                      }
 
-        ],
+                    },
+                  ),*/
+
+                  ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: chickenMenu.length,
+                    itemBuilder: (context, index) => MenuCard(
+                      food: chickenMenu[index],
+                      selectedPage: widget.selectedPage,
+                      sliding: widget.sliding,
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*0.69 ,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: meatMenu.length,
+                    itemBuilder: (context, index) => MenuCard(
+                      food: meatMenu[index],
+                      selectedPage: widget.selectedPage,
+                      sliding: widget.sliding,
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*0.69 ,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: drinksMenu.length,
+                    itemBuilder: (context, index) => MenuCard(
+                      food: drinksMenu[index],
+                      selectedPage: widget.selectedPage,
+                      sliding: widget.sliding,
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*0.69 ,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: appetizersMenu.length,
+                    itemBuilder: (context, index) => MenuCard(
+                      food: appetizersMenu[index],
+                      selectedPage: widget.selectedPage,
+                      sliding: widget.sliding,
+                    ),
+                  ),
+                ),
+              ),
+            ][widget.sliding],
+
+          ],
+        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/Pages/item.dart';
-import 'package:restaurant/core/theme/app_color/app_color_light.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/food.dart';
 
 class MyADS extends StatefulWidget {
@@ -73,7 +73,6 @@ class _MyADSState extends State<MyADS> {
                 Container(
                     child: Image.asset(widget.food.imagePath,fit: BoxFit.fill),
                   height: MediaQuery.of(context).size.height*0.13,
-
                 ),
               ],
             ),

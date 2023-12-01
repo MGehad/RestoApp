@@ -14,7 +14,7 @@ import 'package:restaurant/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(Main(selectedPage:0 ,));
+    await tester.pumpWidget(Main(selectedPage:0 ,sliding: 0,));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

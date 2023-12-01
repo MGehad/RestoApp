@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/Pages/First.dart';
 import 'package:restaurant/Pages/cart.dart';
-import 'package:restaurant/core/theme/theme_data/theme_data_dark.dart';
-import 'package:restaurant/core/theme/theme_data/theme_data_light.dart';
+import 'package:restaurant/core/theme/app_color/app_color.dart';
 
 class Main extends StatefulWidget {
   int selectedPage;
