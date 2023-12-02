@@ -25,6 +25,7 @@ class _MostPopularCardState extends State<MostPopularCard> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: InkWell(
+        borderRadius: BorderRadius.circular(20),
         onTap: () {
           Navigator.of(context)
               .push(

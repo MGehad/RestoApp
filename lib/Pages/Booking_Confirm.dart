@@ -16,8 +16,7 @@ class BookingConfirm extends StatefulWidget {
 }
 
 class _BookingConfirmState extends State<BookingConfirm> {
-  int _selected1 = 0;
-  int _selected2 = 0;
+  int _selected = 0;
 
   BoxDecoration dec1 = BoxDecoration(
     color: AppColorsLight.primaryColor,
@@ -38,10 +37,10 @@ class _BookingConfirmState extends State<BookingConfirm> {
       backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
-        title:Text("Booking",
+        title:Text("Available Tables",
             style: GoogleFonts.aladin(
               color: AppColorsLight.primaryColor,
-              fontSize: 40,
+              fontSize: 35,
             )
         ),
         leading: IconButton(
@@ -55,152 +54,72 @@ class _BookingConfirmState extends State<BookingConfirm> {
           ),
         ),
       ),
-      body:
-      ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Stack(
+          children: [
+            ListView(
               children: [
-                SizedBox(height: 20),
-                Container(
-                  height: 70,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15)
-                  ),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Table Name',
-                    ),
-                    enabled: false,
-                  ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                  height: 70,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15)
-                  ),
-                  child: TextField(
-                    controller: _date,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    enabled: false,
-                  ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                  height: 70,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15)
-                  ),
-                  child: TextFormField(
-                    controller: TextEditingController(
-                        text: (BookingTable.pickedHour!=null)?"${BookingTable.pickedHour!.hour}:${BookingTable.pickedHour!.minute}":""
-                    ),
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.watch_later_outlined),
-                      border: OutlineInputBorder(),
-                      labelText: 'Selected Hour',
-                    ),
-                    onTap: () async{
-                      TimeOfDay? hourTime = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                        initialEntryMode: TimePickerEntryMode.dial,
-                      );
-                      if(hourTime != null){
-                        setState(() {
-                          pickedHour = hourTime;
-                          BookingTable.pickedHour = pickedHour;
-                          BookingTable.dateTime = BookingTable.dateTime;
-                        });
-                      }
-                    },
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  "Choose Your Table:",
-                  style: GoogleFonts.aladin(
-                    color: AppColorsLight.primaryColor,
-                    fontSize: 30,
-                  ),
-                ),
-                SizedBox(height: 20),
                 Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        buildSeatOption("Images/Seats/Four_Seats.png", 4, 1,MediaQuery.of(context).size.width * 0.3),
-                        buildSeatOption("Images/Seats/Five_Seats.png", 5, 2,MediaQuery.of(context).size.width * 0.3),
+                        buildSeatOption("Images/Seats/Eight_Seats.png",8,1),
+                        buildSeatOption("Images/Seats/Six_Seats.png",6,2),
+                        buildSeatOption("Images/Seats/Six_Seats.png",6,3),
+                        buildSeatOption("Images/Seats/Five_Seats.png",5,4),
                       ],
                     ),
-                    SizedBox(height: 20,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        buildSeatOption("Images/Seats/Six_Seats.png", 6, 3,MediaQuery.of(context).size.width * 0.3),
-                        buildSeatOption("Images/Seats/Eight_Seats.png", 8, 4,MediaQuery.of(context).size.width * 0.3),
+                        buildSeatOption("Images/Seats/Six_Seats.png",6,5),
+                        buildSeatOption("Images/Seats/Five_Seats.png",5,6),
+                        buildSeatOption("Images/Seats/Four_Seats.png",4,7),
+                        buildSeatOption("Images/Seats/Five_Seats.png",5,8),
                       ],
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildSeatOption("Images/Seats/Five_Seats.png",5,9),
+                        buildSeatOption("Images/Seats/Four_Seats.png",4,10),
+                        buildSeatOption("Images/Seats/Six_Seats.png",6,11),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildSeatOption("Images/Seats/Eight_Seats.png",8,12),
+                        buildSeatOption("Images/Seats/Four_Seats.png",4,13),
+                        buildSeatOption("Images/Seats/Five_Seats.png",5,14),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildSeatOption("Images/Seats/Eight_Seats.png",8,15),
+                        buildSeatOption("Images/Seats/Four_Seats.png",4,16),
+                        buildSeatOption("Images/Seats/Four_Seats.png",4,17),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildSeatOption("Images/Seats/Six_Seats.png",6,18),
+                        buildSeatOption("Images/Seats/Four_Seats.png",4,19),
+                        buildSeatOption("Images/Seats/Eight_Seats.png",8,20),
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.08,)
                   ],
                 ),
-                SizedBox(height: 20),
-
-                /*Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Table Number:",style: TextStyle(
-                        color: AppColorsLight.primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18
-                    )),
-                    Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width*0.55,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColorsLight.secondaryColor),
-                        borderRadius: BorderRadius.circular(5)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: DropdownButton(
-                          value: valueChoose,
-                            dropdownColor: AppColorsLight.lightColor,
-                            iconSize: 25,
-                            icon: Icon(Icons.arrow_drop_down_circle_sharp),
-                            iconDisabledColor: AppColorsLight.secondaryColor,
-                            iconEnabledColor: AppColorsLight.primaryColor,
-                            isExpanded: true,
-                            underline: SizedBox(),
-                            style: TextStyle(
-                              color: AppColorsLight.primaryColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500
-
-                            ),
-                            items: List.generate(20,
-                                    (index) => DropdownMenuItem(
-                                      value: index,
-                                        child: Text("${index+1}"),
-                                    )
-                            ) ,
-                            onChanged: (value) {
-                            setState(() {
-                              valueChoose=value!;
-                            });
-                            },
-                        ),
-                      )
-                    ),
-                  ],
-                ),*/
-
+              ],
+            ),
+            Column(
+              mainAxisAlignment:MainAxisAlignment.end,
+              children: [
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextButton(
@@ -209,14 +128,18 @@ class _BookingConfirmState extends State<BookingConfirm> {
                       MaterialStateProperty.all(AppColorsLight.primaryColor),
                     ),
                     onPressed: () {
-                      if(BookingTable.tableNumber!=null&&BookingTable.pickedHour!=null) {
+                      if(BookingTable.tableNumber!=null&&BookingTable.numOfSeats!=null) {
                         BookingTable.isbook = true;
+                        while(Navigator.of(context).canPop()) {
+                          Navigator.of(context).pop();
+                        }
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                               builder: (context) => First(
                                   selectedPage: widget.selectedPage,
                                   sliding: 0)),
                         );
+
                       }else{
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -228,7 +151,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
 
                                 },
                               ),
-                              content: Text("Fill All Fields",
+                              content: Text("Select Available Table",
                                   style: TextStyle(fontWeight: FontWeight.bold)
                               ),
                             )
@@ -251,22 +174,40 @@ class _BookingConfirmState extends State<BookingConfirm> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
-            ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
-  Widget buildSeatOption(String imagePath, int seatCount,int index,double radius) {
+  Widget buildSeatOption(String imagePath, int seatCount,int index) {
     return InkWell(
       borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.2),
       onTap: () {
         setState(() {
-          _selected1 = index;
-          BookingTable.numOfSeats = seatCount;
-          openAvailableTables(context,imagePath,seatCount);
+          if(!BookingTable.isAvailable(index)){
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: AppColorsLight.secondaryColor.shade800,
+                  action: SnackBarAction(
+                    label: "OK",
+                    textColor: AppColorsLight.lightColor,
+                    onPressed: () {
+
+                    },
+                  ),
+                  content: Text("This Table Is Busy At This Time",style: TextStyle(fontWeight: FontWeight.bold)),
+                )
+            );
+            BookingTable.tableNumber = null;
+            BookingTable.numOfSeats = null;
+          }else{
+            _selected = index;
+            BookingTable.tableNumber = index;
+            BookingTable.numOfSeats = seatCount;
+          }
         });
       },
       child: Ink(
@@ -276,9 +217,9 @@ class _BookingConfirmState extends State<BookingConfirm> {
             BorderRadius.circular(MediaQuery.of(context).size.width * 0.2),
           ),
           child: Container(
-            decoration: (_selected1 == index) ? dec1 : dec2,
-            height: radius,
-            width: radius,
+            decoration: (_selected == index) ? dec1 : dec2,
+            height: MediaQuery.of(context).size.width*0.2,
+            width: MediaQuery.of(context).size.width*0.2,
             child: Stack(
               children: [
                 Center(child: Image.asset(imagePath)),
@@ -299,7 +240,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
     );
   }
 
-  Widget buildTables(String imagePath,int index,double radius) {
+  /*Widget buildTables(String imagePath,int index,double radius) {
     return InkWell(
       borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.2),
       onTap: () {
@@ -337,9 +278,9 @@ class _BookingConfirmState extends State<BookingConfirm> {
         ),
       ),
     );
-  }
+  }*/
 
-  Future<void> openAvailableTables(BuildContext context,String imagePath,int seatCount) async {
+ /* Future<void> openAvailableTables(BuildContext context,String imagePath,int seatCount) async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -360,85 +301,30 @@ class _BookingConfirmState extends State<BookingConfirm> {
             ),
           ],
         ),
-        content: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildTables(imagePath,1,MediaQuery.of(context).size.width * 0.2),
-                buildTables(imagePath,2,MediaQuery.of(context).size.width * 0.2),
-                buildTables(imagePath,3,MediaQuery.of(context).size.width * 0.2),
-              ],
+        content:
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Save",
+              style: GoogleFonts.dmSerifDisplay(
+                fontSize: 20,
+                color: AppColorsLight.lightColor,
+              ),
             ),
-            Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 buildTables(imagePath,4,MediaQuery.of(context).size.width * 0.2),
-                 buildTables(imagePath,5,MediaQuery.of(context).size.width * 0.2),
-               ],
-             ),
-            Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 buildTables(imagePath,6,MediaQuery.of(context).size.width * 0.2),
-                 buildTables(imagePath,7,MediaQuery.of(context).size.width * 0.2),
-               ],
-             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildTables(imagePath,8,MediaQuery.of(context).size.width * 0.2),
-                buildTables(imagePath,9,MediaQuery.of(context).size.width * 0.2),
-                buildTables(imagePath,10,MediaQuery.of(context).size.width * 0.2),
-              ],
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                AppColorsLight.primaryColor.shade600,
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildTables(imagePath,11,MediaQuery.of(context).size.width * 0.2),
-                buildTables(imagePath,12,MediaQuery.of(context).size.width * 0.2),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildTables(imagePath,13,MediaQuery.of(context).size.width * 0.2),
-                buildTables(imagePath,14,MediaQuery.of(context).size.width * 0.2),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildTables(imagePath,15,MediaQuery.of(context).size.width * 0.2),
-                buildTables(imagePath,16,MediaQuery.of(context).size.width * 0.2),
-                buildTables(imagePath,17,MediaQuery.of(context).size.width * 0.2),
-              ],
-            ),
-          ],
-        ),
-       actions: [
-         TextButton(
-           onPressed: () {
-             Navigator.of(context).pop();
-           },
-           child: Text(
-             "Save",
-             style: GoogleFonts.dmSerifDisplay(
-               fontSize: 20,
-               color: AppColorsLight.lightColor,
-             ),
-           ),
-           style: ButtonStyle(
-             backgroundColor: MaterialStateProperty.all(
-               AppColorsLight.primaryColor.shade600,
-             ),
-           ),
-         ),
-       ],
+          ),
+        ],
         surfaceTintColor: AppColorsLight.lightColor,
         scrollable: true,
-        ),
+      ),
     );
-  }
+  }*/
 
 }

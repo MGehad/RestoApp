@@ -96,7 +96,7 @@ class _MenuState extends State<Menu> {
     //final Future<List<Food>> chickenMenu2 = fetchFoodData();
 
     Future<void> _refresh() async{
-      return await Future.delayed(Duration(seconds: 2));
+      return await Future.delayed(Duration(seconds: 1));
     }
 
     final List chickenMenu = [

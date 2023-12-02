@@ -61,8 +61,9 @@ class _ItemState extends State<Item> {
           ),
           actions: <Widget>[
             IconButton(onPressed: () {
+              Navigator.of(context).pop();
               Navigator.of(context)
-                  .push(
+                  .pushReplacement(
                   MaterialPageRoute(builder: (context) =>
                       Cart(selectedPage: widget.selectedPage,sliding: widget.sliding),)
               );
@@ -241,7 +242,6 @@ class _ItemState extends State<Item> {
                                 ),
                               ],
                             ),
-
 
                             Consumer<Cart>(builder: (context, cart, child) {
                               return  TextButton(

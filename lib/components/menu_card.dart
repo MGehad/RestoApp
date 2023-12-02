@@ -30,6 +30,7 @@ class _FoodTileState extends State<MenuCard> {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 10.0,bottom: 10.0),
       child: InkWell(
+        borderRadius: BorderRadius.circular(20),
         onTap: () {
           Navigator.of(context)
               .push(
