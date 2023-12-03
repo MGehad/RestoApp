@@ -426,7 +426,7 @@ class _MenuState extends State<Menu> {
         color: AppColorsLight.appBarColor,
         backgroundColor: AppColorsLight.primaryColor,
         height: 150,
-        animSpeedFactor:1,
+        animSpeedFactor:5,
         showChildOpacityTransition: false,
         child: ListView(
           scrollDirection: Axis.vertical,
@@ -646,7 +646,6 @@ class _MenuState extends State<Menu> {
 
                     },
                   ),*/
-
                   ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: chickenMenu.length,

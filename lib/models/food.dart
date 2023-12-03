@@ -26,10 +26,10 @@ class Food{
   bool get _inStook => inStook;
 
   static toList(List<dynamic> data) {
-    List<Food> card = [];
+    List<Food> FoodList = [];
     for (int i = 0; i < data.length; i++) {
       try {
-        card.add(
+        FoodList.add(
             Food(
           name: data[i]['name'],
           description: data[i]['description'],
@@ -43,11 +43,8 @@ class Food{
         print(err);
       }
     }
-
-    return card;
+    return FoodList;
   }
-
-
 
 }
 

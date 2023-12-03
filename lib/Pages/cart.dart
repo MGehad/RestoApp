@@ -70,34 +70,62 @@ class _CartState extends State<Cart>{
     ),
     ),
 
-    body: Stack(
-        children: [
-           Container(
-             height: MediaQuery.of(context).size.height*0.61,
-             child: ListView.builder(
-               shrinkWrap: true,
-             scrollDirection: Axis.vertical,
-             itemCount: CartList.items.length,
-             itemBuilder: (context, index) => CartCard(
-               food: CartList.items[index],
-               selectedPage: widget.selectedPage,
-               update: update,
-             ),
-             ),
-           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if(selector!=0)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+    body: Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemCount: CartList.items.length,
+          itemBuilder: (context, index) => CartCard(
+            food: CartList.items[index],
+            selectedPage: widget.selectedPage,
+            update: update,
+          ),
+          ),
+        ),
+              Stack(
                 children: [
-                  Icon(Icons.warning_amber,color: Colors.red),
-                  Text("Paypal only",style: TextStyle(color: Colors.red,
-                      fontWeight: FontWeight.bold,fontSize: 20)),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        openCoupon(context);
+                      },
+                      child: Ink(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColorsLight.primaryColor.shade300,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15)
+                            ),
+                          ),
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 15.0,top: 15.0,left: 15.0,right: 15.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.monetization_on_sharp,),
+                                    SizedBox(width: 5,),
+                                    Text("Coupons",style: GoogleFonts.alata(
+                                      fontSize: 15,
+                                    ),)
+                                  ],
+                                ),
+                                Icon(Icons.chevron_right)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
+              SizedBox(height: 15,),
               Center(
                 child: Container(
                   decoration: BoxDecoration(
@@ -221,12 +249,16 @@ class _CartState extends State<Cart>{
                                 width: MediaQuery.of(context).size.width * 0.6,
                                 child: TextButton(
                                   onPressed: () async {
-                                    if(selector==0)
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) => PaypalCheckout(
+                                    if(selector==0&&CartList.totalPrice!=0) {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          PaypalCheckout(
                                         sandboxMode: true,
-                                        clientId: "AZDDFOVhWgqhO3iG_yu0pbfT_wV96i_VZMvL17A5dgUQw2xiVI2kC6Qz_MAZtcmzeDyt3wl8HBkf5WDK",
-                                        secretKey: "EFiP_5IhzWUqbFCD7mt_P7hRYjn3aZCqENbX2-kIVQXwZNnhdh0zuFlZ170QD-792xfpZHOmyW3E5tpC",
+                                        clientId:
+                                            "AZDDFOVhWgqhO3iG_yu0pbfT_wV96i_VZMvL17A5dgUQw2xiVI2kC6Qz_MAZtcmzeDyt3wl8HBkf5WDK",
+                                        secretKey:
+                                            "EFiP_5IhzWUqbFCD7mt_P7hRYjn3aZCqENbX2-kIVQXwZNnhdh0zuFlZ170QD-792xfpZHOmyW3E5tpC",
                                         returnURL: "success.snippetcoder.com",
                                         cancelURL: "cancel.snippetcoder.com",
                                         transactions: [
@@ -240,7 +272,8 @@ class _CartState extends State<Cart>{
                                                 "shipping_discount": 0
                                               }
                                             },
-                                            "description": "The payment transaction description.",
+                                            "description":
+                                                "The payment transaction description.",
                                             // "payment_options": {
                                             //   "allowed_payment_method":
                                             //       "INSTANT_FUNDING_SOURCE"
@@ -269,7 +302,8 @@ class _CartState extends State<Cart>{
                                             }
                                           }
                                         ],
-                                        note: "Contact us for any questions on your order.",
+                                        note:
+                                            "Contact us for any questions on your order.",
                                         onSuccess: (Map params) async {
                                           setState(() {
                                             CartList.clear();
@@ -285,11 +319,38 @@ class _CartState extends State<Cart>{
                                         },
                                       ),
                                     ));
-                                    if(selector!=0)
-                                      setState(() {
-
-                                      });
-                                  },
+                                  }
+                                  else if(selector!=0) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      backgroundColor: AppColorsLight
+                                          .secondaryColor.shade800,
+                                      action: SnackBarAction(
+                                        label: "OK",
+                                        textColor: AppColorsLight.lightColor,
+                                        onPressed: () {},
+                                      ),
+                                      content: Text("Paypal only",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                    ));
+                                  }
+                                  else{
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: AppColorsLight
+                                            .secondaryColor.shade800,
+                                        action: SnackBarAction(
+                                          label: "OK",
+                                          textColor: AppColorsLight.lightColor,
+                                          onPressed: () {},
+                                        ),
+                                        content: Text("The Cart is Empty",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                      ));
+                                    }
+                                },
                                   style: TextButton.styleFrom(
                                     backgroundColor: AppColorsLight.primaryColor,
                                     foregroundColor: Colors.white,
@@ -321,10 +382,8 @@ class _CartState extends State<Cart>{
                   ),
                 ),
               ),
-            ],
-          )
-        ],
-      )
+      ],
+    )
     );
   }
   int selector = 0;
@@ -336,7 +395,7 @@ class _CartState extends State<Cart>{
           children: [
             Icon(
               Icons.payments,
-              color: AppColorsLight.primaryColor.shade400,
+              color: AppColorsLight.primaryColor.shade800,
             ),
             SizedBox(width: 10),
             Text(
@@ -478,7 +537,94 @@ class _CartState extends State<Cart>{
             ),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                AppColorsLight.primaryColor.shade400,
+                AppColorsLight.primaryColor.shade800,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  String couponCheck = "Resto";
+  TextEditingController? coupon = TextEditingController();
+  Future<void> openCoupon(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColorsLight.secondaryColor.shade200,
+        title: Row(
+          children: [
+            Icon(
+              Icons.monetization_on_sharp,
+              color: AppColorsLight.primaryColor.shade800,
+            ),
+            SizedBox(width: 10),
+            Text(
+              "Coupon",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 27,
+                color: AppColorsLight.secondaryColor.shade800,
+              ),
+            ),
+          ],
+        ),
+        content: Container(
+          padding: EdgeInsets.all(5.0),
+          child: TextField(
+            controller: coupon,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              labelText: 'Enter The Coupon',
+            ),
+          )
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              if(coupon!.text!=couponCheck){
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(
+                  backgroundColor: AppColorsLight
+                      .secondaryColor.shade800,
+                  action: SnackBarAction(
+                    label: "OK",
+                    textColor: AppColorsLight.lightColor,
+                    onPressed: () {},
+                  ),
+                  content: Text("The coupon is incorrect",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                ));
+              }else if(CartList.totalPrice!=CartList.oldTotalPrice){
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(
+                  backgroundColor: AppColorsLight
+                      .secondaryColor.shade800,
+                  action: SnackBarAction(
+                    label: "OK",
+                    textColor: AppColorsLight.lightColor,
+                    onPressed: () {},
+                  ),
+                  content: Text("You already used the coupon",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                ));
+              }else{
+                CartList.updatePrice((CartList.totalPrice-(CartList.totalPrice/10)));
+              }
+            },
+            child: Text(
+              "Save",
+              style: GoogleFonts.dmSerifDisplay(
+                fontSize: 20,
+                color: AppColorsLight.lightColor,
+              ),
+            ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                AppColorsLight.primaryColor.shade800,
               ),
             ),
           ),

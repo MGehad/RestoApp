@@ -85,7 +85,6 @@ class _MainPageState extends State<MainPage> {
               description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
               inStook: true
           ),
-        discount: 40,
       ),
 
       MyADS(
@@ -96,7 +95,6 @@ class _MainPageState extends State<MainPage> {
             description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
             inStook: true
         ),
-        discount: 60,
       ),
 
       MyADS(
@@ -107,7 +105,6 @@ class _MainPageState extends State<MainPage> {
             description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
             inStook: true
         ),
-        discount: 10,
       ),
 
       MyADS(
@@ -118,7 +115,6 @@ class _MainPageState extends State<MainPage> {
             description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
             inStook: true
         ),
-        discount: 5,
       ),
 
       MyADS(
@@ -129,7 +125,6 @@ class _MainPageState extends State<MainPage> {
             description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
             inStook: true
         ),
-        discount: 75,
       ),
     ];
 
@@ -159,7 +154,7 @@ class _MainPageState extends State<MainPage> {
         color: AppColorsLight.appBarColor,
         backgroundColor: AppColorsLight.primaryColor,
         height: 150,
-        animSpeedFactor:1,
+        animSpeedFactor:5,
         showChildOpacityTransition: false,
         child: ListView(
           children: [

@@ -188,7 +188,7 @@ class _BookingState extends State<Booking> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Hour: ",
+                              Text("Start Time: ",
                                 style: GoogleFonts.aladin(
                                   color: AppColorsLight.primaryColor,
                                   fontSize: 28,
@@ -197,6 +197,38 @@ class _BookingState extends State<Booking> {
                               Row(
                                 children: [
                                   Text("${BookingTable.pickedHour!.hour}:${BookingTable.pickedHour!.minute}",
+                                    style: GoogleFonts.aladin(
+                                      color: AppColorsLight.primaryColor,
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Card(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: AppColorsLight.lightColor
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("End Time: ",
+                                style: GoogleFonts.aladin(
+                                  color: AppColorsLight.primaryColor,
+                                  fontSize: 28,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text("${BookingTable.pickedHour!.hour+1}:${BookingTable.pickedHour!.minute}",
                                     style: GoogleFonts.aladin(
                                       color: AppColorsLight.primaryColor,
                                       fontSize: 25,

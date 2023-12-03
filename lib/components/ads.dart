@@ -6,12 +6,10 @@ import 'package:restaurant/models/food.dart';
 
 class MyADS extends StatefulWidget {
   final Food food;
-  final int discount;
 
   const MyADS({
     super.key,
     required this.food,
-    required this.discount,
   });
 
   @override
@@ -33,46 +31,47 @@ class _MyADSState extends State<MyADS> {
           child: Container(
             height:MediaQuery.of(context).size.height*0.25,
             padding: EdgeInsets.symmetric(vertical: 25,horizontal: 20),
-            margin: EdgeInsets.symmetric(horizontal: 25),
+            margin: EdgeInsets.symmetric(horizontal: 10),
             decoration:BoxDecoration(
                 color: AppColorsLight.primaryColor,
                 borderRadius: BorderRadius.circular(20)
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 18),
                     Text("${widget.food.name}",style: GoogleFonts.aladin(
                         color: Colors.white,
                         fontSize: 30,
                         fontWeight: FontWeight.w600
                     )),
-
                     SizedBox(height: 9,),
-
-                    Container(
-                      decoration: BoxDecoration(
-                        color:AppColorsLight.primaryColor.shade300,
-                        borderRadius: BorderRadius.circular(20)
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color:AppColorsLight.primaryColor.shade300,
+                          borderRadius: BorderRadius.circular(5)
+                        ),
+                        width: MediaQuery.of(context).size.width*0.3,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(" Try ${widget.food.description}%",style: GoogleFonts.aBeeZee(
+                              color: Colors.white,
+                              fontSize: 5,
+                              fontWeight: FontWeight.w600
+                          )),
+                        ),
                       ),
-                      child: Text(" Get ${widget.discount}% Discount ",style: GoogleFonts.aBeeZee(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600
-                      )),
                     ),
-
-                    SizedBox(height: 15),
-
                   ],
                 ),
+
                 Container(
-                    child: Image.asset(widget.food.imagePath,fit: BoxFit.fill),
-                  height: MediaQuery.of(context).size.height*0.13,
+                  width: MediaQuery.of(context).size.width*0.3,
+                    child: Image.asset(widget.food.imagePath,fit: BoxFit.contain),
                 ),
               ],
             ),
