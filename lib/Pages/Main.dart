@@ -18,7 +18,7 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (context) => Cart(selectedPage: widget.selectedPage,sliding: widget.sliding),
+    return ChangeNotifierProvider(create: (context) => Cart(),
       child: MaterialApp(
         home: First(selectedPage: widget.selectedPage,sliding: widget.sliding),
         theme: getThemeDataLight(),

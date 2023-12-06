@@ -198,17 +198,17 @@ class _MenuState extends State<Menu> {
       ),
     ];
     final List drinksMenu = [
-      Food(name: "Coca Cola",
+      Food(name: "Spiro Apple",
         price: 10.50,
-        imagePath: "Images/Drinks/CanCocaCola.png",
+        imagePath: "Images/Drinks/SSApple.png",
         rating: 4.8,
           description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
           inStook: true
       ),
 
-      Food(name: "Coca Cola",
+      Food(name: "Spiro Lime",
           price: 5.50,
-          imagePath: "Images/Drinks/CocaCola.png",
+          imagePath: "Images/Drinks/SSLime.png",
           rating: 4.1,
           description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
           inStook: true
@@ -238,9 +238,9 @@ class _MenuState extends State<Menu> {
           inStook: true
       ),
 
-      Food(name: "Mirinda",
+      Food(name: "Spiro Peach",
         price: 6.50,
-        imagePath: "Images/Drinks/Mirinda.png",
+        imagePath: "Images/Drinks/SSPeach.png",
         rating: 4.9,
           description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
           inStook: true
@@ -270,41 +270,17 @@ class _MenuState extends State<Menu> {
           inStook: true
       ),
 
-      Food(name: "Pepsi",
+      Food(name: "Spiro Pineapple",
         price: 8.50,
-        imagePath: "Images/Drinks/Pepsi.png",
+        imagePath: "Images/Drinks/SSPineapple.png",
         rating: 4.8,
           description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
           inStook: true
       ),
 
-      Food(name: "Pepsi Black",
+      Food(name: "Spiro Soda",
         price: 7.50,
-        imagePath: "Images/Drinks/PepsiBlack.png",
-        rating: 4.8,
-          description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
-          inStook: true
-      ),
-
-      Food(name: "Pepsi",
-        price: 44.50,
-        imagePath: "Images/Drinks/PepsiCan.png",
-        rating: 4.8,
-          description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
-          inStook: true
-      ),
-
-      Food(name: "Red Bull",
-        price: 14.50,
-        imagePath: "Images/Drinks/RedBull.png",
-        rating: 4.8,
-          description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
-          inStook: true
-      ),
-
-      Food(name: "Sprite",
-        price: 4.50,
-        imagePath: "Images/Drinks/Sprite.png",
+        imagePath: "Images/Drinks/SSSoda.png",
         rating: 4.8,
           description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
           inStook: true
@@ -401,8 +377,7 @@ class _MenuState extends State<Menu> {
             return IconButton(onPressed: () {
               Navigator.of(context)
                   .push(
-                  MaterialPageRoute(builder: (context) =>
-                      Cart(selectedPage: widget.selectedPage,sliding: widget.sliding),)
+                  MaterialPageRoute(builder: (context) =>Cart(),)
               );
             },
               icon: Tooltip(
@@ -651,22 +626,18 @@ class _MenuState extends State<Menu> {
                     itemCount: chickenMenu.length,
                     itemBuilder: (context, index) => MenuCard(
                       food: chickenMenu[index],
-                      selectedPage: widget.selectedPage,
-                      sliding: widget.sliding,
                     ),
                   ),
                 ),
               ),
               Center(
                 child: Container(
-                  height: MediaQuery.of(context).size.height*0.69 ,
+                  height: MediaQuery.of(context).size.height*0.69,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: meatMenu.length,
                     itemBuilder: (context, index) => MenuCard(
                       food: meatMenu[index],
-                      selectedPage: widget.selectedPage,
-                      sliding: widget.sliding,
                     ),
                   ),
                 ),
@@ -679,8 +650,6 @@ class _MenuState extends State<Menu> {
                     itemCount: drinksMenu.length,
                     itemBuilder: (context, index) => MenuCard(
                       food: drinksMenu[index],
-                      selectedPage: widget.selectedPage,
-                      sliding: widget.sliding,
                     ),
                   ),
                 ),
@@ -693,8 +662,6 @@ class _MenuState extends State<Menu> {
                     itemCount: appetizersMenu.length,
                     itemBuilder: (context, index) => MenuCard(
                       food: appetizersMenu[index],
-                      selectedPage: widget.selectedPage,
-                      sliding: widget.sliding,
                     ),
                   ),
                 ),

@@ -223,6 +223,14 @@ class _BookingConfirmState extends State<BookingConfirm> {
             child: Stack(
               children: [
                 Center(child: Image.asset(imagePath)),
+                if(!BookingTable.isAvailable(index))
+                Center(
+                  child: Icon(
+                    Icons.not_interested_rounded,
+                    color:AppColorsLight.secondaryColor.shade500,
+                    size: MediaQuery.of(context).size.width*0.2,
+                  ),
+                ),
                 Center(
                   child: Text(
                     seatCount.toString(),

@@ -9,14 +9,10 @@ import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/food.dart';
 
 class MenuCard extends StatefulWidget {
-  final int selectedPage;
-  final int sliding;
   final Food food;
   const MenuCard({
     super.key,
     required this.food,
-    required this.selectedPage,
-    required this.sliding
   });
 
   @override
@@ -36,8 +32,6 @@ class _FoodTileState extends State<MenuCard> {
               .push(
               MaterialPageRoute(builder: (context) => Item(
                   food: widget.food,
-                selectedPage: widget.selectedPage,
-                sliding: widget.sliding,
               ),)
           );
         },
@@ -137,11 +131,18 @@ class _FoodTileState extends State<MenuCard> {
                           Consumer<Cart>(builder: (context, cart, child) {
                             return IconButton(
                               onPressed: () {
-                                  if (widget.food.inCart)
+                                  if (widget.food.inCart){
                                     cart.delete(widget.food);
-                                  if (!widget.food.inCart) cart.add(widget.food);
+                                    widget.food.quantity=0;
+                                  }
+                                  if (!widget.food.inCart){
+                                    if(widget.food.quantity==0){
+                                      widget.food.quantity=1;
+                                    }
+                                    cart.add(widget.food);
+                                  }
                                   widget.food.inCart = !widget.food.inCart;
-                                },
+                              },
                               icon: Icon(
                                 (widget.food.inCart == false)
                                     ? Icons.add

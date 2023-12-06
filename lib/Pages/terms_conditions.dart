@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/core/theme/app_color/app_color.dart';
 
 class TermsConditions extends StatefulWidget {
-  final int selectedPage;
-  const TermsConditions({super.key,required this.selectedPage});
+  const TermsConditions({super.key});
 
   @override
   State<TermsConditions> createState() => _PrivacyPolicyState();
@@ -30,8 +28,7 @@ class _PrivacyPolicyState extends State<TermsConditions> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Main(selectedPage: widget.selectedPage,sliding: 0),));
+            Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
           style: ButtonStyle(

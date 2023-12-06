@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/Pages/Favorite.dart';
-import 'package:restaurant/Pages/Orders.dart';
+import 'package:restaurant/Pages/Orders/Pages/Orders_Page.dart';
 import 'package:restaurant/Pages/Profile.dart';
 import 'package:restaurant/Pages/about_us.dart';
-import 'package:restaurant/Pages/apearance.dart';
 import 'package:restaurant/Pages/cart.dart';
 import 'package:restaurant/Pages/privacy_policy.dart';
 import 'package:restaurant/Pages/terms_conditions.dart';
 import 'package:restaurant/core/theme/app_color/app_color.dart';
 
 class Settings extends StatefulWidget {
+  static bool darkMode=false;
   final int selectedPage;
   const Settings({super.key,required this.selectedPage});
 
@@ -48,9 +48,10 @@ class _SettingsState extends State<Settings> {
                 Tooltip(
                   message: 'Edit Profile',
                   child: InkWell(
+                    borderRadius: BorderRadius.circular(15),
                     onTap: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Profile(selectedPage: widget.selectedPage),)
+                          MaterialPageRoute(builder: (context) => Profile(),)
                       );
                     },
                     child: Ink(
@@ -62,12 +63,11 @@ class _SettingsState extends State<Settings> {
                 SizedBox(height: 15,),
 
                 InkWell(
+                  borderRadius: BorderRadius.circular(15),
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) =>
-                            Cart(selectedPage:widget.selectedPage,
-                              sliding: 0,
-                        ),)
+                        MaterialPageRoute(builder: (context) =>Cart(),
+                        )
                     );
                   },
                   child: Ink(
@@ -81,10 +81,11 @@ class _SettingsState extends State<Settings> {
                 SizedBox(height: 15,),
 
                 InkWell(
+                  borderRadius: BorderRadius.circular(15),
                   onTap: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) =>
-                            Orders(selectedPage: widget.selectedPage)
+                            OrdersPage()
                         )
                     );
                   },
@@ -99,10 +100,11 @@ class _SettingsState extends State<Settings> {
                 SizedBox(height: 15,),
 
                 InkWell(
+                  borderRadius: BorderRadius.circular(15),
                   onTap: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) =>
-                            Favorite(selectedPage: widget.selectedPage),
+                            Favorite(),
                         )
                     );
                   },
@@ -116,16 +118,43 @@ class _SettingsState extends State<Settings> {
 
                 SizedBox(height: 15,),
 
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Apearance(selectedPage: widget.selectedPage),)
-                    );
-                  },
-                  child: Ink(
-                    child: Tooltip(
-                      message: 'Edit Apearance',
-                      child: BuildContainer("Apearance", Icons.sunny)
+                Container(
+                  decoration: BoxDecoration(
+                      color: AppColorsLight.secondaryColor.shade200,
+                      borderRadius: BorderRadius.circular(15)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15.0,right: 15,bottom: 10,top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.sunny,color: AppColorsLight.primaryColor,size: 25),
+                            SizedBox(width: 10,),
+                            Text("Dark Mode",
+                                style: TextStyle(color: AppColorsLight.primaryColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500)
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: 30,
+                          child: Switch(
+                            overlayColor: MaterialStatePropertyAll(AppColorsLight.primaryColor),
+                              activeColor: AppColorsLight.primaryColor,
+                              thumbColor: MaterialStatePropertyAll(AppColorsLight.primaryColor),
+                              focusColor: AppColorsLight.primaryColor,
+                              value: Settings.darkMode,
+                              onChanged: (value) {
+                              setState(() {
+                                Settings.darkMode=value;
+                              });
+                              },
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -133,9 +162,10 @@ class _SettingsState extends State<Settings> {
                 SizedBox(height: 50,),
 
                 InkWell(
+                  borderRadius: BorderRadius.circular(15),
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => PrivacyPolicy(selectedPage: widget.selectedPage),)
+                        MaterialPageRoute(builder: (context) => PrivacyPolicy(),)
                     );
                   },
                   child: Ink(
@@ -149,9 +179,10 @@ class _SettingsState extends State<Settings> {
                 SizedBox(height: 15,),
 
                 InkWell(
+                  borderRadius: BorderRadius.circular(15),
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => TermsConditions(selectedPage: widget.selectedPage),)
+                        MaterialPageRoute(builder: (context) => TermsConditions(),)
                     );
                   },
                   child: Ink(
@@ -165,9 +196,10 @@ class _SettingsState extends State<Settings> {
                 SizedBox(height: 15,),
 
                 InkWell(
+                  borderRadius: BorderRadius.circular(15),
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => AboutUs(selectedPage: widget.selectedPage),)
+                        MaterialPageRoute(builder: (context) => AboutUs(),)
                     );
                   },
                   child: Ink(
@@ -186,7 +218,7 @@ class _SettingsState extends State<Settings> {
     );
   }
   Widget BuildContainer(String name,IconData icon){
-    return  Container(
+    return Container(
       decoration: BoxDecoration(
           color: AppColorsLight.secondaryColor.shade200,
           borderRadius: BorderRadius.circular(15)

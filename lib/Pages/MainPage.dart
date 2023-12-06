@@ -98,9 +98,9 @@ class _MainPageState extends State<MainPage> {
       ),
 
       MyADS(
-        food:  Food(name: "Mirinda",
+        food:  Food(name: "Spiro Apple",
             price: 6.50,
-            imagePath: "Images/Drinks/Mirinda.png",
+            imagePath: "Images/Drinks/SSApple.png",
             rating: 4.9,
             description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
             inStook: true
@@ -108,9 +108,9 @@ class _MainPageState extends State<MainPage> {
       ),
 
       MyADS(
-        food: Food(name: "Pepsi",
+        food: Food(name: "Spiro Lime",
             price: 8.50,
-            imagePath: "Images/Drinks/Pepsi.png",
+            imagePath: "Images/Drinks/SSLime.png",
             rating: 4.8,
             description: "Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption Desciption ",
             inStook: true
@@ -142,7 +142,7 @@ class _MainPageState extends State<MainPage> {
         ),
         actions: <Widget>[
           IconButton(onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Profile(selectedPage: widget.selectedPage),
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Profile(),
             )
             );
           }, icon: Icon(Icons.person,color: AppColorsLight.lightColor,))

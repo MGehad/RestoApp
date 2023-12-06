@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/core/theme/app_color/app_color.dart';
 
 class Profile extends StatefulWidget {
-  final int selectedPage;
-  const Profile({super.key,required this.selectedPage});
+  const Profile({super.key});
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -30,8 +28,7 @@ class _ProfileState extends State<Profile> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Main(selectedPage: widget.selectedPage,sliding: 0),));
+            Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
           style: ButtonStyle(

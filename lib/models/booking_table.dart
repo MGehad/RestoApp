@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
 
 class BookingTable{
-  static List<int> busyTables=[1,2,13,4];
+  static List<int> _busyTables=[1,4,7,11,18];
   static bool? isbook;
   static int? tableNumber;
   static int? numOfSeats;
   static DateTime? dateTime;
   static TimeOfDay? pickedHour;
-  static TextEditingController? tableName = TextEditingController(text: "Mohamed Gehad");
+  static TextEditingController? _tableName = TextEditingController(text: "Mohamed Gehad");
+  static String? _date;
+  static String? _startTime;
+  static String? _endTime;
+  static String? _name;
 
-  static bool? get _isbook => isbook;
-  static int? get _tableNumber => tableNumber;
-  static int? get _numOfSeats => numOfSeats;
-  static DateTime? get _dateTime => dateTime;
-  static TimeOfDay? get _pickedHour => pickedHour;
-  static TextEditingController? get _tableName => tableName;
+  static String? get date{
+    if(dateTime!=null){
+      _date= "${dateTime!.day}-${dateTime!.month}-${dateTime!.year}";
+    }
+    return _date;
+  }
+  static String? get startTime{
+    if(pickedHour!=null){
+      _startTime= "${pickedHour!.hour}:${pickedHour!.minute}";
+    }
+    return _startTime;
+  }
+  static String? get endTime{
+    if(pickedHour!=null){
+      _endTime= "${pickedHour!.hour+1}:${pickedHour!.minute}";
+    }
+    return _endTime;
+  }
+  static String? get name{
+    if(_tableName!=null){
+      _name= _tableName!.text;
+    }
+    return _name;
+  }
 
   static void clear(){
     isbook = null;
@@ -22,11 +44,11 @@ class BookingTable{
     numOfSeats = null;
     dateTime = null;
     pickedHour = null;
-    tableName = null;
+    _tableName = null;
   }
 
   static bool isAvailable(int table){
-    for(int x in busyTables){
+    for(int x in _busyTables){
       if(table == x)
         return false;
     }
@@ -54,7 +76,6 @@ class BookingTable{
 
     return card;
   }*/
-
 
 
 }

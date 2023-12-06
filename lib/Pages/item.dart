@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/Pages/cart.dart';
 import 'package:restaurant/models/favorite_list.dart';
 import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/food.dart';
 
 class Item extends StatefulWidget {
-  final int selectedPage;
-  final int sliding;
   final Food food;
-  const Item({super.key,required this.food,required this.selectedPage,required this.sliding});
+  const Item({super.key,required this.food});
 
   @override
   State<Item> createState() => _ItemState();
@@ -47,12 +44,7 @@ class _ItemState extends State<Item> {
           foregroundColor: AppColorsLight.primaryColor.shade900,
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context)
-                  .push(
-                  MaterialPageRoute(builder: (context) =>
-                      Main(selectedPage: widget.selectedPage,
-                      sliding: widget.sliding),)
-              );
+              Navigator.of(context).pop();
             },
             icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
             style: ButtonStyle(
@@ -61,11 +53,9 @@ class _ItemState extends State<Item> {
           ),
           actions: <Widget>[
             IconButton(onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(context)
-                  .pushReplacement(
+              Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) =>
-                      Cart(selectedPage: widget.selectedPage,sliding: widget.sliding),)
+                      Cart(),)
               );
             },
               icon: Icon(Icons.shopping_cart_outlined,),

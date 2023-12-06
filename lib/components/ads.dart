@@ -19,15 +19,16 @@ class MyADS extends StatefulWidget {
 class _MyADSState extends State<MyADS> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.of(context)
-            .push(
-            MaterialPageRoute(builder: (context) => Item(food: widget.food,selectedPage: 0,sliding: 0),)
-        );
-      },
-      child: Ink(
-        child: Center(
+    return Center(
+      child: InkWell(
+        borderRadius:BorderRadius.circular(20),
+        onTap: () {
+          Navigator.of(context)
+              .push(
+              MaterialPageRoute(builder: (context) => Item(food: widget.food),)
+          );
+        },
+        child: Ink(
           child: Container(
             height:MediaQuery.of(context).size.height*0.25,
             padding: EdgeInsets.symmetric(vertical: 25,horizontal: 20),
@@ -43,8 +44,9 @@ class _MyADSState extends State<MyADS> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("${widget.food.name}",style: GoogleFonts.aladin(
-                        color: Colors.white,
+                    Text("${widget.food.name}",
+                        style: GoogleFonts.aladin(
+                        color: AppColorsLight.lightColor,
                         fontSize: 30,
                         fontWeight: FontWeight.w600
                     )),
@@ -52,13 +54,14 @@ class _MyADSState extends State<MyADS> {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          color:AppColorsLight.primaryColor.shade300,
-                          borderRadius: BorderRadius.circular(5)
+                            color:AppColorsLight.primaryColor.shade300,
+                            borderRadius: BorderRadius.circular(5)
                         ),
                         width: MediaQuery.of(context).size.width*0.3,
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text(" Try ${widget.food.description}%",style: GoogleFonts.aBeeZee(
+                          child: Text(" Try ${widget.food.description}%",
+                              style: GoogleFonts.aBeeZee(
                               color: Colors.white,
                               fontSize: 5,
                               fontWeight: FontWeight.w600
@@ -71,7 +74,7 @@ class _MyADSState extends State<MyADS> {
 
                 Container(
                   width: MediaQuery.of(context).size.width*0.3,
-                    child: Image.asset(widget.food.imagePath,fit: BoxFit.contain),
+                  child: Image.asset(widget.food.imagePath,fit: BoxFit.contain),
                 ),
               ],
             ),

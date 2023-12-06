@@ -7,12 +7,10 @@ import 'package:restaurant/models/food.dart';
 
 class CartCard extends StatefulWidget {
   final Function update;
-  final int selectedPage;
   final Food food;
   const CartCard({
     super.key,
     required this.food,
-    required this.selectedPage,
     required this.update
   });
 
@@ -30,10 +28,7 @@ class _FoodTileState extends State<CartCard> {
         onTap: () {
           Navigator.of(context)
               .push(
-              MaterialPageRoute(builder: (context) => Item(food: widget.food,
-                  selectedPage:widget.selectedPage,
-                sliding: 0,
-              ),)
+              MaterialPageRoute(builder: (context) => Item(food: widget.food,),)
           );
         },
         child: Ink(

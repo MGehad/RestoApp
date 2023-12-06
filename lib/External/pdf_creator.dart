@@ -26,7 +26,7 @@ Future<void> PdfGenerator(BuildContext context) async {
                   pw.Column(
                       children: [
                         pw.SizedBox(height: 110),
-                        pw.Text(BookingTable.tableName!.text,
+                        pw.Text(BookingTable.name!,
                         style: pw.TextStyle(
                             fontWeight: pw.FontWeight.bold,
                           fontSize: 8

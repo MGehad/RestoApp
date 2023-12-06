@@ -4,17 +4,27 @@ class CartList{
   static List<Food> _items = [];
   static double _price = 0.0;
   static double _oldPrice = 0.0;
+  static double? _descount;
+  static String coupon = "Resto";
+  static bool? couponstate;
 
   static void add(Food item){
-    _items.add(item);
-    _price += item.price*item.quantity;
-    _oldPrice += item.price*item.quantity;
+    int len = _items.length;
+       for(Food x in _items){
+         if(item.name == x.name
+         && item.description == x.description
+         && item.rating == x.rating){
+           x.quantity+=item.quantity;
+           return;
+         }
+       }
+      if(len == _items.length){
+       _items.add(item);
+     }
   }
 
   static void delete(Food item){
     _items.remove(item);
-    _price-=item.price*item.quantity;
-    _oldPrice-=item.price*item.quantity;
   }
 
   static int get count{
@@ -22,9 +32,20 @@ class CartList{
   }
 
   static double get totalPrice{
+    _price=0.0;
+    for(Food x in _items){
+      _price += x.price*x.quantity;
+    }
+    if(couponstate==true&&_descount!=null){
+      _price=_price-(_price/_descount!);
+    }
     return _price;
   }
   static double get oldTotalPrice{
+    _oldPrice=0.0;
+    for(Food x in _items){
+      _oldPrice+=x.price*x.quantity;
+    }
     return _oldPrice;
   }
 
@@ -37,8 +58,9 @@ class CartList{
     _price = 0.0;
   }
 
-  static updatePrice(double price){
-    _price = price;
+  static updatePrice(double descount){
+    _descount = descount;
+    couponstate = true;
   }
 
 }

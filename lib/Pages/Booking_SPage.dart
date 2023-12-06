@@ -71,7 +71,7 @@ class _BookingSPageState extends State<BookingSPage> {
                       borderRadius: BorderRadius.circular(15)
                   ),
                   child: TextField(
-                    controller: BookingTable.tableName,
+                    controller: TextEditingController(text: BookingTable.name),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Table Name',

@@ -31,8 +31,6 @@ class _MostPopularCardState extends State<MostPopularCard> {
               .push(
               MaterialPageRoute(builder: (context) => Item(
                   food: widget.food,
-                  selectedPage: widget.selectedPage,
-                sliding: 0,
               ),)
           );
         },

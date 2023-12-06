@@ -2,18 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant/Pages/Main.dart';
 import 'package:restaurant/components/cart_card.dart';
 import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/cart_list.dart';
 import 'package:restaurant/models/food.dart';
 
 class Cart extends StatefulWidget with ChangeNotifier{
-  final int selectedPage;
-  final int sliding;
   final List<Food> _items = CartList.items;
   double _price = CartList.totalPrice;
-  Cart({super.key,required this.selectedPage,required this.sliding});
+  Cart({super.key});
 
   void add(Food item){
     CartList.add(item);
@@ -60,8 +57,7 @@ class _CartState extends State<Cart>{
     ),
     leading: IconButton(
     onPressed: () {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Main(selectedPage: widget.selectedPage,sliding: widget.sliding),));
+    Navigator.of(context).pop();
     },
     icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
       style: ButtonStyle(
@@ -79,7 +75,6 @@ class _CartState extends State<Cart>{
           itemCount: CartList.items.length,
           itemBuilder: (context, index) => CartCard(
             food: CartList.items[index],
-            selectedPage: widget.selectedPage,
             update: update,
           ),
           ),
@@ -148,7 +143,7 @@ class _CartState extends State<Cart>{
                                 fontSize: 20,
                               ),
                             ),
-                            Text("${CartList.totalPrice}",
+                            Text("${CartList.totalPrice.toStringAsFixed(2)}",
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 20,
                                 color: AppColorsLight.lightColor,
@@ -309,6 +304,7 @@ class _CartState extends State<Cart>{
                                             CartList.clear();
                                           });
                                           print("onSuccess: $params");
+                                          Navigator.of(context).pop();
                                         },
                                         onError: (error) {
                                           print("onError: $error");
@@ -545,7 +541,6 @@ class _CartState extends State<Cart>{
       ),
     );
   }
-  String couponCheck = "Resto";
   TextEditingController? coupon = TextEditingController();
   Future<void> openCoupon(BuildContext context) async {
     await showDialog(
@@ -582,8 +577,7 @@ class _CartState extends State<Cart>{
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
-              if(coupon!.text!=couponCheck){
+              if(coupon!.text!=CartList.coupon){
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(
                   backgroundColor: AppColorsLight
@@ -597,7 +591,7 @@ class _CartState extends State<Cart>{
                       style: TextStyle(
                           fontWeight: FontWeight.bold)),
                 ));
-              }else if(CartList.totalPrice!=CartList.oldTotalPrice){
+              }else if(CartList.totalPrice!=CartList.oldTotalPrice||CartList.couponstate==true){
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(
                   backgroundColor: AppColorsLight
@@ -612,8 +606,10 @@ class _CartState extends State<Cart>{
                           fontWeight: FontWeight.bold)),
                 ));
               }else{
-                CartList.updatePrice((CartList.totalPrice-(CartList.totalPrice/10)));
+                CartList.updatePrice(10);
               }
+              update();
+              Navigator.of(context).pop();
             },
             child: Text(
               "Save",
