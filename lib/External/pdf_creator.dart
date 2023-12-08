@@ -1,16 +1,27 @@
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:restaurant/models/booking_table.dart';
 
+
 Future<void> PdfGenerator(BuildContext context) async {
   final Uint8List imageData =
   (await rootBundle.load('Images/Receipt/Receipt.jpg')).buffer.asUint8List();
 
+  // final String qrData = 'Your QR code data here';
+  // final QrImageView qrImage = QrImageView(
+  //   data: qrData,
+  //   version: QrVersions.auto,
+  //   size: 300.0,
+  // );
+
   final pdf = pw.Document();
+
   pdf.addPage(
     pw.Page(
       pageFormat: PdfPageFormat.roll80,
@@ -73,3 +84,8 @@ Future<void> PdfGenerator(BuildContext context) async {
   final pdfSaved = await pdf.save();
   await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdfSaved);
 }
+
+
+
+
+

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:restaurant/External/pdf_creator.dart';
 import 'package:restaurant/Pages/Booking_SPage.dart';
 import 'package:restaurant/core/theme/app_color/app_color.dart';
@@ -58,13 +59,25 @@ class _BookingState extends State<Booking> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(
-                          child: Text("Your Table is Booked",
-                            style: GoogleFonts.aladin(
-                              color: AppColorsLight.primaryColor,
-                              fontSize: 38,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Your Table is Booked",
+                              style: GoogleFonts.aladin(
+                                color: AppColorsLight.primaryColor,
+                                fontSize: 35,
+                              ),
                             ),
-                          ),
+                            IconButton(
+                              onPressed: () {
+                                openQr(context);
+                              },
+                              icon: Icon(
+                                Icons.qr_code,
+                                color: AppColorsLight.primaryColor,
+                              ),
+                            ),
+                          ],
                         ),
                         Card(
                           child: Container(
@@ -270,7 +283,6 @@ class _BookingState extends State<Booking> {
                                         color: AppColorsLight.lightColor,
                                       ),
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -305,7 +317,7 @@ class _BookingState extends State<Booking> {
                                   ],
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         )
                       ],
@@ -453,6 +465,27 @@ class _BookingState extends State<Booking> {
       ),
     );
   }
-
-
+  Future<void> openQr(BuildContext context) async {
+    final qrData = "${BookingTable.name}#"
+        "${BookingTable.tableNumber}#"
+        "${BookingTable.numOfSeats}#"
+        "${BookingTable.date}#"
+        "${BookingTable.startTime}#"
+        "${BookingTable.endTime}#";
+    showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            content: Container(
+              width: 300.0,
+              height: 300.0,
+              child: QrImageView(
+                data: qrData,
+                version: QrVersions.auto,
+                size: 300.0,
+              ),
+            )
+          ),
+    );
+  }
 }
