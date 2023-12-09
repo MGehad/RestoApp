@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurant/Pages/Booking_Confirm.dart';
-import 'package:restaurant/Pages/First.dart';
 import 'package:restaurant/Pages/Main.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/booking_table.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class BookingSPage extends StatefulWidget {
   final int selectedPage;
@@ -48,7 +47,7 @@ class _BookingSPageState extends State<BookingSPage> {
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Main(selectedPage: widget.selectedPage,sliding: 0),));
+              builder: (context) => HomePage(selectedPage: widget.selectedPage,sliding: 0),));
           },
           icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
           style: ButtonStyle(

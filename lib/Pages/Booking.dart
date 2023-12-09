@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:restaurant/External/pdf_creator.dart';
+import 'package:restaurant/External/Booking_Pdf.dart';
 import 'package:restaurant/Pages/Booking_SPage.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/booking_table.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class Booking extends StatefulWidget {
   const Booking({Key? key}) : super(key: key);
@@ -465,6 +465,7 @@ class _BookingState extends State<Booking> {
       ),
     );
   }
+
   Future<void> openQr(BuildContext context) async {
     final qrData = "${BookingTable.name}#"
         "${BookingTable.tableNumber}#"

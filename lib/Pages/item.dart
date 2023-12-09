@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/Pages/cart.dart';
+import 'package:restaurant/Pages/Cart.dart';
 import 'package:restaurant/models/favorite_list.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/food.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class Item extends StatefulWidget {
   final Food food;

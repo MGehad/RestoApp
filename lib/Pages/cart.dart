@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/components/cart_card.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/cart_list.dart';
 import 'package:restaurant/models/food.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class Cart extends StatefulWidget with ChangeNotifier{
   final List<Food> _items = CartList.items;

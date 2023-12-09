@@ -5,27 +5,28 @@ import 'package:restaurant/Pages/Booking.dart';
 import 'package:restaurant/Pages/MainPage.dart';
 import 'package:restaurant/Pages/Menu.dart';
 import 'package:restaurant/Pages/Settings.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
+import 'package:restaurant/theme/app_color.dart';
 
-class First extends StatefulWidget {
+class FirstPage extends StatefulWidget {
   int selectedPage;
   int sliding;
-  First({super.key,
+  FirstPage({super.key,
     required this.selectedPage,
   required this.sliding});
 
   @override
-  State<First> createState() => _MainState();
+  State<FirstPage> createState() => _FirstPageState();
 
 }
 
-class _MainState extends State<First> {
+class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
+          height: MediaQuery.of(context).size.height*0.09,
           backgroundColor: Colors.transparent,
             color: AppColorsLight.primaryColor,
             animationDuration: Duration(milliseconds: 400),

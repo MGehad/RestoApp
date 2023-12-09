@@ -32,12 +32,12 @@ class Food{
         FoodList.add(
             Food(
           name: data[i]['name'],
-          description: data[i]['description'],
-          rating: data[i]['rating'],
           price: data[i]['price'],
-          inStook: data[i]['inStook'],
           imagePath: data[i]['imagePath'],
-        )
+              rating: data[i]['rating'],
+              description: data[i]['description'],
+              inStook: data[i]['inStook'],
+            )
         );
       } catch (err) {
         print(err);

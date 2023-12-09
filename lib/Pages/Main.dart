@@ -1,29 +1,32 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/Pages/First.dart';
-import 'package:restaurant/Pages/cart.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
+import 'package:restaurant/Pages/First_Page.dart';
+import 'package:restaurant/Pages/Cart.dart';
+import 'package:restaurant/theme/app_color.dart';
 
-class Main extends StatefulWidget {
+void main() {
+  runApp(HomePage(selectedPage: 0,sliding: 0,));
+}
+
+
+class HomePage extends StatefulWidget {
   int selectedPage;
   int sliding;
-  Main({super.key,required this.selectedPage,required this.sliding});
+  HomePage({super.key,required this.selectedPage,required this.sliding});
   @override
-  State<Main> createState() => _MainState();
+  State<HomePage> createState() => _HomePageState();
 
 }
 
-class _MainState extends State<Main> {
-
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(create: (context) => Cart(),
       child: MaterialApp(
-        home: First(selectedPage: widget.selectedPage,sliding: widget.sliding),
+        home: FirstPage(selectedPage: widget.selectedPage,sliding: widget.sliding),
         theme: getThemeDataLight(),
       ),
     );
   }
-
 }

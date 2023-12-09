@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/Pages/Orders/Pages/CompletedPage.dart';
 import 'package:restaurant/Pages/Orders/Pages/pendingPage.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class OrdersPage extends StatelessWidget {
   @override

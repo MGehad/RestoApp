@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:restaurant/Pages/First.dart';
+import 'package:restaurant/Pages/First_Page.dart';
 import 'package:restaurant/Pages/Profile.dart';
 import 'package:restaurant/components/ads.dart';
 import 'package:restaurant/components/most_popular_card.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/food.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class MainPage extends StatefulWidget {
   final int selectedPage;
@@ -162,7 +162,6 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
                   Padding(
                     padding: const EdgeInsets.only(left:15.0,right: 15.0),
                     child: SizedBox(
@@ -316,7 +315,6 @@ class _MainPageState extends State<MainPage> {
                       )
                     ],
                   )
-
                 ],
             ),
           ],
@@ -332,7 +330,7 @@ class _MainPageState extends State<MainPage> {
         setState(() {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => First(selectedPage: 1, sliding: menuIndex)
+              builder: (context) => FirstPage(selectedPage: 1, sliding: menuIndex)
             ),
           );
         });

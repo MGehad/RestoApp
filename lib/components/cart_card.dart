@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant/Pages/item.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
 import 'package:restaurant/models/cart_list.dart';
 import 'package:restaurant/models/food.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class CartCard extends StatefulWidget {
   final Function update;

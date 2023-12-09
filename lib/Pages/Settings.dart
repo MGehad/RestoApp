@@ -5,10 +5,10 @@ import 'package:restaurant/Pages/Favorite.dart';
 import 'package:restaurant/Pages/Orders/Pages/Orders_Page.dart';
 import 'package:restaurant/Pages/Profile.dart';
 import 'package:restaurant/Pages/about_us.dart';
-import 'package:restaurant/Pages/cart.dart';
+import 'package:restaurant/Pages/Cart.dart';
 import 'package:restaurant/Pages/privacy_policy.dart';
 import 'package:restaurant/Pages/terms_conditions.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class Settings extends StatefulWidget {
   static bool darkMode=false;

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant/core/theme/app_color/app_color.dart';
+import 'package:restaurant/theme/app_color.dart';
 
 class PrivacyPolicy extends StatefulWidget {
   const PrivacyPolicy({super.key});

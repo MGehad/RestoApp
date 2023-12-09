@@ -7,7 +7,7 @@ class BookingTable{
   static int? numOfSeats;
   static DateTime? dateTime;
   static TimeOfDay? pickedHour;
-  static TextEditingController? _tableName = TextEditingController(text: "Mohamed Gehad");
+  static TextEditingController? _tableName = TextEditingController(text:"Mohamed Gehad");
   static String? _date;
   static String? _startTime;
   static String? _endTime;
@@ -54,29 +54,6 @@ class BookingTable{
     }
     return true;
   }
-
-
-  /*static toList(List<dynamic> data) {
-    List<BookingTable> card = [];
-    for (int i = 0; i < data.length; i++) {
-      try {
-        card.add(
-            BookingTable(
-              numOfSeats: data[i]['numOfSeats'],
-              dateTime: data[i]['dateTime'],
-              isbook: data[i]['isbook'],
-              pickedHour: data[i]['pickedHour'],
-              tableNumber: data[i]['tableNumber'],
-            )
-        );
-      } catch (err) {
-        print(err);
-      }
-    }
-
-    return card;
-  }*/
-
 
 }
 
