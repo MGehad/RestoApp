@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurant/Pages/Booking_Confirm.dart';
-import 'package:restaurant/Pages/Main.dart';
+import 'package:restaurant/main.dart';
 import 'package:restaurant/models/booking_table.dart';
 import 'package:restaurant/theme/app_color.dart';
 
@@ -100,6 +100,7 @@ class _BookingSPageState extends State<BookingSPage> {
                       borderRadius: BorderRadius.circular(15)
                   ),
                   child: TextFormField(
+                    keyboardType: TextInputType.datetime,
                     controller: TextEditingController(
                         text: (BookingTable.pickedHour!=null)?"${BookingTable.pickedHour!.hour}:${BookingTable.pickedHour!.minute}":""
                     ),

@@ -19,4 +19,8 @@ class FavoriteList{
     return _items;
   }
 
+  static clear(){
+    _items.clear();
+  }
+
 }

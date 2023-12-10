@@ -55,7 +55,7 @@ class _SettingsState extends State<Settings> {
                       );
                     },
                     child: Ink(
-                      child: BuildContainer("Profile", Icons.person)
+                        child: BuildContainer("Profile", Icons.person)
                     ),
                   ),
                 ),
@@ -72,8 +72,8 @@ class _SettingsState extends State<Settings> {
                   },
                   child: Ink(
                     child:  Tooltip(
-                      message: 'Go To Cart',
-                      child: BuildContainer("My Cart", Icons.shopping_cart)
+                        message: 'Go To Cart',
+                        child: BuildContainer("My Cart", Icons.shopping_cart)
                     ),
                   ),
                 ),
@@ -110,8 +110,8 @@ class _SettingsState extends State<Settings> {
                   },
                   child: Ink(
                     child:  Tooltip(
-                      message: 'Go To My Favorites',
-                      child: BuildContainer("My Favorites", Icons.favorite)
+                        message: 'Go To My Favorites',
+                        child: BuildContainer("My Favorites", Icons.favorite)
                     ),
                   ),
                 ),
@@ -143,15 +143,15 @@ class _SettingsState extends State<Settings> {
                           height: 30,
                           child: Switch(
                             overlayColor: MaterialStatePropertyAll(AppColorsLight.primaryColor),
-                              activeColor: AppColorsLight.primaryColor,
-                              thumbColor: MaterialStatePropertyAll(AppColorsLight.primaryColor),
-                              focusColor: AppColorsLight.primaryColor,
-                              value: Settings.darkMode,
-                              onChanged: (value) {
+                            activeColor: AppColorsLight.primaryColor,
+                            thumbColor: MaterialStatePropertyAll(AppColorsLight.primaryColor),
+                            focusColor: AppColorsLight.primaryColor,
+                            value: Settings.darkMode,
+                            onChanged: (value) {
                               setState(() {
                                 Settings.darkMode=value;
                               });
-                              },
+                            },
                           ),
                         )
                       ],
@@ -170,8 +170,8 @@ class _SettingsState extends State<Settings> {
                   },
                   child: Ink(
                     child: Tooltip(
-                      message: 'Read Privacy Policy',
-                      child: BuildContainer("Privacy Policy", Icons.contact_page_outlined)
+                        message: 'Read Privacy Policy',
+                        child: BuildContainer("Privacy Policy", Icons.contact_page_outlined)
                     ),
                   ),
                 ),
@@ -187,8 +187,8 @@ class _SettingsState extends State<Settings> {
                   },
                   child: Ink(
                     child: Tooltip(
-                      message: 'Read Terms & Conditions',
-                      child: BuildContainer("Terms & Conditions", Icons.contact_page)
+                        message: 'Read Terms & Conditions',
+                        child: BuildContainer("Terms & Conditions", Icons.contact_page)
                     ),
                   ),
                 ),
@@ -204,8 +204,8 @@ class _SettingsState extends State<Settings> {
                   },
                   child: Ink(
                     child: Tooltip(
-                      message: 'About Us',
-                      child: BuildContainer("About Us", Icons.question_mark_outlined)
+                        message: 'About Us',
+                        child: BuildContainer("About Us", Icons.question_mark_outlined)
                     ),
                   ),
                 ),

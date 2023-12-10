@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant/components/favorite_card.dart';
 import 'package:restaurant/models/favorite_list.dart';
-import 'package:restaurant/components/menu_card.dart';
 import 'package:restaurant/theme/app_color.dart';
 
 class Favorite extends StatefulWidget {
@@ -13,6 +13,9 @@ class Favorite extends StatefulWidget {
 }
 
 class _FavoriteState extends State<Favorite> {
+  void update(){
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +24,7 @@ class _FavoriteState extends State<Favorite> {
         elevation: 0,
         title:
         Text(
-            "Favroite",
+            "Favorite",
             style: GoogleFonts.aladin(
               color: AppColorsLight.primaryColor,
               fontSize: 45,
@@ -36,18 +39,34 @@ class _FavoriteState extends State<Favorite> {
               backgroundColor: MaterialStateProperty.all(Colors.transparent)
           ),
         ),
+        actions: [
+          Tooltip(
+            message: 'Delete All',
+            child: IconButton(
+              onPressed: () {
+                FavoriteList.clear();
+                update();
+              },
+              icon: Icon(Icons.delete_sweep,
+                  color: AppColorsLight.primaryColor,
+                size: 30,
+              ),
+            ),
+          )
+        ],
       ),
 
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: FavoriteList.items.length,
-        itemBuilder: (context, index) => MenuCard(
+        itemBuilder: (context, index) => FavoriteCard(
           food: FavoriteList.items[index],
+          update: update,
         ),
       ),
     );
-    }
   }
+}
 
 
 

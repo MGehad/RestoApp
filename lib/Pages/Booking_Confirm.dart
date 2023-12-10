@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurant/Pages/First_Page.dart';
-import 'package:restaurant/Pages/Main.dart';
+import 'package:restaurant/main.dart';
 import 'package:restaurant/models/booking_table.dart';
 import 'package:restaurant/theme/app_color.dart';
 
@@ -198,11 +198,10 @@ class _BookingConfirmState extends State<BookingConfirm> {
 
                     },
                   ),
-                  content: Text("This Table Is Busy At This Time",style: TextStyle(fontWeight: FontWeight.bold)),
+                  content: Text("This Table Is Busy At This Time",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 )
             );
-            BookingTable.tableNumber = null;
-            BookingTable.numOfSeats = null;
           }else{
             _selected = index;
             BookingTable.tableNumber = index;
@@ -222,15 +221,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
             width: MediaQuery.of(context).size.width*0.2,
             child: Stack(
               children: [
-                Center(child: Image.asset(imagePath)),
-                if(!BookingTable.isAvailable(index))
-                Center(
-                  child: Icon(
-                    Icons.not_interested_rounded,
-                    color:AppColorsLight.secondaryColor.shade500,
-                    size: MediaQuery.of(context).size.width*0.2,
-                  ),
-                ),
+                Center(child:Image.asset(imagePath)),
                 Center(
                   child: Text(
                     seatCount.toString(),
@@ -240,6 +231,17 @@ class _BookingConfirmState extends State<BookingConfirm> {
                     ),
                   ),
                 ),
+                if((!BookingTable.isAvailable(index)))
+                Center(
+                  child: Container(
+                    height: MediaQuery.of(context).size.width*0.2,
+                    width: MediaQuery.of(context).size.width*0.2,
+                    decoration: BoxDecoration(
+                        color: AppColorsLight.primaryColor.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width*0.2)
+                    ),
+                  ),
+                )
               ],
             ),
           ),
