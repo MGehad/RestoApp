@@ -27,7 +27,6 @@ class _BookingConfirmState extends State<BookingConfirm> {
 
   @override
   Widget build(BuildContext context) {
-
     TimeOfDay? pickedHour;
 
     final TextEditingController _date = TextEditingController();
