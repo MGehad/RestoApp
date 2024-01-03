@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:restaurant/Pages/Booking_Confirm.dart';
+import 'package:restaurant/Pages/Booking/Booking_Confirm.dart';
 import 'package:restaurant/main.dart';
 import 'package:restaurant/models/booking_table.dart';
 import 'package:restaurant/theme/app_color.dart';
@@ -16,9 +16,6 @@ class BookingSPage extends StatefulWidget {
 }
 
 class _BookingSPageState extends State<BookingSPage> {
-  int _selected1 = 0;
-  int _selected2 = 0;
-
   BoxDecoration dec1 = BoxDecoration(
     color: AppColorsLight.primaryColor,
     shape: BoxShape.circle,
@@ -138,7 +135,7 @@ class _BookingSPageState extends State<BookingSPage> {
                   if(BookingTable.pickedHour!=null) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) =>BookingConfirm(selectedPage:widget.selectedPage)
+                          builder: (context) => BookingConfirm(selectedPage:widget.selectedPage)
                       ),
                     );
                   }else{

@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:restaurant/Pages/First_Page.dart';
-import 'package:restaurant/Pages/Profile.dart';
+import 'package:restaurant/Pages/Settings/Profile.dart';
 import 'package:restaurant/components/ads.dart';
 import 'package:restaurant/components/most_popular_card.dart';
 import 'package:restaurant/models/food.dart';

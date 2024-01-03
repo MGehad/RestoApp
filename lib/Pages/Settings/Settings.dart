@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant/Pages/Favorite.dart';
-import 'package:restaurant/Pages/Orders/Pages/Orders_Page.dart';
-import 'package:restaurant/Pages/Profile.dart';
-import 'package:restaurant/Pages/about_us.dart';
-import 'package:restaurant/Pages/Cart.dart';
-import 'package:restaurant/Pages/privacy_policy.dart';
-import 'package:restaurant/Pages/terms_conditions.dart';
+import 'package:restaurant/Pages/Settings/Favorite.dart';
+import 'package:restaurant/Pages/Settings/Profile.dart';
+import 'package:restaurant/Pages/Settings/about_us.dart';
+import 'package:restaurant/Pages/Settings/Cart.dart';
+import 'package:restaurant/Pages/Settings/privacy_policy.dart';
+import 'package:restaurant/Pages/Settings/terms_conditions.dart';
 import 'package:restaurant/theme/app_color.dart';
 
 class Settings extends StatefulWidget {
@@ -74,25 +73,6 @@ class _SettingsState extends State<Settings> {
                     child:  Tooltip(
                         message: 'Go To Cart',
                         child: BuildContainer("My Cart", Icons.shopping_cart)
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: 15,),
-
-                InkWell(
-                  borderRadius: BorderRadius.circular(15),
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) =>
-                            OrdersPage()
-                        )
-                    );
-                  },
-                  child: Ink(
-                    child:  Tooltip(
-                        message: 'Go To My Orders',
-                        child: BuildContainer("My Orders", Icons.shop)
                     ),
                   ),
                 ),

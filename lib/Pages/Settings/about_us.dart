@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../theme/app_color.dart';
+import '../../../theme/app_color.dart';
 
 class AboutUs extends StatefulWidget {
   const AboutUs({super.key});

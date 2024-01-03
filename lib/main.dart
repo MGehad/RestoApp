@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/Pages/First_Page.dart';
-import 'package:restaurant/Pages/Cart.dart';
+import 'package:restaurant/Pages/Settings/Cart.dart';
 import 'package:restaurant/theme/app_color.dart';
 
 void main() {

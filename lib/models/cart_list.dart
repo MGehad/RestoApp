@@ -1,4 +1,6 @@
 import 'package:restaurant/models/food.dart';
+import 'package:restaurant/models/order.dart';
+import 'package:restaurant/models/order_list.dart';
 
 class CartList{
   static List<Food> _items = [];
@@ -10,17 +12,17 @@ class CartList{
 
   static void add(Food item){
     int len = _items.length;
-       for(Food x in _items){
-         if(item.name == x.name
-         && item.description == x.description
-         && item.rating == x.rating){
-           x.quantity+=item.quantity;
-           return;
-         }
-       }
-      if(len == _items.length){
-       _items.add(item);
-     }
+    for(Food x in _items){
+      if(item.name == x.name
+          && item.description == x.description
+          && item.rating == x.rating){
+        x.quantity+=item.quantity;
+        return;
+      }
+    }
+    if(len == _items.length){
+      _items.add(item);
+    }
   }
 
   static void delete(Food item){
@@ -51,6 +53,22 @@ class CartList{
 
   static List<Food> get items{
     return _items;
+  }
+
+  static order() {
+    List<Food> _itemsCopy = List.from(_items);
+    OrderList.add(
+        OrderData(
+            orderId: _itemsCopy.length*5,
+            longitudeAddress: 50,
+            latitudeAddress: 70,
+            dateOfOrder: DateTime.now().toString(),
+            deliveryStatus: 0,
+            items: _itemsCopy,
+            totalPrice: _price
+        )
+    );
+    clear();
   }
 
   static clear(){

@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/Pages/Cart.dart';
+import 'package:restaurant/Pages/Settings/Cart.dart';
 import 'package:restaurant/components/menu_card.dart';
 import 'package:restaurant/models/cart_list.dart';
 import 'package:restaurant/models/food.dart';
 import 'package:restaurant/theme/app_color.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class Menu extends StatefulWidget {
 
@@ -31,8 +29,6 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-
-    final Future<List<Food>> list = fetchFoodData("http://localhost:3000/RESTO");
 
     Future<void> _refresh() async{
       return await Future.delayed(Duration(seconds: 1));
@@ -233,7 +229,7 @@ class _MenuState extends State<Menu> {
           inStook: true
       ),
     ];
-    final List appetizersMenu = [
+    final List dessertsMenu = [
       Food(name: "Apple Pie",
           price: 10.50,
           imagePath: "Images/Appetizers/ApplePie.png",
@@ -298,6 +294,11 @@ class _MenuState extends State<Menu> {
           inStook: true
       ),
     ];
+    final List allMenu = [];
+    allMenu.addAll(chickenMenu);
+    allMenu.addAll(meatMenu);
+    allMenu.addAll(drinksMenu);
+    allMenu.addAll(dessertsMenu);
 
     return Scaffold(
       backgroundColor: AppColorsLight.lightColor,
@@ -394,27 +395,31 @@ class _MenuState extends State<Menu> {
                   backgroundColor: Colors.transparent,
                   thumbColor: AppColorsLight.primaryColor.shade600,
                   children: {
-                    0: Text("Chicken",style: GoogleFonts.alata(
+                    0: Text("All",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
                       color: AppColorsLight.lightColor,
                     ),),
-                    1: Text("Meat",style: GoogleFonts.alata(
+                    1: Text("Chicken",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
                       color: AppColorsLight.lightColor,
                     ),),
-                    2: Text("Drinks",style: GoogleFonts.alata(
+                    2: Text("Meat",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
                       color: AppColorsLight.lightColor,
                     ),),
-                    3: Text("Appetizers",style: GoogleFonts.alata(
+                    3: Text("Drinks",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
                       color: AppColorsLight.lightColor,
                     ),),
-
+                    4: Text("Desserts",style: GoogleFonts.alata(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      color: AppColorsLight.lightColor,
+                    ),),
                   },
                   groupValue:widget.sliding ,
                   onValueChanged: (value) {
@@ -429,6 +434,19 @@ class _MenuState extends State<Menu> {
             SizedBox(height: 5,),
 
             <Widget>[
+              Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*0.69 ,
+                  child: //buildCategory(list)
+                  ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: allMenu.length,
+                    itemBuilder: (context, index) => MenuCard(
+                      food: allMenu[index],
+                    ),
+                  ),
+                ),
+              ),
               Center(
                 child: Container(
                   height: MediaQuery.of(context).size.height*0.69 ,
@@ -474,106 +492,17 @@ class _MenuState extends State<Menu> {
                   child:  // buildCategory(list)
                   ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: appetizersMenu.length,
+                    itemCount: dessertsMenu.length,
                     itemBuilder: (context, index) => MenuCard(
-                      food: appetizersMenu[index],
+                      food: dessertsMenu[index],
                     ),
                   ),
                 ),
               ),
             ][widget.sliding],
-
           ],
         ),
       ),
     );
   }
-  Widget buildCategory(Future<List<Food>> list){
-    return FutureBuilder<List<Food>>(
-      future: list,
-      builder: (context, snapshot) {
-        if(snapshot.connectionState == ConnectionState.waiting){
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if(snapshot.hasError){
-          return Center(
-            child: Text("Error: ${snapshot.error}"), // Displaying specific error message
-          );
-        } else if(snapshot.hasData){
-          return ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) => MenuCard(
-              food: snapshot.data![index],
-            ),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(), // Showing a generic loading indicator
-          );
-        }
-      },
-    );
-  }
-
-  Future<List<Food>> fetchFoodData(String link) async {
-    final response =
-    await http.get(Uri.parse(link));
-
-    if (response.statusCode == 200) {
-      return Food.toList(jsonDecode(response.body));
-    } else {
-      throw Exception('faild to fetch food card data');
-    }
-  }
-
-  Future<void> sendFoodData(Food dataObj,String link) async {
-    final response = await http.post(
-      Uri.parse(link),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'name': dataObj.name,
-        'inStook': dataObj.inStook.toString(),
-        'description': dataObj.description.toString(),
-        'rating': dataObj.rating.toString(),
-        'price': dataObj.price.toString(),
-        'imagePath': dataObj.imagePath,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-    } else {
-      throw Exception('faild to send food card data');
-    }
-  }
-
-  Future<void> updateFoodData(
-      Food dataObj, func(String errMsg),String link) async {
-    final response = await http.put(
-      Uri.parse(
-          '$link${dataObj.name.toString()}'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'name': dataObj.name,
-        'inStook': dataObj.inStook.toString(),
-        'description': dataObj.description.toString(),
-        'rating': dataObj.rating.toString(),
-        'price': dataObj.price.toString(),
-        'imagePath': dataObj.imagePath,
-      }),
-    );
-    if (response.statusCode == 200) {
-      func('pop');
-    } else if (response.statusCode == 500) {
-      func("Duplicate Entry In 'name' Column.\nTry another name!");
-    } else {
-      throw Exception('faild to update food card data');
-    }
-  }
-
 }

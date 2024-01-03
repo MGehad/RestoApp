@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:restaurant/External/Booking_Pdf.dart';
-import 'package:restaurant/Pages/Booking_SPage.dart';
+import 'package:restaurant/Pages/Booking/Booking_SPage.dart';
 import 'package:restaurant/models/booking_table.dart';
 import 'package:restaurant/theme/app_color.dart';
 
@@ -368,7 +368,7 @@ class _BookingState extends State<Booking> {
                               border: OutlineInputBorder(),
                               labelText: 'Table Name',
                             ),
-                            enabled: false,
+                            enabled: true,
                           ),
                         ),
                       ),
@@ -436,7 +436,9 @@ class _BookingState extends State<Booking> {
 
                                 },
                               ),
-                              content: Text("Select The Date Of Booking",style: TextStyle(fontWeight: FontWeight.bold)),
+                              content: Text("Select The Date Of Booking",
+                                  style: TextStyle(fontWeight: FontWeight.bold)
+                              ),
                             )
                         );
                       }

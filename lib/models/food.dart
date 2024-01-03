@@ -25,26 +25,5 @@ class Food{
   String get _description => imagePath;
   bool get _inStook => inStook;
 
-  static toList(List<dynamic> data) {
-    List<Food> FoodList = [];
-    for (int i = 0; i < data.length; i++) {
-      try {
-        FoodList.add(
-            Food(
-          name: data[i]['name'],
-          price: data[i]['price'],
-          imagePath: data[i]['imagePath'],
-              rating: data[i]['rating'],
-              description: data[i]['description'],
-              inStook: data[i]['inStook'],
-            )
-        );
-      } catch (err) {
-        print(err);
-      }
-    }
-    return FoodList;
-  }
-
 }
 

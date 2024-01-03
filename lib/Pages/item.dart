@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant/Pages/Cart.dart';
+import 'package:restaurant/Pages/Settings/Cart.dart';
 import 'package:restaurant/models/favorite_list.dart';
 import 'package:restaurant/models/food.dart';
 import 'package:restaurant/theme/app_color.dart';
