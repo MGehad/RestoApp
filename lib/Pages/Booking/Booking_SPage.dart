@@ -17,7 +17,7 @@ class BookingSPage extends StatefulWidget {
 
 class _BookingSPageState extends State<BookingSPage> {
   BoxDecoration dec1 = BoxDecoration(
-    color: AppColorsLight.primaryColor,
+    color: AppColors.primaryColor,
     shape: BoxShape.circle,
   );
 
@@ -32,12 +32,11 @@ class _BookingSPageState extends State<BookingSPage> {
     _date.text = DateFormat.yMMMMEEEEd().format(BookingTable.dateTime!);
 
     return Scaffold(
-      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:Text("Booking",
             style: GoogleFonts.aladin(
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 40,
             )
         ),
@@ -46,7 +45,7 @@ class _BookingSPageState extends State<BookingSPage> {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => HomePage(selectedPage: widget.selectedPage,sliding: 0),));
           },
-          icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
+          icon: const Icon(Icons.arrow_back_ios,color: AppColors.primaryColor),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.transparent)
           ),
@@ -129,7 +128,7 @@ class _BookingSPageState extends State<BookingSPage> {
               child: TextButton(
                 style: ButtonStyle(
                   backgroundColor:
-                  MaterialStateProperty.all(AppColorsLight.primaryColor),
+                  MaterialStateProperty.all(AppColors.primaryColor),
                 ),
                 onPressed: () {
                   if(BookingTable.pickedHour!=null) {
@@ -141,10 +140,10 @@ class _BookingSPageState extends State<BookingSPage> {
                   }else{
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          backgroundColor: AppColorsLight.secondaryColor.shade800,
+                          backgroundColor: AppColors.secondaryColor.shade800,
                           action: SnackBarAction(
                             label: "OK",
-                            textColor: AppColorsLight.lightColor,
+                            textColor: AppColors.lightColor,
                             onPressed: () {
 
                             },
@@ -162,12 +161,12 @@ class _BookingSPageState extends State<BookingSPage> {
                     Text("Select Table",
                       style: GoogleFonts.dmSerifDisplay(
                         fontSize: 20,
-                        color: AppColorsLight.lightColor,
+                        color: AppColors.lightColor,
                       ),
                     ),
                     Icon(
                       Icons.arrow_right_outlined,
-                      color: AppColorsLight.lightColor,
+                      color: AppColors.lightColor,
                     ),
                   ],
                 ),

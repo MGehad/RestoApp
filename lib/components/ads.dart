@@ -34,7 +34,7 @@ class _MyADSState extends State<MyADS> {
             padding: EdgeInsets.symmetric(vertical: 25,horizontal: 20),
             margin: EdgeInsets.symmetric(horizontal: 10),
             decoration:BoxDecoration(
-                color: AppColorsLight.primaryColor,
+                color: AppColors.primaryColor,
                 borderRadius: BorderRadius.circular(20)
             ),
             child: Row(
@@ -46,7 +46,7 @@ class _MyADSState extends State<MyADS> {
                   children: [
                     Text("${widget.food.name}",
                         style: GoogleFonts.aladin(
-                        color: AppColorsLight.lightColor,
+                        color: AppColors.lightColor,
                         fontSize: 30,
                         fontWeight: FontWeight.w600
                     )),
@@ -54,7 +54,7 @@ class _MyADSState extends State<MyADS> {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                            color:AppColorsLight.primaryColor.shade300,
+                            color:AppColors.primaryColor.shade300,
                             borderRadius: BorderRadius.circular(5)
                         ),
                         width: MediaQuery.of(context).size.width*0.3,

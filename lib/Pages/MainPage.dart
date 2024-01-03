@@ -129,14 +129,13 @@ class _MainPageState extends State<MainPage> {
     ];
 
     return Scaffold(
-      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
         Text(
             "Resto",
             style: GoogleFonts.aladin(
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 45,
             )
         ),
@@ -145,14 +144,14 @@ class _MainPageState extends State<MainPage> {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Profile(),
             )
             );
-          }, icon: Icon(Icons.person,color: AppColorsLight.lightColor,))
+          }, icon: Icon(Icons.person,color: AppColors.lightColor,))
         ],
       ),
 
       body:LiquidPullToRefresh(
         onRefresh: _refresh,
-        color: AppColorsLight.appBarColor,
-        backgroundColor: AppColorsLight.primaryColor,
+        color: AppColors.appBarColor,
+        backgroundColor: AppColors.primaryColor,
         height: 150,
         animSpeedFactor:5,
         showChildOpacityTransition: false,
@@ -170,10 +169,10 @@ class _MainPageState extends State<MainPage> {
                       child: SearchAnchor(
                           builder: (BuildContext context, SearchController controller) {
                             return SearchBar(
-                              backgroundColor: MaterialStateProperty.all(AppColorsLight.primaryColor.shade500),
+                              backgroundColor: MaterialStateProperty.all(AppColors.primaryColor.shade500),
                               hintText: "Search for your food..",
                               hintStyle: MaterialStateProperty.all(
-                                  TextStyle(color: AppColorsLight.lightColor)),
+                                  TextStyle(color: AppColors.lightColor)),
                               padding: const MaterialStatePropertyAll<EdgeInsets>(
                                   EdgeInsets.symmetric(horizontal: 15.0)),
                               onTap: () {
@@ -182,7 +181,7 @@ class _MainPageState extends State<MainPage> {
                               onChanged: (_) {
                                 controller.openView();
                               },
-                              leading: const Icon(Icons.search,color: AppColorsLight.lightColor),
+                              leading: const Icon(Icons.search,color: AppColors.lightColor),
                             );
                           }, suggestionsBuilder:
                           (BuildContext context, SearchController controller) {
@@ -343,7 +342,7 @@ class _MainPageState extends State<MainPage> {
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: AppColorsLight.primaryColor.shade500,
+              color: AppColors.primaryColor.shade500,
               borderRadius: BorderRadiusDirectional.circular(20)
             ),
             height: 100,
@@ -357,7 +356,7 @@ class _MainPageState extends State<MainPage> {
                 Text(
                   catName,
                   style: GoogleFonts.dmSerifDisplay(
-                    color: AppColorsLight.lightColor,
+                    color: AppColors.lightColor,
                     fontSize: 20,
                   ),
                 ),

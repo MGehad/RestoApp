@@ -38,7 +38,6 @@ class _FoodTileState extends State<CartCard> {
             ),
             child: Container(
               decoration: BoxDecoration(
-                color:AppColorsLight.secondaryColor[100],
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: EdgeInsets.all(10),
@@ -73,7 +72,7 @@ class _FoodTileState extends State<CartCard> {
                               'Quantity: ' + widget.food.quantity.toString(),
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 17,
-                                color: AppColorsLight.secondaryColor.shade800,
+                                color: AppColors.secondaryColor.shade800,
                               ),
                             ),
                             SizedBox(height: 7),
@@ -81,7 +80,7 @@ class _FoodTileState extends State<CartCard> {
                               'Price: \$' + widget.food.price.toString(),
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 17,
-                                color: AppColorsLight.secondaryColor.shade800,
+                                color: AppColors.secondaryColor.shade800,
                               ),
                             ),
                           ],
@@ -105,7 +104,7 @@ class _FoodTileState extends State<CartCard> {
                           size: 30,
                         ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(AppColorsLight.secondaryColor.shade300)
+                            backgroundColor: MaterialStateProperty.all(AppColors.secondaryColor.shade300)
                         ),
                       ),
                     ],

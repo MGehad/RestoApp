@@ -5,7 +5,7 @@ import 'package:restaurant/Pages/Booking/Booking.dart';
 import 'package:restaurant/Pages/MainPage.dart';
 import 'package:restaurant/Pages/Menu.dart';
 import 'package:restaurant/theme/app_color.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Orders/Orders_Page.dart';
 import 'Settings/Settings.dart';
 
@@ -22,6 +22,24 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  void init() async {
+    final prefs = await SharedPreferences.getInstance();
+    final bool darkMode = prefs.getBool('darkMode') ?? false;
+    AppColors.darkMode = darkMode;
+  }
+
+  void update() {
+    init();
+  }
+
+  void updateTheme() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +52,9 @@ class _FirstPageState extends State<FirstPage> {
               Menu(selectedPage: widget.selectedPage,sliding: widget.sliding),
               Booking(),
               ShowOrderPage(),
-              Settings(selectedPage: widget.selectedPage),
+              Settings(
+                  selectedPage: widget.selectedPage,
+                  updateTheme: updateTheme),
             ][widget.selectedPage],
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -42,7 +62,7 @@ class _FirstPageState extends State<FirstPage> {
                 CurvedNavigationBar(
                     height: MediaQuery.of(context).size.height*0.09,
                     backgroundColor: Colors.transparent,
-                    color: AppColorsLight.primaryColor,
+                    color: AppColors.primaryColor,
                     animationDuration: Duration(milliseconds: 400),
                     onTap: (value) {
                       setState(() {
@@ -53,23 +73,23 @@ class _FirstPageState extends State<FirstPage> {
                     items: [
                       Tooltip(
                           message: "Main Page",
-                          child: Icon(Icons.home,color: AppColorsLight.lightColor)
+                          child: Icon(Icons.home,color: AppColors.lightColor)
                       ),
                       Tooltip(
                           message: "Menu",
-                          child: Icon(Icons.restaurant_menu,color: AppColorsLight.lightColor)
+                          child: Icon(Icons.restaurant_menu,color: AppColors.lightColor)
                       ),
                       Tooltip(
                           message: "Booking",
-                          child: Icon(Icons.table_restaurant,color: AppColorsLight.lightColor)
+                          child: Icon(Icons.table_restaurant,color: AppColors.lightColor)
                       ),
                       Tooltip(
                           message: "Orders",
-                          child: Icon(Icons.shopping_bag,color: AppColorsLight.lightColor)
+                          child: Icon(Icons.shopping_bag,color: AppColors.lightColor)
                       ),
                       Tooltip(
                           message: "Settings",
-                          child: Icon(Icons.settings,color: AppColorsLight.lightColor)
+                          child: Icon(Icons.settings,color: AppColors.lightColor)
                       ),
                     ]
                 ),

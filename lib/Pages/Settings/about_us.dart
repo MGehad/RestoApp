@@ -18,7 +18,7 @@ class _AboutUsState extends State<AboutUs> {
         elevation: 0,
         title: Text("About Us",
             style: GoogleFonts.aladin(
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 45,
             )),
         leading: IconButton(
@@ -26,7 +26,7 @@ class _AboutUsState extends State<AboutUs> {
             Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_ios,
-              color: AppColorsLight.primaryColor),
+              color: AppColors.primaryColor),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.transparent)),
         ),
@@ -43,7 +43,7 @@ class _AboutUsState extends State<AboutUs> {
                 children: [
                   Text("Team Members:",
                       style: GoogleFonts.dmSerifDisplay(
-                        color: AppColorsLight.primaryColor,
+                        color: AppColors.primaryColor,
                         fontSize: 40,
                       )),
                   Text(

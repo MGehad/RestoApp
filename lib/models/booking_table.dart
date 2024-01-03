@@ -7,7 +7,7 @@ class BookingTable{
   static int? numOfSeats;
   static DateTime? dateTime;
   static TimeOfDay? pickedHour;
-  static TextEditingController? _tableName = TextEditingController(text:"Mohamed Gehad");
+  static TextEditingController? tableName;
   static String? _date;
   static String? _startTime;
   static String? _endTime;
@@ -32,8 +32,8 @@ class BookingTable{
     return _endTime;
   }
   static String? get name{
-    if(_tableName!=null){
-      _name= _tableName!.text;
+    if(tableName!=null){
+      _name= tableName!.text;
     }
     return _name;
   }
@@ -44,7 +44,7 @@ class BookingTable{
     numOfSeats = null;
     dateTime = null;
     pickedHour = null;
-    _tableName = null;
+    tableName = null;
   }
 
   static bool isAvailable(int table){

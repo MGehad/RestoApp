@@ -19,7 +19,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
   int _selected = 0;
 
   BoxDecoration dec1 = BoxDecoration(
-    color: AppColorsLight.primaryColor,
+    color: AppColors.primaryColor,
     shape: BoxShape.circle,
   );
 
@@ -33,12 +33,11 @@ class _BookingConfirmState extends State<BookingConfirm> {
     _date.text = DateFormat.yMMMMEEEEd().format(BookingTable.dateTime!);
 
     return Scaffold(
-      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:Text("Available Tables",
             style: GoogleFonts.aladin(
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 35,
             )
         ),
@@ -47,7 +46,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => HomePage(selectedPage: widget.selectedPage,sliding: 0),));
           },
-          icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
+          icon: const Icon(Icons.arrow_back_ios,color: AppColors.primaryColor),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.transparent)
           ),
@@ -124,7 +123,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                   child: TextButton(
                     style: ButtonStyle(
                       backgroundColor:
-                      MaterialStateProperty.all(AppColorsLight.primaryColor),
+                      MaterialStateProperty.all(AppColors.primaryColor),
                     ),
                     onPressed: () {
                       if(BookingTable.tableNumber!=null&&BookingTable.numOfSeats!=null) {
@@ -142,10 +141,10 @@ class _BookingConfirmState extends State<BookingConfirm> {
                       }else{
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              backgroundColor: AppColorsLight.secondaryColor.shade800,
+                              backgroundColor: AppColors.secondaryColor.shade800,
                               action: SnackBarAction(
                                 label: "OK",
-                                textColor: AppColorsLight.lightColor,
+                                textColor: AppColors.lightColor,
                                 onPressed: () {
 
                                 },
@@ -163,12 +162,12 @@ class _BookingConfirmState extends State<BookingConfirm> {
                         Text("Book",
                           style: GoogleFonts.dmSerifDisplay(
                             fontSize: 20,
-                            color: AppColorsLight.lightColor,
+                            color: AppColors.lightColor,
                           ),
                         ),
                         Icon(
                           Icons.arrow_right_outlined,
-                          color: AppColorsLight.lightColor,
+                          color: AppColors.lightColor,
                         ),
                       ],
                     ),
@@ -189,10 +188,10 @@ class _BookingConfirmState extends State<BookingConfirm> {
           if(!BookingTable.isAvailable(index)){
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  backgroundColor: AppColorsLight.secondaryColor.shade800,
+                  backgroundColor: AppColors.secondaryColor.shade800,
                   action: SnackBarAction(
                     label: "OK",
-                    textColor: AppColorsLight.lightColor,
+                    textColor: AppColors.lightColor,
                     onPressed: () {
 
                     },
@@ -225,7 +224,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                   child: Text(
                     seatCount.toString(),
                     style: GoogleFonts.allerta(
-                      color: AppColorsLight.secondaryColor.shade800,
+                      color: AppColors.secondaryColor.shade800,
                       fontSize: 20,
                     ),
                   ),
@@ -236,7 +235,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                     height: MediaQuery.of(context).size.width*0.2,
                     width: MediaQuery.of(context).size.width*0.2,
                     decoration: BoxDecoration(
-                        color: AppColorsLight.primaryColor.withOpacity(0.4),
+                        color: AppColors.primaryColor.withOpacity(0.4),
                       borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width*0.2)
                     ),
                   ),

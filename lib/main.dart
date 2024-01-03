@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     return ChangeNotifierProvider(create: (context) => Cart(),
       child: MaterialApp(
         home: FirstPage(selectedPage: widget.selectedPage,sliding: widget.sliding),
-        theme: getThemeDataLight(),
+        theme: AppColors.currentTheme,
       ),
     );
   }

@@ -15,14 +15,13 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
         Text(
             "Profile",
             style: GoogleFonts.aladin(
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 45,
             )
         ),
@@ -30,7 +29,7 @@ class _ProfileState extends State<Profile> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
+          icon: const Icon(Icons.arrow_back_ios,color: AppColors.primaryColor),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.transparent)
           ),
@@ -38,8 +37,8 @@ class _ProfileState extends State<Profile> {
       ),
 
       body: Center(
-        child: Container(color: AppColorsLight.lightColor,
-          child: Text("Coming Soon....",style: TextStyle(color: AppColorsLight.primaryColor,fontSize: 50,fontWeight: FontWeight.w500)),
+        child: Container(
+          child: Text("Coming Soon....",style: TextStyle(color: AppColors.primaryColor,fontSize: 50,fontWeight: FontWeight.w500)),
         ),
       ),
     );

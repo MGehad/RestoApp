@@ -14,21 +14,21 @@ class ShowOrderPage extends StatelessWidget {
           title: Center(
             child: Text("Orders",
                 style: GoogleFonts.aladin(
-                  color: AppColorsLight.primaryColor,
+                  color: AppColors.primaryColor,
                   fontSize: 45,
                 )
             ),
           ),
           bottom: TabBar(
-            labelColor: AppColorsLight.primaryColor,
-            dividerColor: AppColorsLight.secondaryColor,
-            indicatorColor: AppColorsLight.primaryColor,
+            labelColor: AppColors.primaryColor,
+            dividerColor: AppColors.secondaryColor,
+            indicatorColor: AppColors.primaryColor,
             tabs: [
               Tab(
                   child: Text(
                 "Pending Orders",
                 style: GoogleFonts.aladin(
-                  color: AppColorsLight.primaryColor,
+                  color: AppColors.primaryColor,
                   fontSize: 20,
                 ),
               )),
@@ -36,7 +36,7 @@ class ShowOrderPage extends StatelessWidget {
                   child: Text(
                 "Completed Orders",
                 style: GoogleFonts.aladin(
-                  color: AppColorsLight.primaryColor,
+                  color: AppColors.primaryColor,
                   fontSize: 20,
                 ),
               )

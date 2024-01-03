@@ -38,15 +38,14 @@ class _ItemState extends State<Item> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        backgroundColor: AppColorsLight.lightColor,
         appBar: AppBar(
           elevation: 0,
-          foregroundColor: AppColorsLight.primaryColor.shade900,
+          foregroundColor: AppColors.primaryColor.shade900,
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
+            icon: const Icon(Icons.arrow_back_ios,color: AppColors.primaryColor),
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.transparent)
             ),
@@ -90,11 +89,16 @@ class _ItemState extends State<Item> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: <Color>[AppColorsLight.lightColor.withOpacity(0.5),AppColorsLight.lightColor,],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter
-                    ),
+                      gradient: LinearGradient(
+                          colors: <Color>[
+                            Theme.of(context)
+                                .colorScheme
+                                .background
+                                .withOpacity(0.5),
+                            Theme.of(context).colorScheme.background,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
                      // color: Colors.deepOrange.shade400,
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(30),
                           topRight: Radius.circular(30))
@@ -111,7 +115,7 @@ class _ItemState extends State<Item> {
                           Text(widget.food.name,
                           style: GoogleFonts.dmSerifDisplay(
                             fontSize: 45,
-                            color: AppColorsLight.secondaryColor.shade800
+                            color: AppColors.secondaryColor.shade800
                           ),
                           ),
                           Container(
@@ -129,13 +133,13 @@ class _ItemState extends State<Item> {
                                     ? Icons.favorite_outline
                                     : Icons.favorite,
                                 color: (widget.food.isFav == false)
-                                    ? AppColorsLight.lightColor
+                                    ? AppColors.lightColor
                                     : Colors.red,
                                 size: 30,
                               ),
                             ),
                             decoration: BoxDecoration(
-                              color: AppColorsLight.primaryColor.shade300,
+                              color: AppColors.primaryColor.shade300,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -147,7 +151,7 @@ class _ItemState extends State<Item> {
                       Text("\$"+(widget.food.price).toString(),
                         style: GoogleFonts.dmSerifDisplay(
                             fontSize: 35,
-                            color: AppColorsLight.secondaryColor.shade800
+                            color: AppColors.secondaryColor.shade800
                         ),
                       ),
 
@@ -170,7 +174,7 @@ class _ItemState extends State<Item> {
                         padding: const EdgeInsets.only(right: 15.0,left: 15.0,bottom: 10.0,top: 10.0),
                         child: Text(widget.food.description,
                           style: TextStyle(
-                              color: AppColorsLight.secondaryColor.shade800,
+                              color: AppColors.secondaryColor.shade800,
                               fontWeight: FontWeight.w400,
                               fontSize: 13,
                               height: 2
@@ -186,11 +190,11 @@ class _ItemState extends State<Item> {
                                 IconButton(
                                     onPressed: decrementQuantity,
                                     icon: const Icon(Icons.chevron_left,
-                                      color: AppColorsLight.lightColor,
+                                      color: AppColors.lightColor,
                                     ),
                                   style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all(
-                                        AppColorsLight.primaryColor.shade400,
+                                        AppColors.primaryColor.shade400,
                                       )
                                   ),
                                 ),
@@ -202,7 +206,7 @@ class _ItemState extends State<Item> {
                                   padding: EdgeInsets.symmetric(horizontal:10),
 
                                   decoration: BoxDecoration(
-                                      color: AppColorsLight.primaryColor.shade400,
+                                      color: AppColors.primaryColor.shade400,
                                       borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Padding(
@@ -212,7 +216,7 @@ class _ItemState extends State<Item> {
                                         style:TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 22,
-                                            color: AppColorsLight.lightColor
+                                            color: AppColors.lightColor
                                         ) ,),
                                     ),
                                   ),
@@ -223,10 +227,10 @@ class _ItemState extends State<Item> {
                                 IconButton(
                                     onPressed: incrementQuantity,
                                     icon: const Icon(Icons.chevron_right,
-                                      color: AppColorsLight.lightColor,),
+                                      color: AppColors.lightColor,),
                                   style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all(
-                                        AppColorsLight.primaryColor.shade400,
+                                        AppColors.primaryColor.shade400,
                                       )
                                   ),
                                 ),
@@ -237,7 +241,7 @@ class _ItemState extends State<Item> {
                               return  TextButton(
                                 style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(
-                                      AppColorsLight.primaryColor.shade400,
+                                      AppColors.primaryColor.shade400,
                                     )
                                 ),
                                 onPressed: () {
@@ -253,12 +257,12 @@ class _ItemState extends State<Item> {
                                     Icon((widget.food.inCart)
                                         ?Icons.add_task
                                         :Icons.add,
-                                      color: AppColorsLight.lightColor,),
+                                      color: AppColors.lightColor,),
                                     SizedBox(width: 5,),
                                     Text((widget.food.inCart)?"Added":"Add To Cart",
                                       style: GoogleFonts.dmSerifDisplay(
                                           fontSize: 20,
-                                          color: AppColorsLight.lightColor
+                                          color: AppColors.lightColor
                                       ),
                                     ),
                                   ],

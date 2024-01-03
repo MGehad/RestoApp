@@ -8,11 +8,12 @@ import 'package:restaurant/Pages/Settings/Cart.dart';
 import 'package:restaurant/Pages/Settings/privacy_policy.dart';
 import 'package:restaurant/Pages/Settings/terms_conditions.dart';
 import 'package:restaurant/theme/app_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
-  static bool darkMode=false;
+  final Function updateTheme;
   final int selectedPage;
-  const Settings({super.key,required this.selectedPage});
+  const Settings({super.key,required this.selectedPage,required this.updateTheme});
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -23,7 +24,6 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
@@ -31,7 +31,7 @@ class _SettingsState extends State<Settings> {
           child: Text(
               "Settings",
               style: GoogleFonts.aladin(
-                color: AppColorsLight.primaryColor,
+                color: AppColors.primaryColor,
                 fontSize: 45,
               )
           ),
@@ -70,7 +70,7 @@ class _SettingsState extends State<Settings> {
                     );
                   },
                   child: Ink(
-                    child:  Tooltip(
+                    child: Tooltip(
                         message: 'Go To Cart',
                         child: BuildContainer("My Cart", Icons.shopping_cart)
                     ),
@@ -89,7 +89,7 @@ class _SettingsState extends State<Settings> {
                     );
                   },
                   child: Ink(
-                    child:  Tooltip(
+                    child: Tooltip(
                         message: 'Go To My Favorites',
                         child: BuildContainer("My Favorites", Icons.favorite)
                     ),
@@ -98,11 +98,7 @@ class _SettingsState extends State<Settings> {
 
                 SizedBox(height: 15,),
 
-                Container(
-                  decoration: BoxDecoration(
-                      color: AppColorsLight.secondaryColor.shade200,
-                      borderRadius: BorderRadius.circular(15)
-                  ),
+                Card(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0,right: 15,bottom: 10,top: 10),
                     child: Row(
@@ -110,10 +106,10 @@ class _SettingsState extends State<Settings> {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.sunny,color: AppColorsLight.primaryColor,size: 25),
+                            Icon(Icons.sunny,color: AppColors.primaryColor,size: 25),
                             SizedBox(width: 10,),
                             Text("Dark Mode",
-                                style: TextStyle(color: AppColorsLight.primaryColor,
+                                style: TextStyle(color: AppColors.primaryColor,
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500)
                             ),
@@ -122,15 +118,13 @@ class _SettingsState extends State<Settings> {
                         Container(
                           height: 30,
                           child: Switch(
-                            overlayColor: MaterialStatePropertyAll(AppColorsLight.primaryColor),
-                            activeColor: AppColorsLight.primaryColor,
-                            thumbColor: MaterialStatePropertyAll(AppColorsLight.primaryColor),
-                            focusColor: AppColorsLight.primaryColor,
-                            value: Settings.darkMode,
-                            onChanged: (value) {
-                              setState(() {
-                                Settings.darkMode=value;
-                              });
+                            activeColor: AppColors.primaryColor,
+                            value: AppColors.darkMode,
+                            onChanged: (value) async {
+                              AppColors.darkMode = value;
+                              final prefs = await SharedPreferences.getInstance();
+                              await prefs.setBool('darkMode', value);
+                              widget.updateTheme();
                             },
                           ),
                         )
@@ -198,12 +192,7 @@ class _SettingsState extends State<Settings> {
     );
   }
   Widget BuildContainer(String name,IconData icon){
-    return Container(
-      decoration: BoxDecoration(
-          color: AppColorsLight.secondaryColor.shade200,
-          borderRadius: BorderRadius.circular(15)
-
-      ),
+    return Card(
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0,right: 15,bottom: 10,top: 10),
         child: Row(
@@ -211,16 +200,16 @@ class _SettingsState extends State<Settings> {
           children: [
             Row(
               children: [
-                Icon(icon,color: AppColorsLight.primaryColor,size: 25),
+                Icon(icon,color: AppColors.primaryColor,size: 25),
                 SizedBox(width: 10,),
                 Text("$name",
-                    style: TextStyle(color: AppColorsLight.primaryColor,
+                    style: TextStyle(color: AppColors.primaryColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w500)),
               ],
             ),
             Icon(Icons.chevron_right,
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               size:22 ,
             ),
           ],

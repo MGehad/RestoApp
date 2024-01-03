@@ -46,12 +46,11 @@ class _CartState extends State<Cart>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColorsLight.lightColor,
         appBar: AppBar(
           elevation: 0,
           title:Text("Shooping Cart",
               style: GoogleFonts.aladin(
-                color: AppColorsLight.primaryColor,
+                color: AppColors.primaryColor,
                 fontSize: 40,
               )
           ),
@@ -59,7 +58,7 @@ class _CartState extends State<Cart>{
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
+            icon: const Icon(Icons.arrow_back_ios,color: AppColors.primaryColor),
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.transparent)
             ),
@@ -89,7 +88,7 @@ class _CartState extends State<Cart>{
                     child: Ink(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppColorsLight.primaryColor.shade300,
+                          color: AppColors.primaryColor.shade300,
                           borderRadius: BorderRadius.all(
                               Radius.circular(15)
                           ),
@@ -124,7 +123,7 @@ class _CartState extends State<Cart>{
             Center(
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColorsLight.primaryColor.shade300,
+                  color: AppColors.primaryColor.shade300,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15),
                     topLeft: Radius.circular(15),
@@ -146,7 +145,7 @@ class _CartState extends State<Cart>{
                           Text("${CartList.totalPrice.toStringAsFixed(2)}",
                             style: GoogleFonts.dmSerifDisplay(
                               fontSize: 20,
-                              color: AppColorsLight.lightColor,
+                              color: AppColors.lightColor,
                             ),
                           ),
                         ],
@@ -165,7 +164,7 @@ class _CartState extends State<Cart>{
                             "Free!",
                             style: GoogleFonts.dmSerifDisplay(
                               fontSize: 20,
-                              color: AppColorsLight.lightColor,
+                              color: AppColors.lightColor,
                             ),
                           ),
                         ],
@@ -180,7 +179,7 @@ class _CartState extends State<Cart>{
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            color: AppColorsLight.primaryColor.shade200,
+                            color: AppColors.primaryColor.shade200,
                             child: Container(
                               width: 80,
                               height: 80,
@@ -209,7 +208,7 @@ class _CartState extends State<Cart>{
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                color: AppColorsLight.primaryColor.shade200,
+                                color: AppColors.primaryColor.shade200,
                                 child: Container(
                                   width: 80,
                                   height: 80,
@@ -239,7 +238,7 @@ class _CartState extends State<Cart>{
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        color:AppColorsLight.primaryColor.shade500,
+                        color:AppColors.primaryColor.shade500,
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.6,
                           child: TextButton(
@@ -319,11 +318,11 @@ class _CartState extends State<Cart>{
                               else if(selector!=0) {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
-                                  backgroundColor: AppColorsLight
+                                  backgroundColor: AppColors
                                       .secondaryColor.shade800,
                                   action: SnackBarAction(
                                     label: "OK",
-                                    textColor: AppColorsLight.lightColor,
+                                    textColor: AppColors.lightColor,
                                     onPressed: () {},
                                   ),
                                   content: Text("Paypal only",
@@ -334,11 +333,11 @@ class _CartState extends State<Cart>{
                               else{
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
-                                  backgroundColor: AppColorsLight
+                                  backgroundColor: AppColors
                                       .secondaryColor.shade800,
                                   action: SnackBarAction(
                                     label: "OK",
-                                    textColor: AppColorsLight.lightColor,
+                                    textColor: AppColors.lightColor,
                                     onPressed: () {},
                                   ),
                                   content: Text("The Cart is Empty",
@@ -348,7 +347,7 @@ class _CartState extends State<Cart>{
                               }
                             },
                             style: TextButton.styleFrom(
-                              backgroundColor: AppColorsLight.primaryColor,
+                              backgroundColor: AppColors.primaryColor,
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -361,12 +360,12 @@ class _CartState extends State<Cart>{
                                   "Check Out",
                                   style: GoogleFonts.dmSerifDisplay(
                                     fontSize: 20,
-                                    color: AppColorsLight.lightColor,
+                                    color: AppColors.lightColor,
                                   ),
                                 ),
                                 Icon(
                                   Icons.arrow_right_outlined,
-                                  color: AppColorsLight.lightColor,
+                                  color: AppColors.lightColor,
                                 ),
                               ],
                             ),
@@ -391,7 +390,7 @@ class _CartState extends State<Cart>{
           children: [
             Icon(
               Icons.payments,
-              color: AppColorsLight.primaryColor.shade800,
+              color: AppColors.primaryColor.shade800,
             ),
             SizedBox(width: 10),
             Text(
@@ -399,7 +398,7 @@ class _CartState extends State<Cart>{
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 27,
-                color: AppColorsLight.secondaryColor.shade800,
+                color: AppColors.secondaryColor.shade800,
               ),
             ),
           ],
@@ -425,7 +424,7 @@ class _CartState extends State<Cart>{
                       height: 80,
                       decoration: BoxDecoration(
                         color: (selector == 0)
-                            ? AppColorsLight.primaryColor.shade200
+                            ? AppColors.primaryColor.shade200
                             : null,
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -449,7 +448,7 @@ class _CartState extends State<Cart>{
                       height: 80,
                       decoration: BoxDecoration(
                         color: (selector == 1)
-                            ? AppColorsLight.primaryColor.shade200
+                            ? AppColors.primaryColor.shade200
                             : null,
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -478,7 +477,7 @@ class _CartState extends State<Cart>{
                       height: 80,
                       decoration: BoxDecoration(
                         color: (selector == 2)
-                            ? AppColorsLight.primaryColor.shade200
+                            ? AppColors.primaryColor.shade200
                             : null,
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -502,7 +501,7 @@ class _CartState extends State<Cart>{
                       height: 80,
                       decoration: BoxDecoration(
                         color: (selector == 3)
-                            ? AppColorsLight.primaryColor.shade200
+                            ? AppColors.primaryColor.shade200
                             : null,
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -528,12 +527,12 @@ class _CartState extends State<Cart>{
               "Save",
               style: GoogleFonts.dmSerifDisplay(
                 fontSize: 20,
-                color: AppColorsLight.lightColor,
+                color: AppColors.lightColor,
               ),
             ),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                AppColorsLight.primaryColor.shade800,
+                AppColors.primaryColor.shade800,
               ),
             ),
           ),
@@ -546,12 +545,12 @@ class _CartState extends State<Cart>{
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColorsLight.secondaryColor.shade200,
+        backgroundColor: AppColors.secondaryColor.shade200,
         title: Row(
           children: [
             Icon(
               Icons.monetization_on_sharp,
-              color: AppColorsLight.primaryColor.shade800,
+              color: AppColors.primaryColor.shade800,
             ),
             SizedBox(width: 10),
             Text(
@@ -559,7 +558,7 @@ class _CartState extends State<Cart>{
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 27,
-                color: AppColorsLight.secondaryColor.shade800,
+                color: AppColors.secondaryColor.shade800,
               ),
             ),
           ],
@@ -580,11 +579,11 @@ class _CartState extends State<Cart>{
               if(coupon!.text!=CartList.coupon){
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(
-                  backgroundColor: AppColorsLight
+                  backgroundColor: AppColors
                       .secondaryColor.shade800,
                   action: SnackBarAction(
                     label: "OK",
-                    textColor: AppColorsLight.lightColor,
+                    textColor: AppColors.lightColor,
                     onPressed: () {},
                   ),
                   content: Text("The coupon is incorrect",
@@ -594,11 +593,11 @@ class _CartState extends State<Cart>{
               }else if(CartList.totalPrice!=CartList.oldTotalPrice||CartList.couponstate==true){
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(
-                  backgroundColor: AppColorsLight
+                  backgroundColor: AppColors
                       .secondaryColor.shade800,
                   action: SnackBarAction(
                     label: "OK",
-                    textColor: AppColorsLight.lightColor,
+                    textColor: AppColors.lightColor,
                     onPressed: () {},
                   ),
                   content: Text("You already used the coupon",
@@ -615,12 +614,12 @@ class _CartState extends State<Cart>{
               "Save",
               style: GoogleFonts.dmSerifDisplay(
                 fontSize: 20,
-                color: AppColorsLight.lightColor,
+                color: AppColors.lightColor,
               ),
             ),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                AppColorsLight.primaryColor.shade800,
+                AppColors.primaryColor.shade800,
               ),
             ),
           ),

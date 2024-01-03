@@ -43,7 +43,6 @@ class _MostPopularCardState extends State<MostPopularCard> {
               child: Container(
                 width: MediaQuery.of(context).size.width*0.38,
                 decoration: BoxDecoration(
-                  color: AppColorsLight.secondaryColor[100],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: EdgeInsets.all(10),
@@ -76,7 +75,7 @@ class _MostPopularCardState extends State<MostPopularCard> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(children: [
-                                Icon(Icons.star,color: AppColorsLight.primaryColor),
+                                Icon(Icons.star,color: AppColors.primaryColor),
                                 Text(widget.food.rating.toString(),
                                     style: TextStyle(fontWeight: FontWeight.bold,
                                         fontSize: 15))

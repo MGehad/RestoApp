@@ -44,7 +44,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
               message: widget.food.name,
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColorsLight.secondaryColor[100],
+                  color: AppColors.secondaryColor[100],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: EdgeInsets.all(10),
@@ -88,7 +88,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                                 rating: widget.food.rating,
                                 itemBuilder: (context, index) => Icon(
                                   Icons.star,
-                                  color: AppColorsLight.primaryColor,
+                                  color: AppColors.primaryColor,
                                 ),
                                 itemCount: 5,
                                 itemSize: 20.0,
@@ -117,11 +117,11 @@ class _FavoriteCardState extends State<FavoriteCard> {
                                 : Icons.favorite,
                             color: (widget.food.isFav == false)
                                 ? Colors.black
-                                : AppColorsLight.primaryColor,
+                                : AppColors.primaryColor,
                             size: 30,
                           ),
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(AppColorsLight.secondaryColor.shade300)
+                              backgroundColor: MaterialStateProperty.all(AppColors.secondaryColor.shade300)
                           ),
                         ),
                       ],

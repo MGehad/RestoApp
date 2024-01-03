@@ -19,14 +19,13 @@ class _FavoriteState extends State<Favorite> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
         Text(
             "Favorite",
             style: GoogleFonts.aladin(
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 45,
             )
         ),
@@ -34,7 +33,7 @@ class _FavoriteState extends State<Favorite> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios,color: AppColorsLight.primaryColor),
+          icon: const Icon(Icons.arrow_back_ios,color: AppColors.primaryColor),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.transparent)
           ),
@@ -48,7 +47,7 @@ class _FavoriteState extends State<Favorite> {
                 update();
               },
               icon: Icon(Icons.delete_sweep,
-                  color: AppColorsLight.primaryColor,
+                  color: AppColors.primaryColor,
                 size: 30,
               ),
             ),

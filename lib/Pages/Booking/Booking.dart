@@ -18,19 +18,19 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
 
   TextEditingController _date = TextEditingController();
+  TextEditingController _name = TextEditingController();
   DateTime? pickedDate;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title: Center(
           child: Text(
             "Booking",
             style: GoogleFonts.aladin(
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 45,
             ),
           ),
@@ -52,7 +52,7 @@ class _BookingState extends State<Booking> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  color: AppColorsLight.secondaryColor.shade100,
+                  color: AppColors.secondaryColor.shade100,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
@@ -64,7 +64,7 @@ class _BookingState extends State<Booking> {
                           children: [
                             Text("Your Table is Booked",
                               style: GoogleFonts.aladin(
-                                color: AppColorsLight.primaryColor,
+                                color: AppColors.primaryColor,
                                 fontSize: 35,
                               ),
                             ),
@@ -74,7 +74,7 @@ class _BookingState extends State<Booking> {
                               },
                               icon: Icon(
                                 Icons.qr_code,
-                                color: AppColorsLight.primaryColor,
+                                color: AppColors.primaryColor,
                               ),
                             ),
                           ],
@@ -83,7 +83,7 @@ class _BookingState extends State<Booking> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: AppColorsLight.lightColor
+                                color: AppColors.lightColor
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
@@ -92,13 +92,13 @@ class _BookingState extends State<Booking> {
                                 children: [
                                   Text("Table Name: ",
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 28,
                                     ),
                                   ),
                                   Text(BookingTable.name!,
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -111,7 +111,7 @@ class _BookingState extends State<Booking> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: AppColorsLight.lightColor
+                                color: AppColors.lightColor
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
@@ -120,13 +120,13 @@ class _BookingState extends State<Booking> {
                                 children: [
                                   Text("Table: ",
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 28,
                                     ),
                                   ),
                                   Text("${BookingTable.tableNumber}",
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -139,7 +139,7 @@ class _BookingState extends State<Booking> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: AppColorsLight.lightColor
+                                color: AppColors.lightColor
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
@@ -148,13 +148,13 @@ class _BookingState extends State<Booking> {
                                 children: [
                                   Text("Number Of Seats: ",
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 28,
                                     ),
                                   ),
                                   Text("${BookingTable.numOfSeats}",
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -167,7 +167,7 @@ class _BookingState extends State<Booking> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: AppColorsLight.lightColor
+                                color: AppColors.lightColor
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
@@ -176,13 +176,13 @@ class _BookingState extends State<Booking> {
                                 children: [
                                   Text("Date:",
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 28,
                                     ),
                                   ),
                                   Text(BookingTable.date!,
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 25,
                                     ),
                                   )
@@ -195,7 +195,7 @@ class _BookingState extends State<Booking> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: AppColorsLight.lightColor
+                                color: AppColors.lightColor
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
@@ -204,7 +204,7 @@ class _BookingState extends State<Booking> {
                                 children: [
                                   Text("Start Time: ",
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 28,
                                     ),
                                   ),
@@ -212,7 +212,7 @@ class _BookingState extends State<Booking> {
                                     children: [
                                       Text("${BookingTable.startTime}",
                                         style: GoogleFonts.aladin(
-                                          color: AppColorsLight.primaryColor,
+                                          color: AppColors.primaryColor,
                                           fontSize: 25,
                                         ),
                                       ),
@@ -227,7 +227,7 @@ class _BookingState extends State<Booking> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: AppColorsLight.lightColor
+                                color: AppColors.lightColor
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
@@ -236,7 +236,7 @@ class _BookingState extends State<Booking> {
                                 children: [
                                   Text("End Time: ",
                                     style: GoogleFonts.aladin(
-                                      color: AppColorsLight.primaryColor,
+                                      color: AppColors.primaryColor,
                                       fontSize: 28,
                                     ),
                                   ),
@@ -244,7 +244,7 @@ class _BookingState extends State<Booking> {
                                     children: [
                                       Text("${BookingTable.endTime}",
                                         style: GoogleFonts.aladin(
-                                          color: AppColorsLight.primaryColor,
+                                          color: AppColors.primaryColor,
                                           fontSize: 25,
                                         ),
                                       ),
@@ -263,7 +263,7 @@ class _BookingState extends State<Booking> {
                               child: TextButton(
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all(AppColorsLight.primaryColor),
+                                  MaterialStateProperty.all(AppColors.primaryColor),
                                 ),
                                 onPressed: () {
                                   PdfGenerator(context);
@@ -273,14 +273,14 @@ class _BookingState extends State<Booking> {
                                   children: [
                                     Icon(
                                       Icons.download,
-                                      color: AppColorsLight.lightColor,
+                                      color: AppColors.lightColor,
                                     ),
                                     SizedBox(width: 5,),
                                     Text(
                                       "Download",
                                       style: GoogleFonts.dmSerifDisplay(
                                         fontSize: 20,
-                                        color: AppColorsLight.lightColor,
+                                        color: AppColors.lightColor,
                                       ),
                                     ),
                                   ],
@@ -292,7 +292,7 @@ class _BookingState extends State<Booking> {
                               child: TextButton(
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all(AppColorsLight.primaryColor),
+                                  MaterialStateProperty.all(AppColors.primaryColor),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -304,14 +304,14 @@ class _BookingState extends State<Booking> {
                                   children: [
                                     Icon(
                                       Icons.delete,
-                                      color: AppColorsLight.lightColor,
+                                      color: AppColors.lightColor,
                                     ),
                                     SizedBox(width: 5,),
                                     Text(
                                       "Cancel",
                                       style: GoogleFonts.dmSerifDisplay(
                                         fontSize: 20,
-                                        color: AppColorsLight.lightColor,
+                                        color: AppColors.lightColor,
                                       ),
                                     ),
                                   ],
@@ -345,7 +345,7 @@ class _BookingState extends State<Booking> {
                     child: Text(
                       "Choose Your Time",
                       style: GoogleFonts.aladin(
-                        color: AppColorsLight.primaryColor,
+                        color: AppColors.primaryColor,
                         fontSize: 30,
                       ),
                     ),
@@ -363,12 +363,11 @@ class _BookingState extends State<Booking> {
                               borderRadius: BorderRadius.circular(20)
                           ),
                           child: TextField(
-                            controller: TextEditingController(text: BookingTable.name),
+                            controller: _name,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Table Name',
                             ),
-                            enabled: true,
                           ),
                         ),
                       ),
@@ -413,11 +412,12 @@ class _BookingState extends State<Booking> {
                   child: TextButton(
                     style: ButtonStyle(
                       backgroundColor:
-                      MaterialStateProperty.all(AppColorsLight.primaryColor),
+                      MaterialStateProperty.all(AppColors.primaryColor),
                     ),
                     onPressed: () {
                       if(pickedDate!=null) {
                         BookingTable.dateTime = pickedDate;
+                        BookingTable.tableName = _name;
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => BookingSPage(
@@ -428,15 +428,15 @@ class _BookingState extends State<Booking> {
                       }else{
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              backgroundColor: AppColorsLight.secondaryColor.shade800,
+                              backgroundColor: AppColors.secondaryColor.shade800,
                               action: SnackBarAction(
                                 label: "OK",
-                                textColor: AppColorsLight.lightColor,
+                                textColor: AppColors.lightColor,
                                 onPressed: () {
 
                                 },
                               ),
-                              content: Text("Select The Date Of Booking",
+                              content: Text("AppColors",
                                   style: TextStyle(fontWeight: FontWeight.bold)
                               ),
                             )
@@ -449,12 +449,12 @@ class _BookingState extends State<Booking> {
                         Text("Book A Table",
                           style: GoogleFonts.dmSerifDisplay(
                             fontSize: 20,
-                            color: AppColorsLight.lightColor,
+                            color: AppColors.lightColor,
                           ),
                         ),
                         Icon(
                           Icons.arrow_right_outlined,
-                          color: AppColorsLight.lightColor,
+                          color: AppColors.lightColor,
                         ),
                       ],
                     ),

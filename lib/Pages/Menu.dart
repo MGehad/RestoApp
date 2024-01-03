@@ -301,14 +301,13 @@ class _MenuState extends State<Menu> {
     allMenu.addAll(dessertsMenu);
 
     return Scaffold(
-      backgroundColor: AppColorsLight.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
         Text(
             "Menu",
             style: GoogleFonts.aladin(
-              color: AppColorsLight.primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 45,
             )
         ),
@@ -325,7 +324,7 @@ class _MenuState extends State<Menu> {
                 child: Icon((CartList.count==0)
                     ?Icons.shopping_cart_outlined
                     :Icons.shopping_cart,
-                  color:AppColorsLight.primaryColor,
+                  color:AppColors.primaryColor,
                 ),
               ),
               style: ButtonStyle(
@@ -338,8 +337,8 @@ class _MenuState extends State<Menu> {
 
       body: LiquidPullToRefresh(
         onRefresh: _refresh,
-        color: AppColorsLight.appBarColor,
-        backgroundColor: AppColorsLight.primaryColor,
+        color: AppColors.appBarColor,
+        backgroundColor: AppColors.primaryColor,
         height: 150,
         animSpeedFactor:5,
         showChildOpacityTransition: false,
@@ -353,10 +352,10 @@ class _MenuState extends State<Menu> {
                 child: SearchAnchor(
                     builder: (BuildContext context, SearchController controller) {
                       return SearchBar(
-                        backgroundColor: MaterialStateProperty.all(AppColorsLight.primaryColor.shade500),
+                        backgroundColor: MaterialStateProperty.all(AppColors.primaryColor.shade500),
                         hintText: "Search for your food..",
                         hintStyle: MaterialStateProperty.all(
-                            TextStyle(color: AppColorsLight.lightColor)),
+                            TextStyle(color: AppColors.lightColor)),
                         padding: const MaterialStatePropertyAll<EdgeInsets>(
                             EdgeInsets.symmetric(horizontal: 15.0)),
                         onTap: () {
@@ -365,7 +364,7 @@ class _MenuState extends State<Menu> {
                         onChanged: (_) {
                           controller.openView();
                         },
-                        leading: const Icon(Icons.search,color: AppColorsLight.lightColor),
+                        leading: const Icon(Icons.search,color: AppColors.lightColor),
                       );
                     }, suggestionsBuilder:
                     (BuildContext context, SearchController controller) {
@@ -389,36 +388,36 @@ class _MenuState extends State<Menu> {
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: AppColorsLight.primaryColor.shade300
+                    color: AppColors.primaryColor.shade300
                 ),
                 child: CupertinoSlidingSegmentedControl(
                   backgroundColor: Colors.transparent,
-                  thumbColor: AppColorsLight.primaryColor.shade600,
+                  thumbColor: AppColors.primaryColor.shade600,
                   children: {
                     0: Text("All",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: AppColorsLight.lightColor,
+                      color: AppColors.lightColor,
                     ),),
                     1: Text("Chicken",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: AppColorsLight.lightColor,
+                      color: AppColors.lightColor,
                     ),),
                     2: Text("Meat",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: AppColorsLight.lightColor,
+                      color: AppColors.lightColor,
                     ),),
                     3: Text("Drinks",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: AppColorsLight.lightColor,
+                      color: AppColors.lightColor,
                     ),),
                     4: Text("Desserts",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
-                      color: AppColorsLight.lightColor,
+                      color: AppColors.lightColor,
                     ),),
                   },
                   groupValue:widget.sliding ,
