@@ -6,7 +6,6 @@ import 'package:restaurant/theme/app_color.dart';
 
 class MyADS extends StatefulWidget {
   final Food food;
-
   const MyADS({
     super.key,
     required this.food,
@@ -34,7 +33,9 @@ class _MyADSState extends State<MyADS> {
             padding: EdgeInsets.symmetric(vertical: 25,horizontal: 20),
             margin: EdgeInsets.symmetric(horizontal: 10),
             decoration:BoxDecoration(
-                color: AppColors.primaryColor,
+                color: (AppColors.darkMode==false)
+                    ?AppColors.primaryColor
+                    :AppColors.primaryColor.shade700,
                 borderRadius: BorderRadius.circular(20)
             ),
             child: Row(

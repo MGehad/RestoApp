@@ -4,6 +4,13 @@ class FavoriteList{
   static List<Food> _items = [];
 
   static void add(Food item){
+    for(Food x in _items){
+      if(item.name == x.name
+          && item.description == x.description
+          && item.rating == x.rating){
+        return;
+      }
+    }
     _items.add(item);
   }
 

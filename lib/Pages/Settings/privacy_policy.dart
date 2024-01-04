@@ -15,7 +15,6 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: AppColors.lightColor,
       appBar: AppBar(
         elevation: 0,
         title:
@@ -38,7 +37,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
       ),
 
       body: Center(
-        child: Container(color: AppColors.lightColor,
+        child: Container(
           child: Text("Coming Soon....",style: TextStyle(color: AppColors.primaryColor,fontSize: 50,fontWeight: FontWeight.w500)),
         ),
       ),

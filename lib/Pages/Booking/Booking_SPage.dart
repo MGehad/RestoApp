@@ -9,7 +9,8 @@ import 'package:restaurant/theme/app_color.dart';
 
 class BookingSPage extends StatefulWidget {
   final int selectedPage;
-  const BookingSPage({Key? key,required this.selectedPage}) : super(key: key);
+  Function updateTheme;
+  BookingSPage({Key? key,required this.selectedPage,required this.updateTheme}) : super(key: key);
 
   @override
   State<BookingSPage> createState() => _BookingSPageState();
@@ -134,7 +135,9 @@ class _BookingSPageState extends State<BookingSPage> {
                   if(BookingTable.pickedHour!=null) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => BookingConfirm(selectedPage:widget.selectedPage)
+                          builder: (context) => BookingConfirm(
+                            selectedPage:widget.selectedPage,
+                            updateTheme: widget.updateTheme,)
                       ),
                     );
                   }else{

@@ -88,7 +88,9 @@ class _CartState extends State<Cart>{
                     child: Ink(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppColors.primaryColor.shade300,
+                          color: (AppColors.darkMode==false)
+                              ?AppColors.primaryColor.shade300
+                              :AppColors.primaryColor.shade600,
                           borderRadius: BorderRadius.all(
                               Radius.circular(15)
                           ),
@@ -123,7 +125,9 @@ class _CartState extends State<Cart>{
             Center(
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor.shade300,
+                  color: (AppColors.darkMode==false)
+                      ?AppColors.primaryColor.shade300
+                      :AppColors.primaryColor.shade600,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15),
                     topLeft: Radius.circular(15),
@@ -179,7 +183,9 @@ class _CartState extends State<Cart>{
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            color: AppColors.primaryColor.shade200,
+                            color: (AppColors.darkMode==false)
+                                ?AppColors.primaryColor.shade200
+                                :AppColors.primaryColor.shade400,
                             child: Container(
                               width: 80,
                               height: 80,
@@ -188,8 +194,7 @@ class _CartState extends State<Cart>{
                                 children: [
                                   Icon(Icons.location_on),
                                   SizedBox(height: 5),
-                                  Text(
-                                    "Location",
+                                  Text("Location",
                                     style: GoogleFonts.dmSerifDisplay(
                                       fontSize: 14,
                                     ),
@@ -208,7 +213,9 @@ class _CartState extends State<Cart>{
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                color: AppColors.primaryColor.shade200,
+                                color: (AppColors.darkMode==false)
+                                    ?AppColors.primaryColor.shade200
+                                    :AppColors.primaryColor.shade400,
                                 child: Container(
                                   width: 80,
                                   height: 80,
@@ -217,8 +224,7 @@ class _CartState extends State<Cart>{
                                     children: [
                                       Icon(Icons.payments_outlined),
                                       SizedBox(height: 5),
-                                      Text(
-                                        "Payment",
+                                      Text("Payment",
                                         style: GoogleFonts.dmSerifDisplay(
                                           fontSize: 14,
                                         ),
@@ -314,8 +320,7 @@ class _CartState extends State<Cart>{
                                         },
                                       ),
                                 ));
-                              }
-                              else if(selector!=0) {
+                              } else if(selector==1||selector==2) {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
                                   backgroundColor: AppColors
@@ -325,29 +330,33 @@ class _CartState extends State<Cart>{
                                     textColor: AppColors.lightColor,
                                     onPressed: () {},
                                   ),
-                                  content: Text("Paypal only",
+                                  content: Text("Paypal Or Your Wallet only",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                ));
-                              }
-                              else{
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  backgroundColor: AppColors
-                                      .secondaryColor.shade800,
+                                          fontWeight: FontWeight.bold)
+                                  ),
+                                )
+                                );
+                              }else if(selector==3&&CartList.totalPrice!=0){
+                                setState(() {
+                                  CartList.order();
+                                });
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  backgroundColor: AppColors.secondaryColor.shade800,
                                   action: SnackBarAction(
                                     label: "OK",
                                     textColor: AppColors.lightColor,
                                     onPressed: () {},
                                   ),
                                   content: Text("The Cart is Empty",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
+                                      style: TextStyle(fontWeight: FontWeight.bold)),
                                 ));
                               }
                             },
                             style: TextButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
+                              backgroundColor: (AppColors.darkMode==false)
+                                  ?AppColors.primaryColor
+                                  :AppColors.primaryColor.shade400,
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -356,8 +365,7 @@ class _CartState extends State<Cart>{
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  "Check Out",
+                                Text("Check Out",
                                   style: GoogleFonts.dmSerifDisplay(
                                     fontSize: 20,
                                     color: AppColors.lightColor,
@@ -398,7 +406,6 @@ class _CartState extends State<Cart>{
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 27,
-                color: AppColors.secondaryColor.shade800,
               ),
             ),
           ],
@@ -509,7 +516,7 @@ class _CartState extends State<Cart>{
                         padding: (selector == 3)
                             ? EdgeInsets.all(8.0)
                             : EdgeInsets.all(0),
-                        child: Image.asset("Images/Payment/Bitcoin.png"),
+                        child: Icon(Icons.account_balance_wallet_outlined),
                       ),
                     ),
                   ),
@@ -545,7 +552,6 @@ class _CartState extends State<Cart>{
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.secondaryColor.shade200,
         title: Row(
           children: [
             Icon(
@@ -558,7 +564,6 @@ class _CartState extends State<Cart>{
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 27,
-                color: AppColors.secondaryColor.shade800,
               ),
             ),
           ],

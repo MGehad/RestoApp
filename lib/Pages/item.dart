@@ -51,16 +51,12 @@ class _ItemState extends State<Item> {
             ),
           ),
           actions: <Widget>[
-            IconButton(onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) =>
-                      Cart(),)
-              );
-            },
-              icon: Icon(Icons.shopping_cart_outlined,),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.transparent)
-            ),)
+             Row(
+               children: [
+                 Icon(Icons.share,),
+                 SizedBox(width: 5,)
+               ],
+             )
           ],
         ),
         body: Stack(
@@ -75,26 +71,13 @@ class _ItemState extends State<Item> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                /*Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child:
-                  Center(
-                    child: Container(
-                      child: Image.asset((widget.food.inStook == true) ?
-                      widget.food.imagePath : "Images/Chicken/images.png",height: 200,),
-                    ),
-                  ),
-                ),*/
                 SizedBox(height: 100,),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                           colors: <Color>[
-                            Theme.of(context)
-                                .colorScheme
-                                .background
-                                .withOpacity(0.5),
+                            Theme.of(context).colorScheme.background.withOpacity(0.5),
                             Theme.of(context).colorScheme.background,
                           ],
                           begin: Alignment.topCenter,
@@ -115,7 +98,6 @@ class _ItemState extends State<Item> {
                           Text(widget.food.name,
                           style: GoogleFonts.dmSerifDisplay(
                             fontSize: 45,
-                            color: AppColors.secondaryColor.shade800
                           ),
                           ),
                           Container(
@@ -139,7 +121,9 @@ class _ItemState extends State<Item> {
                               ),
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.primaryColor.shade300,
+                              color: (AppColors.darkMode==false)
+                                  ?AppColors.primaryColor.shade300
+                                  :AppColors.primaryColor.shade700,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -151,7 +135,6 @@ class _ItemState extends State<Item> {
                       Text("\$"+(widget.food.price).toString(),
                         style: GoogleFonts.dmSerifDisplay(
                             fontSize: 35,
-                            color: AppColors.secondaryColor.shade800
                         ),
                       ),
 
@@ -174,7 +157,6 @@ class _ItemState extends State<Item> {
                         padding: const EdgeInsets.only(right: 15.0,left: 15.0,bottom: 10.0,top: 10.0),
                         child: Text(widget.food.description,
                           style: TextStyle(
-                              color: AppColors.secondaryColor.shade800,
                               fontWeight: FontWeight.w400,
                               fontSize: 13,
                               height: 2
@@ -194,7 +176,9 @@ class _ItemState extends State<Item> {
                                     ),
                                   style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all(
-                                        AppColors.primaryColor.shade400,
+                                        (AppColors.darkMode==false)
+                                            ?AppColors.primaryColor.shade400
+                                            :AppColors.primaryColor.shade800,
                                       )
                                   ),
                                 ),
@@ -206,7 +190,9 @@ class _ItemState extends State<Item> {
                                   padding: EdgeInsets.symmetric(horizontal:10),
 
                                   decoration: BoxDecoration(
-                                      color: AppColors.primaryColor.shade400,
+                                      color: (AppColors.darkMode==false)
+                                          ?AppColors.primaryColor.shade400
+                                          :AppColors.primaryColor.shade800,
                                       borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Padding(
@@ -230,7 +216,9 @@ class _ItemState extends State<Item> {
                                       color: AppColors.lightColor,),
                                   style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all(
-                                        AppColors.primaryColor.shade400,
+                                        (AppColors.darkMode==false)
+                                            ?AppColors.primaryColor.shade400
+                                            :AppColors.primaryColor.shade800,
                                       )
                                   ),
                                 ),
@@ -241,7 +229,9 @@ class _ItemState extends State<Item> {
                               return  TextButton(
                                 style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(
-                                      AppColors.primaryColor.shade400,
+                                      (AppColors.darkMode==false)
+                                          ?AppColors.primaryColor.shade400
+                                          :AppColors.primaryColor.shade800,
                                     )
                                 ),
                                 onPressed: () {

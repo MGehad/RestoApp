@@ -98,7 +98,13 @@ class _SettingsState extends State<Settings> {
 
                 SizedBox(height: 15,),
 
-                Card(
+                Container(
+                  decoration: BoxDecoration(
+                      color: (AppColors.darkMode==false)
+                          ?AppColors.secondaryColor.shade200
+                          :AppColors.secondaryColor.shade900,
+                      borderRadius: BorderRadius.circular(15)
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0,right: 15,bottom: 10,top: 10),
                     child: Row(
@@ -192,7 +198,13 @@ class _SettingsState extends State<Settings> {
     );
   }
   Widget BuildContainer(String name,IconData icon){
-    return Card(
+    return Container(
+      decoration: BoxDecoration(
+        color: (AppColors.darkMode==false)
+            ?AppColors.secondaryColor.shade200
+          :AppColors.secondaryColor.shade900,
+        borderRadius: BorderRadius.circular(15)
+      ),
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0,right: 15,bottom: 10,top: 10),
         child: Row(

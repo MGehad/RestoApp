@@ -12,7 +12,8 @@ import 'package:restaurant/theme/app_color.dart';
 
 class MainPage extends StatefulWidget {
   final int selectedPage;
-  const MainPage({super.key,required this.selectedPage});
+  Function updateTheme;
+  MainPage({super.key,required this.selectedPage,required this.updateTheme});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -144,7 +145,7 @@ class _MainPageState extends State<MainPage> {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Profile(),
             )
             );
-          }, icon: Icon(Icons.person,color: AppColors.lightColor,))
+          }, icon: Icon(Icons.person,))
         ],
       ),
 
@@ -222,7 +223,6 @@ class _MainPageState extends State<MainPage> {
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     child: Text("Most Popular Food",
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
@@ -288,7 +288,6 @@ class _MainPageState extends State<MainPage> {
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     child: Text("Categories",
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
@@ -316,6 +315,7 @@ class _MainPageState extends State<MainPage> {
                   )
                 ],
             ),
+          SizedBox(height: MediaQuery.of(context).size.height*0.1,)
           ],
         ),
       ),
@@ -329,7 +329,7 @@ class _MainPageState extends State<MainPage> {
         setState(() {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => FirstPage(selectedPage: 1, sliding: menuIndex)
+              builder: (context) => FirstPage(selectedPage: 1, sliding: menuIndex,updateTheme: widget.updateTheme,)
             ),
           );
         });
@@ -337,12 +337,13 @@ class _MainPageState extends State<MainPage> {
       child: Ink(
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius:
-            BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.primaryColor.shade500,
+                color: (AppColors.darkMode==false)
+                    ?AppColors.primaryColor.shade500
+                    :AppColors.primaryColor.shade700,
               borderRadius: BorderRadiusDirectional.circular(20)
             ),
             height: 100,

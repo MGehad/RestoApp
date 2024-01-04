@@ -387,12 +387,16 @@ class _MenuState extends State<Menu> {
               padding: const EdgeInsets.only(right: 18.0,left: 18.0),
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: AppColors.primaryColor.shade300
+                    borderRadius: BorderRadius.circular(10),
+                  color: (AppColors.darkMode==false)
+                      ?AppColors.primaryColor.shade300
+                      :AppColors.primaryColor.shade400,
                 ),
                 child: CupertinoSlidingSegmentedControl(
                   backgroundColor: Colors.transparent,
-                  thumbColor: AppColors.primaryColor.shade600,
+                  thumbColor: (AppColors.darkMode==false)
+                      ?AppColors.primaryColor.shade600
+                      :AppColors.primaryColor.shade700,
                   children: {
                     0: Text("All",style: GoogleFonts.alata(
                       fontWeight: FontWeight.w400,

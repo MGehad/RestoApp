@@ -24,16 +24,14 @@ class ShowOrderPage extends StatelessWidget {
             dividerColor: AppColors.secondaryColor,
             indicatorColor: AppColors.primaryColor,
             tabs: [
-              Tab(
-                  child: Text(
+              Tab(child: Text(
                 "Pending Orders",
                 style: GoogleFonts.aladin(
                   color: AppColors.primaryColor,
                   fontSize: 20,
                 ),
               )),
-              Tab(
-                  child: Text(
+              Tab(child: Text(
                 "Completed Orders",
                 style: GoogleFonts.aladin(
                   color: AppColors.primaryColor,

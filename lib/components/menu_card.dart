@@ -100,7 +100,6 @@ class _FoodTileState extends State<MenuCard> {
                     ),
                     Column(
                       children: [
-
                         IconButton(
                           onPressed: () {
                             setState(() {
@@ -120,7 +119,11 @@ class _FoodTileState extends State<MenuCard> {
                             size: 30,
                           ),
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(AppColors.secondaryColor.shade300)
+                              backgroundColor: MaterialStateProperty.all(
+                                (AppColors.darkMode==false)
+                                    ?AppColors.primaryColor.shade100
+                                    :AppColors.secondaryColor.shade900,
+                              )
                           ),
                         ),
 
@@ -152,7 +155,11 @@ class _FoodTileState extends State<MenuCard> {
                                 size: 30,
                               ),
                               style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(AppColors.secondaryColor.shade300)
+                                  backgroundColor: MaterialStateProperty.all(
+                                    (AppColors.darkMode==false)
+                                        ?AppColors.primaryColor.shade100
+                                        :AppColors.secondaryColor.shade900,
+                                  )
                               ),
                             );
                           },),

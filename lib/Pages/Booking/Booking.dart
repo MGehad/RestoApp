@@ -9,8 +9,8 @@ import 'package:restaurant/models/booking_table.dart';
 import 'package:restaurant/theme/app_color.dart';
 
 class Booking extends StatefulWidget {
-  const Booking({Key? key}) : super(key: key);
-
+  Function updateTheme;
+  Booking({Key? key,required this.updateTheme}) : super(key: key);
   @override
   State<Booking> createState() => _BookingState();
 }
@@ -43,289 +43,272 @@ class _BookingState extends State<Booking> {
           Padding(
             padding: const EdgeInsets.only(top: 20.0,right: 10.0,left: 10.0),
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              width: MediaQuery.of(context).size.width,
-              child: Container(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  color: AppColors.secondaryColor.shade100,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Your Table is Booked",
-                              style: GoogleFonts.aladin(
-                                color: AppColors.primaryColor,
-                                fontSize: 35,
-                              ),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Your Table is Booked",
+                            style: GoogleFonts.aladin(
+                              color: AppColors.primaryColor,
+                              fontSize: 35,
                             ),
-                            IconButton(
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              openQr(context);
+                            },
+                            icon: Icon(
+                              Icons.qr_code,
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Card(
+                        color: (AppColors.darkMode==false)
+                            ?AppColors.lightColor
+                            :AppColors.secondaryColor.shade900,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Table Name: ",
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                Text(BookingTable.name!,
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      Card(
+                        color: (AppColors.darkMode==false)
+                            ?AppColors.lightColor
+                            :AppColors.secondaryColor.shade900,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Table: ",
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                Text("${BookingTable.tableNumber}",
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      Card(
+                        color: (AppColors.darkMode==false)
+                            ?AppColors.lightColor
+                            :AppColors.secondaryColor.shade900,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Number Of Seats: ",
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                Text("${BookingTable.numOfSeats}",
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      Card(
+                        color: (AppColors.darkMode==false)
+                            ?AppColors.lightColor
+                            :AppColors.secondaryColor.shade900,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Date:",
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                Text(BookingTable.date!,
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 25,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                      ),
+                      Card(
+                        color: (AppColors.darkMode==false)
+                            ?AppColors.lightColor
+                            :AppColors.secondaryColor.shade900,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Start Time: ",
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text("${BookingTable.startTime}",
+                                      style: GoogleFonts.aladin(
+                                        color: AppColors.primaryColor,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                      ),
+                      Card(
+                        color: (AppColors.darkMode==false)
+                            ?AppColors.lightColor
+                            :AppColors.secondaryColor.shade900,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("End Time: ",
+                                  style: GoogleFonts.aladin(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text("${BookingTable.endTime}",
+                                      style: GoogleFonts.aladin(
+                                        color: AppColors.primaryColor,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                MaterialStateProperty.all(AppColors.primaryColor),
+                              ),
                               onPressed: () {
-                                openQr(context);
+                                PdfGenerator(context);
                               },
-                              icon: Icon(
-                                Icons.qr_code,
-                                color: AppColors.primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: AppColors.lightColor
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Table Name: ",
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 28,
-                                    ),
+                                  Icon(
+                                    Icons.download,
+                                    color: (AppColors.darkMode==false)
+                                        ?AppColors.lightColor
+                                        :AppColors.secondaryColor.shade900,
                                   ),
-                                  Text(BookingTable.name!,
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 25,
+                                  SizedBox(width: 5,),
+                                  Text(
+                                    "Download",
+                                    style: GoogleFonts.dmSerifDisplay(
+                                      fontSize: 20,
+                                      color: (AppColors.darkMode==false)
+                                          ?AppColors.lightColor
+                                          :AppColors.secondaryColor.shade900,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: AppColors.lightColor
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                MaterialStateProperty.all(AppColors.primaryColor),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  BookingTable.clear();
+                                });
+                              },
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Table: ",
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 28,
-                                    ),
+                                  Icon(
+                                    Icons.delete,
+                                    color: (AppColors.darkMode==false)
+                                        ?AppColors.lightColor
+                                        :AppColors.secondaryColor.shade900,
                                   ),
-                                  Text("${BookingTable.tableNumber}",
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 25,
+                                  SizedBox(width: 5,),
+                                  Text(
+                                    "Cancel",
+                                    style: GoogleFonts.dmSerifDisplay(
+                                      fontSize: 20,
+                                        color: (AppColors.darkMode==false)
+                                            ?AppColors.lightColor
+                                            :AppColors.secondaryColor.shade900,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: AppColors.lightColor
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Number Of Seats: ",
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  Text("${BookingTable.numOfSeats}",
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 25,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: AppColors.lightColor
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Date:",
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  Text(BookingTable.date!,
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: AppColors.lightColor
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Start Time: ",
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("${BookingTable.startTime}",
-                                        style: GoogleFonts.aladin(
-                                          color: AppColors.primaryColor,
-                                          fontSize: 25,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: AppColors.lightColor
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("End Time: ",
-                                    style: GoogleFonts.aladin(
-                                      color: AppColors.primaryColor,
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("${BookingTable.endTime}",
-                                        style: GoogleFonts.aladin(
-                                          color: AppColors.primaryColor,
-                                          fontSize: 25,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                  MaterialStateProperty.all(AppColors.primaryColor),
-                                ),
-                                onPressed: () {
-                                  PdfGenerator(context);
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.download,
-                                      color: AppColors.lightColor,
-                                    ),
-                                    SizedBox(width: 5,),
-                                    Text(
-                                      "Download",
-                                      style: GoogleFonts.dmSerifDisplay(
-                                        fontSize: 20,
-                                        color: AppColors.lightColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                  MaterialStateProperty.all(AppColors.primaryColor),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    BookingTable.clear();
-                                  });
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.delete,
-                                      color: AppColors.lightColor,
-                                    ),
-                                    SizedBox(width: 5,),
-                                    Text(
-                                      "Cancel",
-                                      style: GoogleFonts.dmSerifDisplay(
-                                        fontSize: 20,
-                                        color: AppColors.lightColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
-
               ),
+
             ),
           ),
         ],
@@ -422,6 +405,7 @@ class _BookingState extends State<Booking> {
                           MaterialPageRoute(
                             builder: (context) => BookingSPage(
                               selectedPage: 2,
+                              updateTheme: widget.updateTheme,
                             ),
                           ),
                         );

@@ -9,7 +9,8 @@ import 'package:restaurant/theme/app_color.dart';
 
 class BookingConfirm extends StatefulWidget {
   final int selectedPage;
-  const BookingConfirm({Key? key,required this.selectedPage}) : super(key: key);
+  Function updateTheme;
+  BookingConfirm({Key? key,required this.selectedPage,required this.updateTheme}) : super(key: key);
 
   @override
   State<BookingConfirm> createState() => _BookingConfirmState();
@@ -135,7 +136,7 @@ class _BookingConfirmState extends State<BookingConfirm> {
                           MaterialPageRoute(
                               builder: (context) => FirstPage(
                                   selectedPage: widget.selectedPage,
-                                  sliding: 0)),
+                                  sliding: 0,updateTheme: widget.updateTheme,)),
                         );
 
                       }else{

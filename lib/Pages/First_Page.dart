@@ -5,16 +5,17 @@ import 'package:restaurant/Pages/Booking/Booking.dart';
 import 'package:restaurant/Pages/MainPage.dart';
 import 'package:restaurant/Pages/Menu.dart';
 import 'package:restaurant/theme/app_color.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'Orders/Orders_Page.dart';
 import 'Settings/Settings.dart';
 
 class FirstPage extends StatefulWidget {
   int selectedPage;
   int sliding;
+  Function updateTheme;
   FirstPage({super.key,
     required this.selectedPage,
-    required this.sliding});
+    required this.sliding,
+  required this.updateTheme});
 
   @override
   State<FirstPage> createState() => _FirstPageState();
@@ -22,39 +23,19 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  void initState() {
-    init();
-    super.initState();
-  }
-
-  void init() async {
-    final prefs = await SharedPreferences.getInstance();
-    final bool darkMode = prefs.getBool('darkMode') ?? false;
-    AppColors.darkMode = darkMode;
-  }
-
-  void update() {
-    init();
-  }
-
-  void updateTheme() {
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body:Stack(
           children: [
             <Widget>[
-              MainPage(selectedPage: widget.selectedPage),
+              MainPage(selectedPage: widget.selectedPage,updateTheme: widget.updateTheme),
               Menu(selectedPage: widget.selectedPage,sliding: widget.sliding),
-              Booking(),
+              Booking(updateTheme: widget.updateTheme),
               ShowOrderPage(),
-              Settings(
-                  selectedPage: widget.selectedPage,
-                  updateTheme: updateTheme),
+              Settings(selectedPage: widget.selectedPage,
+                  updateTheme: widget.updateTheme),
             ][widget.selectedPage],
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
